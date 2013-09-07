@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Memetro</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- LOGIN -->
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="login_error">Usuario o contraseña incorrectos</string>
+    <string name="login_loading">Entrando…</string>
+
+    <!-- REGISTER -->
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="repeat_password">Repeat Password</string>
+    <string name="user_twitter">User Twitter</string>
+    <string name="mail">Mail</string>
+    <string name="register_loading">Registrando…</string>
+    <string name="register_error">Error en el registro</string>
+    <string name="title_activity_splash_screen">SplashScreenActivity</string>
+    <string name="hello_world">Hello world!</string>
+
+    <!-- Left Menu -->
+    <string name="participants_menu">PARTICIPANTES</string>
+    <string name="memetro_menu">ASOCIACIÓN MEMETRO</string>
+    <string name="configuration_menu">CONFIGURACIÓN</string>
+    <string name="info_menu">INFO APP</string>
+    <string name="logout_menu">DESCONECTAR</string>
+
+</resources>

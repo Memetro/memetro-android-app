@@ -1,0 +1,86 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              tools:context=".RegisterActivity">
+
+    <include layout="@layout/top_color_bar" />
+
+    <ScrollView
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:layout_gravity="center"
+            android:paddingTop="20dp"
+            android:scrollbars="none"
+            android:clickable="false">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="20dp">
+
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageView"
+                    android:layout_gravity="center"
+                    android:src="@drawable/memetro_logo"
+                    android:layout_marginBottom="20dp"
+                    android:contentDescription="memetro_logo"/>
+
+            <EditText android:id="@+id/username"
+                      android:singleLine="true"
+                      android:layout_width="fill_parent"
+                      android:layout_height="wrap_content"
+                      android:hint="@string/username"
+                      style="@style/edit_text"
+                      android:padding="15dp"
+                      android:layout_marginTop="5dp"/>
+
+            <EditText android:id="@+id/password"
+                      android:inputType="textPassword"
+                      android:singleLine="true"
+                      android:layout_width="fill_parent"
+                      android:layout_height="wrap_content"
+                      android:hint="@string/password"
+                      style="@style/edit_text"
+                      android:padding="15dp"
+                      android:layout_marginTop="5dp"/>
+
+            <EditText android:id="@+id/repeat_password"
+                      android:inputType="textPassword"
+                      android:singleLine="true"
+                      android:layout_width="fill_parent"
+                      android:layout_height="wrap_content"
+                      android:hint="@string/repeat_password"
+                      style="@style/edit_text"
+                      android:padding="15dp"
+                      android:layout_marginTop="5dp"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0">
+
+        <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/register"
+                android:id="@+id/register"
+                style="@style/button_red"
+                android:layout_margin="15dp"/>
+    </LinearLayout>
+
+</LinearLayout>

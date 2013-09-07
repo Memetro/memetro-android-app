@@ -1,0 +1,107 @@
+package com.memetro.android.oauth;
+
+import com.memetro.android.common.AppContext;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONTokener;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by Nytyr on 17/08/13.
+ */
+public class OAuth {
+
+    private String oauthServer = AppContext.OAUTHSERVER;
+    private String clientId = AppContext.OAUTHCLIENTID;
+    private String clientSecret = AppContext.OAUTHCLIENTSECRET;
+
+    public JSONObject login (String username, String password){
+
+        List<NameValuePair> params = new ArrayList<NameValuePair>(5);
+
+        params.add(new BasicNameValuePair("username", username));
+        params.add(new BasicNameValuePair("password", password));
+        params.add(new BasicNameValuePair("client_id", clientId));
+        params.add(new BasicNameValuePair("client_secret", clientSecret));
+        params.add(new BasicNameValuePair("grant_type", "password"));
+
+        JSONObject result = call("oauth", "token", params);
+
+        try{
+            if(!result.getBoolean("success")){
+                JSONObject errorResult = new JSONObject();
+                errorResult.put("error", result.getString("message"));
+                return errorResult;
+            }
+        }catch(Exception e){
+            return result;
+        }
+        return result;
+    }
+
+    public JSONObject call(String controller, String action, List<NameValuePair> params) {
+        HttpClient httpclient = new DefaultHttpClient();
+        HttpPost httppost = new HttpPost(oauthServer+controller+"/"+action);
+
+        try {
+            // Add data
+            httppost.setEntity(new UrlEncodedFormEntity(params));
+
+            // Execute Post
+            HttpResponse response = httpclient.execute(httppost);
+
+            // Catch headers
+            int statusCode = response.getStatusLine().getStatusCode();
+
+            if (statusCode != 200){
+                JSONObject returnJ = new JSONObject();
+                returnJ.put("success", false);
+                switch (statusCode){
+                    case 404:
+                        returnJ.put("message", "Action not found. Try again in a few minutes.");
+                        return returnJ;
+                    case 500:
+                        returnJ.put("message", "Server error. Try again in a few minutes.");
+                        return returnJ;
+                    default:
+                        returnJ.put("message", "Internal error. Try again in a few minutes.");
+                        return returnJ;
+                }
+            }
+
+            BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent(), "UTF-8"));
+            String json = reader.readLine();
+            JSONTokener tokener = new JSONTokener(json);
+
+            return new JSONObject(tokener);
+
+        } catch (ClientProtocolException e) {
+
+            // TODO Auto-generated catch block
+
+        } catch (JSONException e) {
+
+            // TODO Auto-generated catch block
+
+        } catch (IOException e) {
+
+            // TODO Auto-generated catch block
+        }
+        return new JSONObject();
+    }
+
+}
