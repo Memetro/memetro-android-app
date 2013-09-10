@@ -18,7 +18,12 @@ import com.memetro.android.common.AppContext;
 import com.memetro.android.oauth.OAuth;
 import com.memetro.android.oauth.Utils;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends Activity {
 
@@ -83,6 +88,36 @@ public class MainActivity extends Activity {
         }
 
         protected void onPostExecute(JSONObject result) {
+            if (AppContext.DEBUG) Log.d(TAG, result.toString());
+
+            // Trying to get the token...
+            try{
+                String token = result.getString("access_token");
+                String refresh_token = result.getString("refresh_token");
+                Utils.setToken(context, token, refresh_token);
+
+                //Sync
+                new AsyncSync().execute();
+            }catch(Exception e){
+                if (pdialog.isShowing()) pdialog.dismiss();
+                // Token failed
+                if (AppContext.DEBUG) Log.d(TAG, "Login failed. Cause: "+ e.toString());
+                Toast.makeText(context, getString(R.string.login_error), Toast.LENGTH_LONG).show();
+            }
+
+        }
+    }
+
+    private class AsyncSync extends AsyncTask<String, Integer, JSONObject>{
+
+
+        protected JSONObject doInBackground(String... params){
+            List<NameValuePair> postParams = new ArrayList<NameValuePair>(1);
+            postParams.add(new BasicNameValuePair("access_token", Utils.getToken(getApplicationContext())));
+            return OAuth.call("synchronize", null, postParams);
+        }
+
+        protected void onPostExecute(JSONObject result) {
             if (pdialog.isShowing()) pdialog.dismiss();
 
             if (AppContext.DEBUG) Log.d(TAG, result.toString());
@@ -98,8 +133,7 @@ public class MainActivity extends Activity {
                 startActivity(intent);
                 finish();
             }catch(Exception e){
-                // Token failed
-                if (AppContext.DEBUG) Log.d(TAG, "Login failed. Cause: "+ e.toString());
+                if (AppContext.DEBUG) Log.d(TAG, "Sync failed. Cause: "+ e.toString());
                 Toast.makeText(context, getString(R.string.login_error), Toast.LENGTH_LONG).show();
             }
 
