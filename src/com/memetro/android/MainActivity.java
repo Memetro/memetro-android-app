@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.memetro.android.common.AppContext;
+import com.memetro.android.models.Country;
 import com.memetro.android.oauth.OAuth;
 import com.memetro.android.oauth.Utils;
 
@@ -122,11 +123,13 @@ public class MainActivity extends Activity {
 
             if (AppContext.DEBUG) Log.d(TAG, result.toString());
 
-            // Trying to get the token...
             try{
-                String token = result.getString("access_token");
-                String refresh_token = result.getString("refresh_token");
-                Utils.setToken(context, token, refresh_token);
+                //Save sync data
+
+                //Test
+                Country country = new Country();
+                country.name = "Test";
+                country.save();
 
                 // Launch DashBoard
                 Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
@@ -134,6 +137,7 @@ public class MainActivity extends Activity {
                 finish();
             }catch(Exception e){
                 if (AppContext.DEBUG) Log.d(TAG, "Sync failed. Cause: "+ e.toString());
+                e.printStackTrace();
                 Toast.makeText(context, getString(R.string.login_error), Toast.LENGTH_LONG).show();
             }
 
