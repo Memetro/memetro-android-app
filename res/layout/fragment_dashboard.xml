@@ -12,4 +12,5 @@
             android:textSize="40sp"
             android:id="@+id/textView"
             android:layout_gravity="center"/>
+    
 </LinearLayout>
