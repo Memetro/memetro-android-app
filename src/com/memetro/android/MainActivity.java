@@ -14,7 +14,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.activeandroid.ActiveAndroid;
 import com.memetro.android.common.AppContext;
+import com.memetro.android.models.City;
 import com.memetro.android.models.Country;
 import com.memetro.android.oauth.OAuth;
 import com.memetro.android.oauth.Utils;
@@ -24,6 +26,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class MainActivity extends Activity {
@@ -115,7 +118,7 @@ public class MainActivity extends Activity {
         protected JSONObject doInBackground(String... params){
             List<NameValuePair> postParams = new ArrayList<NameValuePair>(1);
             postParams.add(new BasicNameValuePair("access_token", Utils.getToken(getApplicationContext())));
-            return OAuth.call("synchronize", null, postParams);
+            return OAuth.call("synchronize", "", postParams);
         }
 
         protected void onPostExecute(JSONObject result) {
@@ -125,11 +128,47 @@ public class MainActivity extends Activity {
 
             try{
                 //Save sync data
+                JSONObject data = result.getJSONObject("data");
 
-                //Test
-                Country country = new Country();
-                country.name = "Test";
-                country.save();
+                JSONObject currentData;
+                ActiveAndroid.beginTransaction();
+                try {
+
+                    //Save countries
+                    JSONObject countries = data.getJSONObject("country").getJSONObject("data");
+                    Iterator<?> countryKeys = countries.keys();
+                    while( countryKeys.hasNext() ){
+                        String key = (String)countryKeys.next();
+                        if( countries.get(key) instanceof JSONObject ){
+                            currentData = countries.getJSONObject(key);
+
+                            Country country = new Country();
+                            country.name =  currentData.getString("name");
+                            country.created = currentData.getString("created");
+                            country.save();
+                        }
+                    }
+
+                    //Save cities
+                    JSONObject cities = data.getJSONObject("city").getJSONObject("data");
+                    Iterator<?> cityKeys = cities.keys();
+                    while( cityKeys.hasNext() ){
+                        String key = (String)cityKeys.next();
+                        if( cities.get(key) instanceof JSONObject ){
+                            currentData = cities.getJSONObject(key);
+
+                            City city = new City();
+                            city.name =  currentData.getString("name");
+                            city.created = currentData.getString("created");
+                            city.save();
+                        }
+                    }
+
+                    ActiveAndroid.setTransactionSuccessful();
+                }
+                finally {
+                    ActiveAndroid.endTransaction();
+                }
 
                 // Launch DashBoard
                 Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
