@@ -23,7 +23,7 @@ public class Utils {
 
     private static final String TOKEN = "access_token";
     private static final String REFRESH_TOKEN = "refresh_token";
-    private static final String SHARED_NAME = "oauth_shared_prefs";
+    public static final String SHARED_NAME = "oauth_shared_prefs";
 
     public String getToken(Context context) {
         final SharedPreferences prefs = getOAuthPreferences(context);

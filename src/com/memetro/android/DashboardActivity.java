@@ -62,7 +62,7 @@ public class DashboardActivity extends FragmentActivity {
             @Override
             public void onClick(View view) {
 
-                dataUtils.clearSQLData(getApplicationContext());
+                dataUtils.clearData(getApplicationContext());
 
                 Intent intent = new Intent().setClass(DashboardActivity.this, MainActivity.class);
                 startActivity(intent);

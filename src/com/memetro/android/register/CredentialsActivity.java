@@ -61,7 +61,7 @@ public class CredentialsActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.activity_register_credentials);
         context = getApplicationContext();
 
         pdialog = new ProgressDialog(this);
