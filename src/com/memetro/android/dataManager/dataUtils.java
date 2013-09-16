@@ -16,5 +16,14 @@
 
 package com.memetro.android.dataManager;
 
+import android.content.Context;
+
+import com.memetro.android.common.AppContext;
+
 public class dataUtils {
+
+    public static void clearSQLData(Context context){
+        context.deleteDatabase(AppContext.DB_NAME);
+    }
+
 }

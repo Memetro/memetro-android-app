@@ -16,6 +16,7 @@
 
 package com.memetro.android;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -24,6 +25,7 @@ import android.view.View;
 import android.view.Window;
 
 import com.memetro.android.common.SlideHolder;
+import com.memetro.android.dataManager.dataUtils;
 import com.memetro.android.settings.SettingsFragment;
 
 public class DashboardActivity extends FragmentActivity {
@@ -51,7 +53,25 @@ public class DashboardActivity extends FragmentActivity {
             }
         });
 
-        // Menu buttons
+
+        /// Menu buttons ///
+
+        // Logout
+        View logout = findViewById(R.id.logoutMenu);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                dataUtils.clearSQLData(getApplicationContext());
+
+                Intent intent = new Intent().setClass(DashboardActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+
+            }
+        });
+
+        // Config
         View config = findViewById(R.id.configMenu);
         config.setOnClickListener(new View.OnClickListener() {
             @Override
