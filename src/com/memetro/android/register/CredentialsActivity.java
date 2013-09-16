@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.memetro.android;
+package com.memetro.android.register;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -29,6 +29,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.memetro.android.MainActivity;
+import com.memetro.android.R;
 import com.memetro.android.common.AppContext;
 import com.memetro.android.oauth.OAuth;
 
@@ -40,9 +42,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RegisterActivity extends Activity {
+public class CredentialsActivity extends Activity {
 
-    private static String TAG = "Memetro Register";
+    private static String TAG = "Memetro Register Credentials";
     private Button register;
     private EditText usernameEt, passwordEt, repeatPasswordEt;
     private String username, password, repeatPassword;

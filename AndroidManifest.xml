@@ -36,7 +36,12 @@
             android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
         <activity
-            android:name="com.memetro.android.RegisterActivity"
+            android:name="com.memetro.android.register.PersonalActivity"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+        </activity>
+        <activity
+            android:name="com.memetro.android.register.CredentialsActivity"
             android:label="@string/app_name"
             android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
