@@ -17,7 +17,7 @@
 package com.memetro.android.register;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -29,8 +29,8 @@ import com.memetro.android.R;
 public class PersonalActivity extends Activity {
 
     private static String TAG = "Memetro Register Personal";
-    private Button register, cancel;
-    private EditText usernameEt, passwordEt, repeatPasswordEt;
+    private Button continueButton, cancelButton;
+    private EditText name, mail, twitter, about;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,14 +38,33 @@ public class PersonalActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_register_personal);
 
-        register = (Button) findViewById(R.id.register);
+        continueButton = (Button) findViewById(R.id.register);
+        cancelButton = (Button) findViewById(R.id.cancel);
 
-        register.setOnClickListener(new View.OnClickListener() {
+        name = (EditText) findViewById(R.id.name);
+        mail = (EditText) findViewById(R.id.mail);
+        twitter = (EditText) findViewById(R.id.twitter);
+        about = (EditText) findViewById(R.id.about);
+
+        continueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //
+                Intent intent = new Intent(getApplicationContext(), CredentialsActivity.class);
+                intent.putExtra("name", name.getText().toString());
+                intent.putExtra("mail", mail.getText().toString());
+                intent.putExtra("twitter", twitter.getText().toString());
+                intent.putExtra("about", about.getText().toString());
+                startActivity(intent);
             }
         });
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+
     }
 
 }

@@ -47,11 +47,7 @@ public class CredentialsActivity extends Activity {
     private static String TAG = "Memetro Register Credentials";
     private Button register;
     private EditText usernameEt, passwordEt, repeatPasswordEt;
-    private String username, password, repeatPassword;
-
-    private String clientId = "NTFmMDU3YmY2ZDFkMDFl";
-    private String clientSecret = "2cb128799bb3886281c6b7a89b7ac0047c06b876";
-    private String message = "";
+    private String username, password, repeatPassword, name, twitter, mail, about;
 
     private Context context;
     private ProgressDialog pdialog;
@@ -70,6 +66,14 @@ public class CredentialsActivity extends Activity {
         usernameEt = (EditText) findViewById(R.id.username);
         passwordEt = (EditText) findViewById(R.id.password);
         repeatPasswordEt = (EditText) findViewById(R.id.repeat_password);
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            name = extras.getString("name");
+            mail = extras.getString("mail");
+            twitter = extras.getString("twitter");
+            about = extras.getString("about");
+        }
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,13 +97,18 @@ public class CredentialsActivity extends Activity {
 
         protected JSONObject doInBackground(String... params){
 
-            List<NameValuePair> registerParams = new ArrayList<NameValuePair>(5);
+            List<NameValuePair> registerParams = new ArrayList<NameValuePair>(9);
 
             registerParams.add(new BasicNameValuePair("username", username));
             registerParams.add(new BasicNameValuePair("password", password));
             registerParams.add(new BasicNameValuePair("password2", repeatPassword));
-            registerParams.add(new BasicNameValuePair("client_id", clientId));
-            registerParams.add(new BasicNameValuePair("client_secret", clientSecret));
+            registerParams.add(new BasicNameValuePair("name", name));
+            registerParams.add(new BasicNameValuePair("email", mail));
+            registerParams.add(new BasicNameValuePair("twittername", twitter));
+            registerParams.add(new BasicNameValuePair("aboutme", about));
+
+            registerParams.add(new BasicNameValuePair("client_id", AppContext.OAUTHCLIENTID));
+            registerParams.add(new BasicNameValuePair("client_secret", AppContext.OAUTHCLIENTSECRET));
 
             return OAuth.call("Register", "index", registerParams);
         }
@@ -116,14 +125,14 @@ public class CredentialsActivity extends Activity {
             }
 
             if (success) {
-                Toast.makeText(context, "Register ok", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, getString(R.string.register_ok), Toast.LENGTH_LONG).show();
 
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
                 finish();
             } else {
                 try {
-                    message = result.getString("message");
+                    String message = result.getString("message");
                     Toast.makeText(context, message, Toast.LENGTH_LONG).show();
                 } catch (JSONException e) {
                     e.printStackTrace();
