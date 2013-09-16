@@ -36,6 +36,7 @@ import com.memetro.android.models.City;
 import com.memetro.android.models.Country;
 import com.memetro.android.oauth.OAuth;
 import com.memetro.android.oauth.Utils;
+import com.memetro.android.register.PersonalActivity;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -73,7 +74,7 @@ public class MainActivity extends Activity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Regist);
+                Intent intent = new Intent(getApplicationContext(), PersonalActivity.class);
                 startActivity(intent);
             }
         });
