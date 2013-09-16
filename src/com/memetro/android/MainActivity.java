@@ -176,6 +176,7 @@ public class MainActivity extends Activity {
                             City city = new City();
                             city.name =  currentData.getString("name");
                             city.created = currentData.getString("created");
+                            city.country_id = currentData.getInt("country_id");
                             city.save();
                         }
                     }
