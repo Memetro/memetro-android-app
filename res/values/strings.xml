@@ -2,25 +2,26 @@
 <resources>
 
     <string name="app_name">Memetro</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Ajustes</string>
     <string name="hello_world">Hello World!</string>
-    <string name="cancel">Cancel</string>
+    <string name="cancel">Cancelar</string>
     <string name="continue_text">Continuar</string>
+    <string name="skip">Omitir</string>
 
     <!-- LOGIN -->
-    <string name="login">Login</string>
-    <string name="register">Register</string>
+    <string name="login">Entrar</string>
+    <string name="register">Registrarse</string>
     <string name="login_error">Usuario o contraseña incorrectos</string>
     <string name="login_loading">Entrando…</string>
 
     <!-- REGISTER -->
-    <string name="name">Name</string>
-    <string name="username">Username</string>
-    <string name="password">Password</string>
-    <string name="repeat_password">Repeat Password</string>
-    <string name="user_twitter">Twitter username</string>
+    <string name="name">Nombre</string>
+    <string name="username">Usuario</string>
+    <string name="password">Contraseña</string>
+    <string name="repeat_password">Repetir Contraseña</string>
+    <string name="user_twitter">Usuario Twitter</string>
     <string name="mail">Mail</string>
-    <string name="about_me">About Me</string>
+    <string name="about_me">Sobre mi</string>
     <string name="register_loading">Registrando…</string>
     <string name="register_error">Error en el registro</string>
     <string name="register_ok">Registrado correctamente</string>

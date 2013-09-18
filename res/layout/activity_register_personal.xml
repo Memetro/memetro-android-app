@@ -83,19 +83,9 @@
         <Button
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/cancel"
-            android:id="@+id/cancel"
-            style="@style/button_black"
-            android:layout_weight="1"
-            android:layout_margin="10dp"/>
-
-        <Button
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/continue_text"
+            android:text="@string/skip"
             android:id="@+id/register"
             style="@style/button_red"
-            android:layout_weight="1"
             android:layout_margin="10dp"/>
     </LinearLayout>
 

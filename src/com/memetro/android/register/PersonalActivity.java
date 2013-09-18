@@ -19,6 +19,8 @@ package com.memetro.android.register;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -29,7 +31,7 @@ import com.memetro.android.R;
 public class PersonalActivity extends Activity {
 
     private static String TAG = "Memetro Register Personal";
-    private Button continueButton, cancelButton;
+    private Button continueButton;
     private EditText name, mail, twitter, about;
 
     @Override
@@ -39,12 +41,38 @@ public class PersonalActivity extends Activity {
         setContentView(R.layout.activity_register_personal);
 
         continueButton = (Button) findViewById(R.id.register);
-        cancelButton = (Button) findViewById(R.id.cancel);
 
         name = (EditText) findViewById(R.id.name);
         mail = (EditText) findViewById(R.id.mail);
         twitter = (EditText) findViewById(R.id.twitter);
         about = (EditText) findViewById(R.id.about);
+        areTextsEmpty();
+        TextWatcher watcher = new TextWatcher() {
+
+            public void afterTextChanged(Editable s) {
+                if (areTextsEmpty()){
+                    continueButton.setText(getString(R.string.skip));
+                }else{
+                    continueButton.setText(getString(R.string.continue_text));
+                }
+            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // TODO Auto-generated method stub
+
+            }
+            public void onTextChanged(CharSequence s, int start, int before,int count) {
+                // TODO Auto-generated method stub
+
+            }
+        };
+        name.addTextChangedListener(watcher);
+
+        mail.addTextChangedListener(watcher);
+
+        twitter.addTextChangedListener(watcher);
+
+        about.addTextChangedListener(watcher);
+
 
         continueButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,13 +86,14 @@ public class PersonalActivity extends Activity {
             }
         });
 
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
+    }
 
+    private boolean areTextsEmpty(){
+        return !(name.getText().toString().length() != 0
+                || mail.getText().toString().length() != 0
+                || twitter.getText().toString().length() != 0
+                || about.getText().toString().length() != 0
+            );
     }
 
 }
