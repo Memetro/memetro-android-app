@@ -32,6 +32,7 @@ import android.widget.Toast;
 
 import com.activeandroid.ActiveAndroid;
 import com.memetro.android.common.AppContext;
+import com.memetro.android.common.MemetroProgress;
 import com.memetro.android.models.City;
 import com.memetro.android.models.Country;
 import com.memetro.android.oauth.OAuth;
@@ -40,6 +41,7 @@ import com.memetro.android.register.PersonalActivity;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -55,7 +57,7 @@ public class MainActivity extends Activity {
     private Context context;
     private OAuth OAuth = new OAuth();
     private Utils Utils = new Utils();
-    private ProgressDialog pdialog;
+    private MemetroProgress pdialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +66,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         context = getApplicationContext();
 
-        pdialog = new ProgressDialog(this);
+        pdialog = new MemetroProgress(this);
 
         register = (Button) findViewById(R.id.register);
         login = (Button) findViewById(R.id.login);
@@ -100,7 +102,6 @@ public class MainActivity extends Activity {
     private class AsyncLogin extends AsyncTask<String, Integer, JSONObject>{
 
         protected void onPreExecute(){
-            pdialog.setMessage(getString(R.string.login_loading));
             pdialog.show();
         }
 
@@ -152,34 +153,26 @@ public class MainActivity extends Activity {
                 try {
 
                     //Save countries
-                    JSONObject countries = data.getJSONObject("country").getJSONObject("data");
-                    Iterator<?> countryKeys = countries.keys();
-                    while( countryKeys.hasNext() ){
-                        String key = (String)countryKeys.next();
-                        if( countries.get(key) instanceof JSONObject ){
-                            currentData = countries.getJSONObject(key);
+                    JSONArray countries = data.getJSONObject("country").getJSONArray("data");
 
-                            Country country = new Country();
-                            country.name =  currentData.getString("name");
-                            country.created = currentData.getString("created");
-                            country.save();
-                        }
+                    for (int i = 0; i < countries.length(); i++) {
+                        currentData = countries.getJSONObject(i);
+                        Country country = new Country();
+                        country.name =  currentData.getString("name");
+                        country.created = currentData.getString("created");
+                        country.save();
                     }
 
                     //Save cities
-                    JSONObject cities = data.getJSONObject("city").getJSONObject("data");
-                    Iterator<?> cityKeys = cities.keys();
-                    while( cityKeys.hasNext() ){
-                        String key = (String)cityKeys.next();
-                        if( cities.get(key) instanceof JSONObject ){
-                            currentData = cities.getJSONObject(key);
+                    JSONArray cities = data.getJSONObject("city").getJSONArray("data");
 
-                            City city = new City();
-                            city.name =  currentData.getString("name");
-                            city.created = currentData.getString("created");
-                            city.country_id = currentData.getInt("country_id");
-                            city.save();
-                        }
+                    for (int i = 0; i < cities.length(); i++) {
+                        currentData = cities.getJSONObject(i);
+                        City city = new City();
+                        city.name =  currentData.getString("name");
+                        city.created = currentData.getString("created");
+                        city.country_id = currentData.getInt("country_id");
+                        city.save();
                     }
 
                     ActiveAndroid.setTransactionSuccessful();
