@@ -35,6 +35,7 @@ import com.memetro.android.common.AppContext;
 import com.memetro.android.common.MemetroProgress;
 import com.memetro.android.models.City;
 import com.memetro.android.models.Country;
+import com.memetro.android.models.User;
 import com.memetro.android.oauth.OAuth;
 import com.memetro.android.oauth.Utils;
 import com.memetro.android.register.PersonalActivity;
@@ -151,6 +152,17 @@ public class MainActivity extends Activity {
                 JSONObject currentData;
                 ActiveAndroid.beginTransaction();
                 try {
+
+                    //Save user data
+                    JSONObject userData = data.getJSONObject("user").getJSONObject("data");
+                    User user = new User();
+                    user.username = userData.getString("username");
+                    user.name = userData.getString("name");
+                    user.email = userData.getString("email");
+                    user.twittername = userData.getString("twittername");
+                    user.avatar = userData.getString("avatar");
+                    user.aboutme = userData.getString("aboutme");
+                    user.save();
 
                     //Save countries
                     JSONArray countries = data.getJSONObject("country").getJSONArray("data");
