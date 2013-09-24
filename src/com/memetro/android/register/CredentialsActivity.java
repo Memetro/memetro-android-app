@@ -17,7 +17,6 @@
 package com.memetro.android.register;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -32,6 +31,7 @@ import com.memetro.android.MainActivity;
 import com.memetro.android.R;
 import com.memetro.android.common.AppContext;
 import com.memetro.android.common.MemetroDialog;
+import com.memetro.android.common.MemetroProgress;
 import com.memetro.android.oauth.OAuth;
 
 import org.apache.http.NameValuePair;
@@ -50,7 +50,7 @@ public class CredentialsActivity extends Activity {
     private String username, password, repeatPassword, name, twitter, mail, about;
 
     private Context context;
-    private ProgressDialog pdialog;
+    private MemetroProgress pdialog;
     private OAuth OAuth = new OAuth();
 
     @Override
@@ -60,7 +60,7 @@ public class CredentialsActivity extends Activity {
         setContentView(R.layout.activity_register_credentials);
         context = getApplicationContext();
 
-        pdialog = new ProgressDialog(this);
+        pdialog = new MemetroProgress(this);
 
         register = (Button) findViewById(R.id.register);
         usernameEt = (EditText) findViewById(R.id.username);
@@ -91,7 +91,6 @@ public class CredentialsActivity extends Activity {
         Boolean success = false;
 
         protected void onPreExecute(){
-            pdialog.setMessage(getString(R.string.register_loading));
             pdialog.show();
         }
 
