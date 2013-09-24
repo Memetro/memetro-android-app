@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Josei
+ * Copyright 2013 Josei [hi at jrubio dot me]
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
