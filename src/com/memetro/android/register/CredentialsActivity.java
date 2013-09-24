@@ -27,11 +27,11 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.memetro.android.MainActivity;
 import com.memetro.android.R;
 import com.memetro.android.common.AppContext;
+import com.memetro.android.common.MemetroDialog;
 import com.memetro.android.oauth.OAuth;
 
 import org.apache.http.NameValuePair;
@@ -125,7 +125,7 @@ public class CredentialsActivity extends Activity {
             }
 
             if (success) {
-                Toast.makeText(context, getString(R.string.register_ok), Toast.LENGTH_LONG).show();
+                MemetroDialog.showDialog(CredentialsActivity.this, null, getString(R.string.register_ok));
 
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
@@ -133,7 +133,7 @@ public class CredentialsActivity extends Activity {
             } else {
                 try {
                     String message = result.getString("message");
-                    Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+                    MemetroDialog.showDialog(CredentialsActivity.this, null, message);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
