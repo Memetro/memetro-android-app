@@ -41,8 +41,12 @@ public final class MemetroDialog {
         Button closeButton = (Button) mDialog.findViewById(R.id.close);
 
         messageText.setMovementMethod(ScrollingMovementMethod.getInstance());
-        messageText.setText(message);
-        titleText.setText(title);
+        if (message != null){
+            messageText.setText(message);
+        }
+        if (title != null){
+            titleText.setText(title);
+        }
 
         closeButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

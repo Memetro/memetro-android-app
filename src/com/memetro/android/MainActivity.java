@@ -32,6 +32,7 @@ import android.widget.Toast;
 
 import com.activeandroid.ActiveAndroid;
 import com.memetro.android.common.AppContext;
+import com.memetro.android.common.MemetroDialog;
 import com.memetro.android.common.MemetroProgress;
 import com.memetro.android.models.City;
 import com.memetro.android.models.Country;
@@ -125,7 +126,7 @@ public class MainActivity extends Activity {
                 if (pdialog.isShowing()) pdialog.dismiss();
                 // Token failed
                 if (AppContext.DEBUG) Log.d(TAG, "Login failed. Cause: "+ e.toString());
-                Toast.makeText(context, getString(R.string.login_error), Toast.LENGTH_LONG).show();
+                MemetroDialog.showDialog(MainActivity.this, null, getString(R.string.login_error));
             }
 
         }
@@ -200,7 +201,7 @@ public class MainActivity extends Activity {
             }catch(Exception e){
                 if (AppContext.DEBUG) Log.d(TAG, "Sync failed. Cause: "+ e.toString());
                 e.printStackTrace();
-                Toast.makeText(context, getString(R.string.login_error), Toast.LENGTH_LONG).show();
+                MemetroDialog.showDialog(MainActivity.this, null, getString(R.string.login_error));
             }
 
         }
