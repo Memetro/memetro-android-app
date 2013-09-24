@@ -7,6 +7,9 @@
     <string name="cancel">Cancelar</string>
     <string name="continue_text">Continuar</string>
     <string name="skip">Omitir</string>
+    <string name="close">Cerrar</string>
+    <string name="alert">Alerta</string>
+    <string name="error">Error</string>
 
     <!-- LOGIN -->
     <string name="login">Entrar</string>
