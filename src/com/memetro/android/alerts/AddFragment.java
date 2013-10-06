@@ -22,32 +22,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.Spinner;
 
 import com.memetro.android.R;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.Inflater;
 
 public class AddFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 
         View inflated = inflater.inflate(R.layout.fragment_add_alert, container, false);
-
-        // Speaker Button
-        ImageView speakerButton = (ImageView) inflated.findViewById(R.id.speakerButton);
-        if (speakerButton != null){
-            speakerButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    //changeMainFragment(new AddFragment());
-                }
-            });
-        }
 
         Spinner spinner = (Spinner) inflated.findViewById(R.id.spinnerCity);
 

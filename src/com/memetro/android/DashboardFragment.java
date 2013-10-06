@@ -21,12 +21,25 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.memetro.android.R;
+import com.memetro.android.common.Utils;
 
 public class DashboardFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_dashboard, container, false);
+        View inflated = inflater.inflate(R.layout.fragment_dashboard, container, false);
+
+        // Speaker Button
+        ImageView speakerButton = (ImageView) inflated.findViewById(R.id.speakerButton);
+        speakerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Utils.openAddAlert(getActivity().getSupportFragmentManager());
+            }
+        });
+
+        return inflated;
     }
 }
