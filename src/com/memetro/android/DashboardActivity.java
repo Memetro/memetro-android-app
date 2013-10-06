@@ -23,7 +23,9 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.view.Window;
+import android.widget.ImageView;
 
+import com.memetro.android.alerts.AddFragment;
 import com.memetro.android.common.SlideHolder;
 import com.memetro.android.dataManager.dataUtils;
 import com.memetro.android.settings.SettingsFragment;
@@ -79,6 +81,7 @@ public class DashboardActivity extends FragmentActivity {
                 changeMainFragment(new SettingsFragment());
             }
         });
+
     }
 
     @Override

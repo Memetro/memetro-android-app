@@ -16,10 +16,9 @@
 
 package com.memetro.android.common;
 
-public class AppContext {
+public final class AppContext {
     // Application
     public final static boolean DEBUG = true;
-    public final static String DB_NAME = "Memetro.db";
 
     // OAuth
     public final static String OAUTHSERVER = "http://memetro.bongardt.co/";
