@@ -29,6 +29,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.activeandroid.ActiveAndroid;
+import com.activeandroid.query.Delete;
 import com.memetro.android.common.AppContext;
 import com.memetro.android.common.MemetroDialog;
 import com.memetro.android.common.MemetroProgress;
@@ -152,7 +153,8 @@ public class MainActivity extends Activity {
                 try {
 
                     //Save user data
-                    JSONObject userData = data.getJSONObject("user").getJSONObject("data");
+                    new Delete().from(User.class).execute();
+                    JSONObject userData = data.getJSONObject("user");
                     User user = new User();
                     user.username = userData.getString("username");
                     user.name = userData.getString("name");
@@ -163,6 +165,7 @@ public class MainActivity extends Activity {
                     user.save();
 
                     //Save countries
+                    new Delete().from(Country.class).execute();
                     JSONArray countries = data.getJSONObject("country").getJSONArray("data");
 
                     for (int i = 0; i < countries.length(); i++) {
@@ -174,6 +177,7 @@ public class MainActivity extends Activity {
                     }
 
                     //Save cities
+                    new Delete().from(City.class).execute();
                     JSONArray cities = data.getJSONObject("city").getJSONArray("data");
 
                     for (int i = 0; i < cities.length(); i++) {

@@ -19,6 +19,9 @@ package com.memetro.android.dataManager;
 import android.content.Context;
 
 import com.activeandroid.ActiveAndroid;
+import com.activeandroid.Configuration;
+import com.activeandroid.DatabaseHelper;
+import com.activeandroid.query.Delete;
 import com.memetro.android.common.AppContext;
 import com.memetro.android.oauth.Utils;
 
@@ -26,8 +29,8 @@ public class dataUtils {
 
     public static void clearData(Context context){
         context.getSharedPreferences(Utils.SHARED_NAME, 0).edit().clear().commit();
-        context.deleteDatabase(AppContext.DB_NAME);
-        ActiveAndroid.clearCache();
+        // context.deleteDatabase(AppContext.DB_NAME);
+        // ActiveAndroid.clearCache();
     }
 
 }
