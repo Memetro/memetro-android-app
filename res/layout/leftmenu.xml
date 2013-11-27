@@ -44,14 +44,14 @@
         </LinearLayout>
 
         <!-- Alerts, Memetrols... -->
-        <!-- <LinearLayout
+        <LinearLayout
                 android:layout_marginTop="10dp"
                 android:background="#f4f3f2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="3dp"
                 android:orientation="horizontal">
 
-            <ImageView
+            <!-- <ImageView
                     android:layout_weight="1"
                     android:paddingLeft="5dp"
                     android:src="@drawable/menu_speaker"
@@ -71,8 +71,8 @@
                     android:src="@drawable/ninja"
                     android:background="@null"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-        </LinearLayout> -->
+                    android:layout_height="wrap_content"/> -->
+        </LinearLayout>
 
         <!-- Participants -->
         <LinearLayout
