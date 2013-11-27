@@ -38,6 +38,7 @@ public class DashboardActivity extends FragmentActivity {
     private Boolean lastWindow = true;
 
     private TextView usernameMenu;
+    private ImageView actionbarAlerts, actionbarTwitter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,12 +48,21 @@ public class DashboardActivity extends FragmentActivity {
 
         mSlideHolder = (SlideHolder) findViewById(R.id.slideHolder);
         usernameMenu = (TextView) findViewById(R.id.usernameMenu);
+        actionbarAlerts = (ImageView) findViewById(R.id.actionbarAlerts);
+        actionbarTwitter = (ImageView) findViewById(R.id.actionbarTws);
 
         // Launch default fragment
         changeMainFragment(new DashboardFragment(), true);
 
         User userData = dataUtils.getUserData();
         usernameMenu.setText("@"+userData.username);
+
+        actionbarAlerts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                changeMainFragment(new DashboardFragment(), true);
+            }
+        });
 
         // Toggler listener
         View toggleView = findViewById(R.id.actionbarToggler);

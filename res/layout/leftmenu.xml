@@ -75,7 +75,7 @@
         </LinearLayout>
 
         <!-- Participants -->
-        <LinearLayout
+        <!-- <LinearLayout
                 android:clickable="true"
                 android:layout_marginTop="10dp"
                 android:background="@null"
@@ -102,7 +102,7 @@
                     android:textSize="18sp"
                     android:textColor="#888888"
                     android:text="@string/participants_menu"/>
-        </LinearLayout>
+        </LinearLayout> -->
 
         <!-- Memetro -->
         <LinearLayout
