@@ -46,4 +46,8 @@ public class City extends Model {
         this.name = name;
         this.cityId = cityId;
     }
+
+    public String toString() {
+        return this.name;
+    }
 }

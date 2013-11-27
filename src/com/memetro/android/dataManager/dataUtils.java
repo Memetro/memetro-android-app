@@ -21,7 +21,9 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.activeandroid.ActiveAndroid;
+import com.activeandroid.Model;
 import com.activeandroid.query.Delete;
+import com.activeandroid.query.Select;
 import com.memetro.android.common.AppContext;
 import com.memetro.android.models.City;
 import com.memetro.android.models.Country;
@@ -47,6 +49,14 @@ public class dataUtils {
         context.getSharedPreferences(Utils.SHARED_NAME, 0).edit().clear().commit();
         // context.deleteDatabase(AppContext.DB_NAME);
         // ActiveAndroid.clearCache();
+    }
+
+    public static List<Transport> getTransport() {
+        return new Select().from(Transport.class).execute();
+    }
+
+    public static List<City> getCities(String countryId) {
+        return new Select().from(City.class).where("CountryId = ?", countryId).execute();
     }
 
     public void syncWSData(Context context, oauthHandler handler) {

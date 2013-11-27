@@ -16,36 +16,58 @@
 
 package com.memetro.android.alerts;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
 import android.widget.Spinner;
 
 import com.memetro.android.R;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.memetro.android.common.LayoutUtils;
+import com.memetro.android.dataManager.dataUtils;
+import com.memetro.android.models.City;
 
 public class AddFragment extends Fragment {
+
+    private Activity mActivity;
+    private Spinner spinnerCity, spinnerTransport, spinnerLine;
+
+    @Override
+    public void onCreate(Bundle bundleSavedInstance) {
+        super.onCreate(bundleSavedInstance);
+        this.mActivity = getActivity();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 
         View inflated = inflater.inflate(R.layout.fragment_add_alert, container, false);
 
-        Spinner spinner = (Spinner) inflated.findViewById(R.id.spinnerCity);
+        spinnerCity = (Spinner) inflated.findViewById(R.id.spinnerCity);
+        spinnerTransport = (Spinner) inflated.findViewById(R.id.spinnerTransport);
+        spinnerLine = (Spinner) inflated.findViewById(R.id.spinnerLine);
 
-        List<String> list = new ArrayList<String>();
-        list.add("list 1");
-        list.add("list 2");
+        LayoutUtils.setDefaultSpinner(mActivity, spinnerTransport, dataUtils.getTransport());
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, list);
+        // TODO No harcodear el id
+        LayoutUtils.setDefaultSpinner(mActivity, spinnerCity, dataUtils.getCities("1"));
 
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                City city = (City) adapterView.getAdapter().getItem(i);
+                Log.d("CIUDAD", city.name);
+            }
 
-        spinner.setAdapter(adapter);
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         return inflated;
     }

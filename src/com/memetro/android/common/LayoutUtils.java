@@ -13,36 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package com.memetro.android.common;
 
-package com.memetro.android.models;
+import android.content.Context;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
-import com.activeandroid.Model;
-import com.activeandroid.annotation.Column;
-import com.activeandroid.annotation.Table;
+import java.util.List;
 
-@Table(name = "Transports")
-public class Transport extends Model {
-    @Column(name = "Name")
-    public String name;
+public class LayoutUtils {
 
-    @Column(name = "Icon")
-    public int icon;
+    public static void setDefaultSpinner(Context context, Spinner spinner, List items) {
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, items);
 
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-    public Transport(){
-        super();
+        spinner.setAdapter(adapter);
     }
 
-    public Transport(
-            String name,
-            int icon
-    ){
-        super();
-        this.name = name;
-        this.icon = icon;
-    }
-
-    public String toString() {
-        return this.name;
-    }
 }

@@ -52,4 +52,8 @@ public class Line extends Model {
         this.name = name;
         this.created = created;
     }
+
+    public String toString() {
+        return this.name;
+    }
 }
