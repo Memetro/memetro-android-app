@@ -32,6 +32,7 @@ public class MemetroProgress extends Dialog {
         mContext = context;
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.progress_dialog);
+
         v = getWindow().getDecorView();
         v.setBackgroundResource(android.R.color.transparent);
     }
