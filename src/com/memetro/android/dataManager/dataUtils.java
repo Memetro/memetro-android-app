@@ -51,6 +51,12 @@ public class dataUtils {
         // ActiveAndroid.clearCache();
     }
 
+    public static User getUserData() {
+        List<User> rs = new Select().from(User.class).execute();
+        if (rs.isEmpty()) return null;
+        return rs.get(0);
+    }
+
     public static List<Transport> getTransport() {
         return new Select().from(Transport.class).execute();
     }

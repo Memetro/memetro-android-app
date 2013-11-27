@@ -22,9 +22,15 @@
                         android:layout_height="fill_parent"
                         android:id="@+id/actionbarLeft"/> -->
 
+        <ImageView
+            android:paddingLeft="5dp"
+            android:src="@drawable/actionbar_back"
+            android:background="@null"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent" />
 
         <ImageView
-                android:paddingLeft="5dp"
+                android:paddingLeft="2dp"
                 android:src="@drawable/actionbar_logo"
                 android:background="@null"
                 android:layout_width="wrap_content"

@@ -24,16 +24,20 @@ import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.memetro.android.alerts.AddFragment;
 import com.memetro.android.common.SlideHolder;
 import com.memetro.android.dataManager.dataUtils;
+import com.memetro.android.models.User;
 import com.memetro.android.settings.SettingsFragment;
 
 public class DashboardActivity extends FragmentActivity {
 
     private SlideHolder mSlideHolder;
     private Boolean lastWindow = true;
+
+    private TextView usernameMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +46,13 @@ public class DashboardActivity extends FragmentActivity {
         setContentView(R.layout.activity_dashboard);
 
         mSlideHolder = (SlideHolder) findViewById(R.id.slideHolder);
+        usernameMenu = (TextView) findViewById(R.id.usernameMenu);
 
         // Launch default fragment
         changeMainFragment(new DashboardFragment(), true);
+
+        User userData = dataUtils.getUserData();
+        usernameMenu.setText("@"+userData.username);
 
         // Toggler listener
         View toggleView = findViewById(R.id.actionbarToggler);
