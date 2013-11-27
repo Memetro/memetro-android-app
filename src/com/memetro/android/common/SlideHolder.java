@@ -681,7 +681,7 @@ public class SlideHolder extends FrameLayout {
 
     private class SlideAnimation extends Animation {
 
-        private static final float SPEED = 1.2f;
+        private static final float SPEED = 2.2f;
 
         private float mStart;
         private float mEnd;
