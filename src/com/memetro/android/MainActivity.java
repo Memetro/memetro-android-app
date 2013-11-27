@@ -29,20 +29,14 @@ import android.widget.EditText;
 import com.memetro.android.common.MemetroDialog;
 import com.memetro.android.common.MemetroProgress;
 import com.memetro.android.dataManager.dataUtils;
-import com.memetro.android.oauth.OAuth;
-import com.memetro.android.oauth.Utils;
 import com.memetro.android.oauth.oauthHandler;
 import com.memetro.android.register.PersonalActivity;
 
 public class MainActivity extends Activity {
 
-    private static String TAG = "Memetro Main";
     private Button register, login;
     private EditText usernameEt, passwordEt;
-    private String username, password;
     private Context context;
-    private OAuth OAuth = new OAuth();
-    private Utils Utils = new Utils();
     private dataUtils dataUtils = new dataUtils();
     private MemetroProgress pdialog;
 
@@ -63,7 +57,7 @@ public class MainActivity extends Activity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), PersonalActivity.class);
+                Intent intent = new Intent(context, PersonalActivity.class);
                 startActivity(intent);
             }
         });
@@ -71,9 +65,7 @@ public class MainActivity extends Activity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                username = usernameEt.getText().toString();
-                password = passwordEt.getText().toString();
-                login(username, password);
+                login(usernameEt.getText().toString(), passwordEt.getText().toString());
             }
         });
     }
