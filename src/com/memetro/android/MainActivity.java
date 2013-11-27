@@ -18,37 +18,21 @@ package com.memetro.android;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.activeandroid.ActiveAndroid;
-import com.activeandroid.query.Delete;
-import com.memetro.android.common.AppContext;
 import com.memetro.android.common.MemetroDialog;
 import com.memetro.android.common.MemetroProgress;
 import com.memetro.android.dataManager.dataUtils;
-import com.memetro.android.models.City;
-import com.memetro.android.models.Country;
-import com.memetro.android.models.User;
 import com.memetro.android.oauth.OAuth;
 import com.memetro.android.oauth.Utils;
 import com.memetro.android.oauth.oauthHandler;
 import com.memetro.android.register.PersonalActivity;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends Activity {
 
