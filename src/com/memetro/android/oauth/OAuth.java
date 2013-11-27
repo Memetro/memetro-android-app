@@ -36,9 +36,6 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Nytyr on 17/08/13.
- */
 public class OAuth {
 
     private String oauthServer = AppContext.OAUTHSERVER;

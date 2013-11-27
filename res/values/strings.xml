@@ -10,12 +10,14 @@
     <string name="close">Cerrar</string>
     <string name="alert">Alerta</string>
     <string name="error">Error</string>
+    <string name="create">Crear</string>
 
     <!-- LOGIN -->
     <string name="login">Entrar</string>
     <string name="register">Registrarse</string>
     <string name="login_error">Usuario o contraseña incorrectos</string>
     <string name="login_loading">Entrando…</string>
+    <string name="sync_error">Error sincronizando datos</string>
 
     <!-- REGISTER -->
     <string name="name">Nombre</string>
@@ -36,5 +38,8 @@
     <string name="configuration_menu">CONFIGURACIÓN</string>
     <string name="info_menu">INFO APP</string>
     <string name="logout_menu">DESCONECTAR</string>
+
+    <!-- Alerts -->
+    <string name="description_caps">DESCRIPCIÓN</string>
 
 </resources>

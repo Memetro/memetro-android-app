@@ -33,11 +33,13 @@ import com.activeandroid.query.Delete;
 import com.memetro.android.common.AppContext;
 import com.memetro.android.common.MemetroDialog;
 import com.memetro.android.common.MemetroProgress;
+import com.memetro.android.dataManager.dataUtils;
 import com.memetro.android.models.City;
 import com.memetro.android.models.Country;
 import com.memetro.android.models.User;
 import com.memetro.android.oauth.OAuth;
 import com.memetro.android.oauth.Utils;
+import com.memetro.android.oauth.oauthHandler;
 import com.memetro.android.register.PersonalActivity;
 
 import org.apache.http.NameValuePair;
@@ -57,6 +59,7 @@ public class MainActivity extends Activity {
     private Context context;
     private OAuth OAuth = new OAuth();
     private Utils Utils = new Utils();
+    private dataUtils dataUtils = new dataUtils();
     private MemetroProgress pdialog;
 
     @Override
@@ -86,7 +89,7 @@ public class MainActivity extends Activity {
             public void onClick(View view) {
                 username = usernameEt.getText().toString();
                 password = passwordEt.getText().toString();
-                new AsyncLogin().execute();
+                login(username, password);
             }
         });
     }
@@ -99,112 +102,48 @@ public class MainActivity extends Activity {
         return true;
     }
 
-    private class AsyncLogin extends AsyncTask<String, Integer, JSONObject>{
+    private void login(String username, String password) {
+        dataUtils.login(context, username, password, new oauthHandler(){
+            @Override
+            public void onStart() {
+                pdialog.show();
+            }
 
-        protected void onPreExecute(){
-            pdialog.show();
-        }
-
-        protected JSONObject doInBackground(String... params){
-            return OAuth.login(username, password);
-        }
-
-        protected void onPostExecute(JSONObject result) {
-            if (AppContext.DEBUG) Log.d(TAG, result.toString());
-
-            // Trying to get the token...
-            try{
-                String token = result.getString("access_token");
-                String refresh_token = result.getString("refresh_token");
-                Utils.setToken(context, token, refresh_token);
-
-                //Sync
-                new AsyncSync().execute();
-            }catch(Exception e){
+            @Override
+            public void onFailure() {
                 if (pdialog.isShowing()) pdialog.dismiss();
-                // Token failed
-                if (AppContext.DEBUG) Log.d(TAG, "Login failed. Cause: "+ e.toString());
                 MemetroDialog.showDialog(MainActivity.this, null, getString(R.string.login_error));
             }
 
-        }
+            @Override
+            public void onSuccess() {
+                sync();
+            }
+        });
     }
 
-    private class AsyncSync extends AsyncTask<String, Integer, JSONObject>{
+    private void sync() {
+        dataUtils.syncWSData(context, new oauthHandler() {
 
+            @Override
+            public void onFinish() {
+                if (pdialog.isShowing()) pdialog.dismiss();
+            }
 
-        protected JSONObject doInBackground(String... params){
-            List<NameValuePair> postParams = new ArrayList<NameValuePair>(1);
-            postParams.add(new BasicNameValuePair("access_token", Utils.getToken(getApplicationContext())));
-            return OAuth.call("synchronize", "", postParams);
-        }
-
-        protected void onPostExecute(JSONObject result) {
-            if (pdialog.isShowing()) pdialog.dismiss();
-
-            if (AppContext.DEBUG) Log.d(TAG, result.toString());
-
-            try{
-                //Save sync data
-                JSONObject data = result.getJSONObject("data");
-
-                JSONObject currentData;
-                ActiveAndroid.beginTransaction();
-                try {
-
-                    //Save user data
-                    new Delete().from(User.class).execute();
-                    JSONObject userData = data.getJSONObject("user");
-                    User user = new User();
-                    user.username = userData.getString("username");
-                    user.name = userData.getString("name");
-                    user.email = userData.getString("email");
-                    user.twittername = userData.getString("twittername");
-                    user.avatar = userData.getString("avatar");
-                    user.aboutme = userData.getString("aboutme");
-                    user.save();
-
-                    //Save countries
-                    new Delete().from(Country.class).execute();
-                    JSONArray countries = data.getJSONObject("country").getJSONArray("data");
-
-                    for (int i = 0; i < countries.length(); i++) {
-                        currentData = countries.getJSONObject(i);
-                        Country country = new Country();
-                        country.name =  currentData.getString("name");
-                        country.created = currentData.getString("created");
-                        country.save();
-                    }
-
-                    //Save cities
-                    new Delete().from(City.class).execute();
-                    JSONArray cities = data.getJSONObject("city").getJSONArray("data");
-
-                    for (int i = 0; i < cities.length(); i++) {
-                        currentData = cities.getJSONObject(i);
-                        City city = new City();
-                        city.name =  currentData.getString("name");
-                        city.created = currentData.getString("created");
-                        city.country_id = currentData.getInt("country_id");
-                        city.save();
-                    }
-
-                    ActiveAndroid.setTransactionSuccessful();
-                }
-                finally {
-                    ActiveAndroid.endTransaction();
-                }
-
+            @Override
+            public void onSuccess() {
                 // Launch DashBoard
                 Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
                 startActivity(intent);
                 finish();
-            }catch(Exception e){
-                if (AppContext.DEBUG) Log.d(TAG, "Sync failed. Cause: "+ e.toString());
-                e.printStackTrace();
-                MemetroDialog.showDialog(MainActivity.this, null, getString(R.string.login_error));
             }
 
-        }
+            @Override
+            public void onFailure() {
+                MemetroDialog.showDialog(MainActivity.this, null, getString(R.string.sync_error));
+            }
+
+        });
     }
+
 }
