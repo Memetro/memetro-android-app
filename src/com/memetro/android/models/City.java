@@ -28,8 +28,8 @@ public class City extends Model {
     @Column(name = "Name")
     public String name;
 
-    @Column(name = "Created")
-    public String created;
+    @Column(name = "CityId")
+    public String cityId;
 
 
     public City(){
@@ -39,11 +39,11 @@ public class City extends Model {
     public City(
             int country_id,
             String name,
-            String created
+            String cityId
     ){
         super();
         this.country_id = country_id;
         this.name = name;
-        this.created = created;
+        this.cityId = cityId;
     }
 }

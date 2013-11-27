@@ -117,6 +117,7 @@ public class MainActivity extends Activity {
             @Override
             public void onFailure() {
                 MemetroDialog.showDialog(MainActivity.this, null, getString(R.string.sync_error));
+                com.memetro.android.dataManager.dataUtils.clearData(context);
             }
 
         });

@@ -25,8 +25,8 @@ public class Country extends Model {
     @Column(name = "Name")
     public String name;
 
-    @Column(name = "Created")
-    public String created;
+    @Column(name = "CountryId")
+    public String countryId;
 
 
     public Country(){
@@ -35,10 +35,10 @@ public class Country extends Model {
 
     public Country(
             String name,
-            String created
+            String countryId
     ){
         super();
         this.name = name;
-        this.created = created;
+        this.countryId = countryId;
     }
 }

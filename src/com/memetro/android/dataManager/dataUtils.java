@@ -17,20 +17,17 @@
 package com.memetro.android.dataManager;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 
 import com.activeandroid.ActiveAndroid;
-import com.activeandroid.Configuration;
-import com.activeandroid.DatabaseHelper;
 import com.activeandroid.query.Delete;
-import com.memetro.android.DashboardActivity;
-import com.memetro.android.R;
 import com.memetro.android.common.AppContext;
-import com.memetro.android.common.MemetroDialog;
 import com.memetro.android.models.City;
 import com.memetro.android.models.Country;
+import com.memetro.android.models.Line;
+import com.memetro.android.models.Station;
+import com.memetro.android.models.Transport;
 import com.memetro.android.models.User;
 import com.memetro.android.oauth.OAuth;
 import com.memetro.android.oauth.Utils;
@@ -102,7 +99,7 @@ public class dataUtils {
         }
     }
 
-    private class AsyncSync extends AsyncTask<String, Integer, JSONObject> {
+    private class AsyncSync extends AsyncTask<String, Integer, Boolean> {
 
         private Context context;
         private oauthHandler handler;
@@ -118,17 +115,14 @@ public class dataUtils {
         }
 
         @Override
-        protected JSONObject doInBackground(String... params){
+        protected Boolean doInBackground(String... params){
             OAuth OAuth = new OAuth();
             Utils Utils = new Utils();
 
             List<NameValuePair> postParams = new ArrayList<NameValuePair>(1);
             postParams.add(new BasicNameValuePair("access_token", Utils.getToken(context)));
-            return OAuth.call("synchronize", "", postParams);
-        }
+            JSONObject result = OAuth.call("synchronize", "", postParams);
 
-        @Override
-        protected void onPostExecute(JSONObject result) {
             if (AppContext.DEBUG) Log.d("Sync", result.toString());
 
             try{
@@ -159,6 +153,7 @@ public class dataUtils {
                         currentData = countries.getJSONObject(i);
                         Country country = new Country();
                         country.name =  currentData.getString("name");
+                        country.countryId = currentData.getString("id");
                         country.save();
                     }
 
@@ -170,8 +165,44 @@ public class dataUtils {
                         currentData = cities.getJSONObject(i);
                         City city = new City();
                         city.name =  currentData.getString("name");
+                        city.cityId = currentData.getString("id");
                         city.country_id = currentData.getInt("country_id");
                         city.save();
+                    }
+
+                    //Save Lines
+                    new Delete().from(Line.class).execute();
+                    JSONArray lines = data.getJSONObject("line").getJSONArray("data");
+                    for (int i = 0; i < lines.length(); i++) {
+                        currentData = lines.getJSONObject(i);
+                        Line line = new Line();
+                        line.name =  currentData.getString("name");
+                        line.number = currentData.getInt("number");
+                        line.transport_id = currentData.getInt("transport_id");
+                        line.save();
+                    }
+
+                    //Save Transports
+                    new Delete().from(Transport.class).execute();
+                    JSONArray transports = data.getJSONObject("transport").getJSONArray("data");
+                    for (int i = 0; i < transports.length(); i++) {
+                        currentData = transports.getJSONObject(i);
+                        Transport transport = new Transport();
+                        transport.name =  currentData.getString("name");
+                        transport.icon = currentData.getInt("icon");
+                        transport.save();
+                    }
+
+                    //Save station
+                    new Delete().from(Station.class).execute();
+                    JSONArray stations = data.getJSONObject("station").getJSONArray("data");
+                    for (int i = 0; i < stations.length(); i++) {
+                        currentData = stations.getJSONObject(i);
+                        Station station = new Station();
+                        station.name =  currentData.getString("name");
+                        station.longitude = currentData.getLong("longitude");
+                        station.latitude = currentData.getInt("latitude");
+                        station.save();
                     }
 
                     ActiveAndroid.setTransactionSuccessful();
@@ -179,13 +210,24 @@ public class dataUtils {
                 finally {
                     ActiveAndroid.endTransaction();
                 }
-
-                handler.onSuccess();
+                return true;
             }catch(Exception e){
                 if (AppContext.DEBUG) Log.d("Sync", "Sync failed. Cause: "+ e.toString());
                 e.printStackTrace();
+                return false;
+            }
+
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+
+            if (result) {
+                handler.onSuccess();
+            }else {
                 handler.onFailure();
             }
+
             handler.onFinish();
 
         }
