@@ -29,6 +29,7 @@ import android.widget.TextView;
 import com.memetro.android.alerts.AddFragment;
 import com.memetro.android.common.SlideHolder;
 import com.memetro.android.dataManager.dataUtils;
+import com.memetro.android.info.InfoFragment;
 import com.memetro.android.models.User;
 import com.memetro.android.settings.SettingsFragment;
 
@@ -97,6 +98,15 @@ public class DashboardActivity extends FragmentActivity {
             @Override
             public void onClick(View view) {
                 changeMainFragment(new SettingsFragment());
+            }
+        });
+
+        // Info
+        View info = findViewById(R.id.infoMenu);
+        info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                changeMainFragment(new InfoFragment());
             }
         });
 

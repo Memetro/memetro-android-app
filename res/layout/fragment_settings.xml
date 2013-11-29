@@ -5,11 +5,52 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
+    <ImageView
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_gravity="center"
+        android:padding="12dp"
+        android:src="@drawable/settings_title" />
+
+
     <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/configuration_menu"
-            android:textSize="40sp"
-            android:id="@+id/textView"
-            android:layout_gravity="center"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/configuration_menu"
+        android:textSize="24sp"
+        android:paddingBottom="18dp"
+        android:layout_gravity="center"/>
+
+
+    <!-- Elegir ciudad -->
+    <!-- <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/user_city"
+        android:layout_marginLeft="10dp"
+        android:layout_gravity="center"
+        android:textSize="16sp" /> -->
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/spinnerCity" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
+        android:background="#ddd" />
+    <!-- Desconectar -->
+    <TextView
+        android:id="@+id/logoutButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/logout_menu"
+        android:layout_marginLeft="10dp"
+        android:layout_gravity="center"
+        android:textSize="16sp" />
+
 </LinearLayout>

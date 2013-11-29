@@ -30,6 +30,9 @@ import com.memetro.android.R;
 import com.memetro.android.common.LayoutUtils;
 import com.memetro.android.dataManager.dataUtils;
 import com.memetro.android.models.City;
+import com.memetro.android.settings.UserPreferences;
+
+import java.util.List;
 
 public class AddFragment extends Fragment {
 
@@ -54,8 +57,18 @@ public class AddFragment extends Fragment {
         LayoutUtils.setDefaultSpinner(mActivity, spinnerTransport, dataUtils.getTransport());
 
         // TODO No harcodear el id
-        LayoutUtils.setDefaultSpinner(mActivity, spinnerCity, dataUtils.getCities("1"));
+        List<City> cities = dataUtils.getCities("1");
 
+        String defaultUserCity = UserPreferences.getUserCity(mActivity);
+
+        LayoutUtils.setDefaultSpinner(mActivity, spinnerCity, cities);
+
+        for (int i = 0; cities.size() > i; i++) {
+            City city = cities.get(i);
+            if (city.cityId.equals(defaultUserCity)) {
+                spinnerCity.setSelection(i);
+            }
+        }
         spinnerCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {

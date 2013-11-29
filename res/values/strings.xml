@@ -42,4 +42,7 @@
     <!-- Alerts -->
     <string name="description_caps">DESCRIPCIÓN</string>
 
+    <!-- Setting -->
+    <string name="user_city">TU CIUDAD</string>
+
 </resources>
