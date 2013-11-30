@@ -131,6 +131,14 @@ public class DashboardActivity extends FragmentActivity {
             }
         });
 
+        // Alerts
+        View alertsMenu = findViewById(R.id.alertsMenu);
+        alertsMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                changeMainFragment(new ThermometerFragment(), true);
+            }
+        });
     }
 
     @Override

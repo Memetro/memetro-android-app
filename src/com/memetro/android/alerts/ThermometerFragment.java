@@ -23,7 +23,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ListView;
 
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.memetro.android.DashboardActivity;
 import com.memetro.android.R;
 import com.memetro.android.common.Utils;
@@ -35,6 +38,7 @@ public class ThermometerFragment extends Fragment {
 
     private DashboardActivity mActivity;
     private AlertUtils alertUtils = new AlertUtils();
+    private PullToRefreshListView alertListView;
 
     @Override
     public void onCreate(Bundle savedInstance) {
@@ -53,6 +57,17 @@ public class ThermometerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         View inflated = inflater.inflate(R.layout.fragment_thermometer, container, false);
 
+        alertListView = (PullToRefreshListView) inflated.findViewById(R.id.alertListView);
+
+        alertListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
+            @Override
+            public void onRefresh(PullToRefreshBase<ListView> refreshView) {
+                getAlerts();
+            }
+        });
+
+        getAlerts();
+
         return inflated;
     }
 
@@ -70,7 +85,7 @@ public class ThermometerFragment extends Fragment {
 
             @Override
             public void onFinish() {
-
+                alertListView.onRefreshComplete();
             }
         });
     }

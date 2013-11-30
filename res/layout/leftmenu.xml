@@ -104,6 +104,36 @@
                     android:text="@string/participants_menu"/>
         </LinearLayout> -->
 
+        <!-- Configuration -->
+        <LinearLayout
+            android:clickable="true"
+            android:layout_marginTop="10dp"
+            android:background="@null"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:id="@+id/alertsMenu">
+
+            <ImageView
+                android:src="@drawable/menu__alert"
+                android:background="@null"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"/>
+
+            <TextView
+                android:paddingLeft="9dp"
+                android:background="@null"
+                android:layout_weight="1"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textColor="#888888"
+                android:text="@string/alerts_menu"/>
+        </LinearLayout>
+
         <!-- Memetro -->
         <LinearLayout
                 android:clickable="true"

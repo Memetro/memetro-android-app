@@ -25,6 +25,7 @@ import com.memetro.android.common.MemetroDialog;
 import com.memetro.android.oauth.OAuth;
 import com.memetro.android.oauth.Utils;
 import com.memetro.android.oauth.oauthHandler;
+import com.memetro.android.settings.UserPreferences;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -62,6 +63,7 @@ public class AlertUtils {
 
             List<NameValuePair> postParams = new ArrayList<NameValuePair>(4);
             postParams.add(new BasicNameValuePair("access_token", Utils.getToken(context)));
+            postParams.add(new BasicNameValuePair("city_id", String.valueOf(UserPreferences.getUserCity(context))));
             return OAuth.call("alerts", "listAlert", postParams);
 
         }

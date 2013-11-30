@@ -14,6 +14,7 @@
 
     <!-- Errors -->
     <string name="action_not_found">Acción no encontrada. Intentalo de nuevo en unos minutos.</string>
+    <string name="token_denied">Se ha denagado el acceso. Desconectate y vuelvete a conectar.</string>
     <string name="server_error">Error en el servidor. Intentalo de nuevo en unos minutos.</string>
     <string name="internal_error">Error interno. Intentalo de nuevo en unos minutos.</string>
     <string name="json_error">Error leyendo datos. Intentalo de nuevo en unos minutos.</string>
@@ -43,11 +44,18 @@
     <string name="memetro_menu">ASOCIACIÓN MEMETRO</string>
     <string name="configuration_menu">CONFIGURACIÓN</string>
     <string name="info_menu">INFO APP</string>
+    <string name="alerts_menu">ALERTAS</string>
     <string name="logout_menu">DESCONECTAR</string>
 
     <!-- Alerts -->
     <string name="description">Descripción</string>
     <string name="alert_created">Alerta creada!</string>
+    <string name="alert">Alerta</string>
+
+    <string name="seconds">segundos</string>
+    <string name="hours">horas</string>
+    <string name="days">días</string>
+    <string name="minutes">minutos</string>
 
     <!-- Setting -->
     <string name="user_city">TU CIUDAD</string>

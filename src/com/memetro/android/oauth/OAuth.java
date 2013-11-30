@@ -17,6 +17,7 @@
 package com.memetro.android.oauth;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.memetro.android.R;
 import com.memetro.android.common.AppContext;
@@ -29,6 +30,7 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
@@ -91,7 +93,14 @@ public class OAuth {
             if (statusCode != 200){
                 JSONObject returnJ = new JSONObject();
                 returnJ.put("success", false);
+                returnJ.put("data", new JSONArray());
+
+                Log.d("Http Status Code", String.valueOf(statusCode));
+
                 switch (statusCode){
+                    case 401:
+                        returnJ.put("message", context.getString(R.string.token_denied));
+                        return returnJ;
                     case 404:
                         returnJ.put("message", context.getString(R.string.action_not_found));
                         return returnJ;

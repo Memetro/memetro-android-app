@@ -92,7 +92,7 @@ public class dataUtils {
         private Context context;
         private oauthHandler handler;
         private String username, password;
-        private OAuth OAuth = new OAuth(context);
+        private OAuth OAuth;
         private Utils Utils = new Utils();
 
         public AsyncLogin(Context context, String username, String password, oauthHandler handler) {
@@ -100,6 +100,7 @@ public class dataUtils {
             this.handler = handler;
             this.username = username;
             this.password = password;
+            this.OAuth = new OAuth(context);
         }
 
         @Override
