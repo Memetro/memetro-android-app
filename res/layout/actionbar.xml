@@ -49,6 +49,7 @@
                 android:src="@drawable/actionbar_tw"
                 android:background="@null"
                 android:layout_width="wrap_content"
+                android:visibility="gone"
                 android:layout_height="fill_parent" />
 
             <ImageView

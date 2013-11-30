@@ -9,17 +9,27 @@
     <include layout="@layout/leftmenu" />
 
     <!-- Application Content -->
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <include layout="@layout/actionbar" />
         <FrameLayout
-                android:id="@+id/fragmentData"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+            android:id="@+id/fragmentData"
+            android:layout_marginTop="47dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
-    </LinearLayout>
+        <ImageButton
+            android:id="@+id/speakerButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/speaker_imagebutton"
+            android:background="@null"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" />
+
+    </RelativeLayout>
 
 </com.memetro.android.common.SlideHolder>

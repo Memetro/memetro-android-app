@@ -23,11 +23,9 @@ import com.memetro.android.R;
 import com.memetro.android.alerts.AddFragment;
 
 public class Utils {
-    public static void openAddAlert(FragmentManager fm){
-        openFragment(fm, new AddFragment());
-    }
 
     public static void openFragment(FragmentManager fm, Fragment fragment){
         fm.beginTransaction().replace(R.id.fragmentData, fragment).addToBackStack(null).commit();
     }
+
 }

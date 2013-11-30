@@ -22,22 +22,30 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.memetro.android.DashboardActivity;
 import com.memetro.android.R;
 
-public class TwitterFragment extends Fragment {
+public class HashtagFragment extends Fragment {
 
-    private Activity mActivity;
+    private DashboardActivity mActivity;
 
     @Override
     public void onCreate(Bundle bundleSavedInstance) {
         super.onCreate(bundleSavedInstance);
-        this.mActivity = getActivity();
+        this.mActivity = (DashboardActivity) getActivity();
+        mActivity.fullActionBar();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mActivity.compressActionBar();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 
-        View inflated = inflater.inflate(R.layout.fragment_add_alert, container, false);
+        View inflated = inflater.inflate(R.layout.fragment_dashboard, container, false);
 
         return inflated;
     }

@@ -28,6 +28,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.memetro.android.DashboardActivity;
 import com.memetro.android.R;
 import com.memetro.android.common.LayoutUtils;
 import com.memetro.android.common.MemetroProgress;
@@ -42,7 +43,7 @@ import java.util.List;
 
 public class AddFragment extends Fragment {
 
-    private Activity mActivity;
+    private DashboardActivity mActivity;
     private dataUtils dataUtils = new dataUtils();
     private MemetroProgress pdialog;
     private Spinner spinnerCity, spinnerTransport, spinnerLine, spinnerStation;
@@ -51,8 +52,15 @@ public class AddFragment extends Fragment {
     @Override
     public void onCreate(Bundle bundleSavedInstance) {
         super.onCreate(bundleSavedInstance);
-        this.mActivity = getActivity();
+        this.mActivity = (DashboardActivity) getActivity();
         this.pdialog = new MemetroProgress(mActivity);
+        mActivity.hideSpeaker();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mActivity.showSpeaker();
     }
 
     @Override
@@ -64,6 +72,7 @@ public class AddFragment extends Fragment {
         spinnerTransport = (Spinner) inflated.findViewById(R.id.spinnerTransport);
         spinnerLine = (Spinner) inflated.findViewById(R.id.spinnerLine);
         spinnerStation = (Spinner) inflated.findViewById(R.id.spinnerStation);
+        addAlertButton = (Button) inflated.findViewById(R.id.addAlertButton);
 
         LayoutUtils.setDefaultSpinner(mActivity, spinnerTransport, dataUtils.getTransport());
 

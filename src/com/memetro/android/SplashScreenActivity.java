@@ -26,7 +26,7 @@ import com.memetro.android.oauth.Utils;
 
 public class SplashScreenActivity extends Activity {
 
-    private long splashDelay = 800; //0.8 secs
+    private long splashDelay = 400; //0.4 secs
     private Utils Utils = new Utils();
 
 

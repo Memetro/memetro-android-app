@@ -46,7 +46,7 @@
     <string name="logout_menu">DESCONECTAR</string>
 
     <!-- Alerts -->
-    <string name="description_caps">DESCRIPCIÓN</string>
+    <string name="description">Descripción</string>
     <string name="alert_created">Alerta creada!</string>
 
     <!-- Setting -->

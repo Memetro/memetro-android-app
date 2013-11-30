@@ -207,7 +207,7 @@ public class dataUtils {
                         currentData = lines.getJSONObject(i);
                         Line line = new Line();
                         line.name =  currentData.getString("name");
-                        line.cityId = currentData.getLong("city_id");
+                        //line.cityId = currentData.getLong("city_id");
                         line.number = currentData.getInt("number");
                         line.lineId = currentData.getLong("id");
                         line.transport_id = currentData.getInt("transport_id");
@@ -235,7 +235,7 @@ public class dataUtils {
                         station.longitude = currentData.getLong("longitude");
                         station.stationId = currentData.getLong("id");
                         station.latitude = currentData.getLong("latitude");
-                        station.lineId = currentData.getLong("line_id");
+                        //station.lineId = currentData.getLong("line_id");
                         station.save();
                     }
 

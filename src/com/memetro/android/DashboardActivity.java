@@ -27,7 +27,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.memetro.android.alerts.AddFragment;
+import com.memetro.android.alerts.HashtagFragment;
+import com.memetro.android.alerts.ThermometerFragment;
 import com.memetro.android.common.SlideHolder;
+import com.memetro.android.common.Utils;
 import com.memetro.android.dataManager.dataUtils;
 import com.memetro.android.info.InfoFragment;
 import com.memetro.android.models.User;
@@ -40,6 +43,7 @@ public class DashboardActivity extends FragmentActivity {
 
     private TextView usernameMenu;
     private ImageView actionbarAlerts, actionbarTwitter;
+    private ImageView speakerButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +57,7 @@ public class DashboardActivity extends FragmentActivity {
         actionbarTwitter = (ImageView) findViewById(R.id.actionbarTws);
 
         // Launch default fragment
-        changeMainFragment(new DashboardFragment(), true);
+        changeMainFragment(new ThermometerFragment(), true);
 
         User userData = dataUtils.getUserData();
         usernameMenu.setText("@"+userData.username);
@@ -61,7 +65,24 @@ public class DashboardActivity extends FragmentActivity {
         actionbarAlerts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                changeMainFragment(new DashboardFragment(), true);
+                changeMainFragment(new ThermometerFragment(), true);
+            }
+        });
+
+        actionbarTwitter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                changeMainFragment(new HashtagFragment());
+            }
+        });
+
+
+        // Speaker Button
+        speakerButton = (ImageView) findViewById(R.id.speakerButton);
+        speakerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                changeMainFragment(new AddFragment());
             }
         });
 
@@ -126,11 +147,27 @@ public class DashboardActivity extends FragmentActivity {
         }
 
         if (!lastWindow){
-            changeMainFragment(new DashboardFragment(), true);
+            changeMainFragment(new ThermometerFragment(), true);
             return;
         }
 
         super.onBackPressed();
+    }
+
+    public void showSpeaker() {
+        if (speakerButton != null) speakerButton.setVisibility(View.VISIBLE);
+    }
+
+    public void hideSpeaker() {
+        if (speakerButton != null) speakerButton.setVisibility(View.GONE);
+    }
+
+    public void fullActionBar() {
+        if (actionbarTwitter != null) actionbarTwitter.setVisibility(View.VISIBLE);
+    }
+
+    public void compressActionBar() {
+        if (actionbarTwitter != null) actionbarTwitter.setVisibility(View.GONE);
     }
 
     private void changeMainFragment(Fragment fragment){

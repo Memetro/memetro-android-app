@@ -34,7 +34,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:hint="@string/description_caps"
+            android:hint="@string/description"
             android:inputType="textMultiLine"
             />
         <Button

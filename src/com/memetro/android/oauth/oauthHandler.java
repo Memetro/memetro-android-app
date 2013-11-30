@@ -15,6 +15,8 @@
  */
 package com.memetro.android.oauth;
 
+import org.json.JSONArray;
+
 public class oauthHandler {
 
     public void onStart() {
@@ -22,6 +24,10 @@ public class oauthHandler {
     }
 
     public void onSuccess() {
+
+    }
+
+    public void onSuccess(JSONArray data) {
 
     }
 
