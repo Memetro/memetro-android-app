@@ -29,9 +29,6 @@ public class Line extends Model {
     @Column(name = "lineId")
     public Long lineId;
 
-    @Column(name = "cityId")
-    public Long cityId;
-
     @Column(name = "Number")
     public int number;
 
@@ -49,7 +46,6 @@ public class Line extends Model {
     public Line(
             int transport_id,
             int number,
-            Long cityId,
             Long lineId,
             String name,
             String created
@@ -57,7 +53,6 @@ public class Line extends Model {
         super();
         this.transport_id = transport_id;
         this.number = number;
-        this.cityId = cityId;
         this.lineId = lineId;
         this.name = name;
         this.created = created;

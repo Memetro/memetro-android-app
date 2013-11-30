@@ -90,8 +90,25 @@ public class dataUtils {
         return new Select().from(Station.class).where("lineId = ?", lineId).execute();
     }
 
-    public static List<Line> getLines(Long cityId) {
-        return new Select().from(Line.class).where("cityId = ?", cityId).execute();
+    public static List<Line> getLines(Long cityId, Long transportId) {
+        List<CitiesTransport> citiesTransports = new Select().
+                from(CitiesTransport.class).
+                where("CityId = ?", cityId).
+                where("TransportId = ?", transportId).
+                execute();
+        if (citiesTransports.size() == 0) return new ArrayList<Line>();
+        if (citiesTransports.size() == 1) {
+            return new Select().from(Line.class).where("TransportId = ?", citiesTransports.get(0).transportId).execute();
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < citiesTransports.size() - 1; i++) {
+            sb.append(citiesTransports.get(i).transportId);
+            sb.append(",");
+        }
+        sb.append(citiesTransports.get(citiesTransports.size() - 1).transportId);
+
+        return new Select().from(Line.class).where("TransportId IN ("+sb.toString()+")").execute();
     }
 
     public static List<City> getCities(Long countryId) {

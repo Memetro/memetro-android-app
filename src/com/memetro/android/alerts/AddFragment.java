@@ -36,6 +36,7 @@ import com.memetro.android.dataManager.dataUtils;
 import com.memetro.android.models.City;
 import com.memetro.android.models.Line;
 import com.memetro.android.models.Station;
+import com.memetro.android.models.Transport;
 import com.memetro.android.oauth.oauthHandler;
 import com.memetro.android.settings.UserPreferences;
 
@@ -97,7 +98,21 @@ public class AddFragment extends Fragment {
 
                 LayoutUtils.setDefaultSpinner(mActivity, spinnerTransport, dataUtils.getTransport(city.cityId));
 
-                LayoutUtils.setDefaultSpinner(mActivity, spinnerLine, dataUtils.getLines(city.cityId));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        spinnerTransport.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Transport transport = (Transport) adapterView.getAdapter().getItem(i);
+                Log.d("Transport", transport.name);
+
+                LayoutUtils.setDefaultSpinner(mActivity, spinnerLine, dataUtils.getLines(getCitySelected(), getTransportSelected()));
             }
 
             @Override
@@ -111,7 +126,7 @@ public class AddFragment extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 Line line = (Line) adapterView.getAdapter().getItem(i);
                 Log.d("LINEA", line.name);
-                LayoutUtils.setDefaultSpinner(mActivity, spinnerStation, dataUtils.getStations(line.cityId));
+                LayoutUtils.setDefaultSpinner(mActivity, spinnerStation, dataUtils.getStations(getCitySelected()));
             }
 
             @Override
@@ -165,5 +180,10 @@ public class AddFragment extends Fragment {
     private Long getCitySelected() {
         City city = (City) spinnerCity.getSelectedItem();
         return city.cityId;
+    }
+
+    private Long getTransportSelected() {
+        Transport transport = (Transport) spinnerTransport.getSelectedItem();
+        return transport.transportId;
     }
 }
