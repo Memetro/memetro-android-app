@@ -21,17 +21,27 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.memetro.android.DashboardActivity;
 import com.memetro.android.R;
+import com.memetro.android.alerts.listView.HandlerListViewAlerts;
+import com.memetro.android.dataManager.dataUtils;
+import com.memetro.android.oauth.oauthHandler;
+
+import org.json.JSONArray;
 
 public class HashtagFragment extends Fragment {
 
     private DashboardActivity mActivity;
+    private AlertUtils alertUtils = new AlertUtils();
+    private PullToRefreshListView alertListView;
 
     @Override
-    public void onCreate(Bundle bundleSavedInstance) {
-        super.onCreate(bundleSavedInstance);
+    public void onCreate(Bundle savedInstance) {
+        super.onCreate(savedInstance);
         this.mActivity = (DashboardActivity) getActivity();
         mActivity.fullActionBar();
     }
@@ -44,9 +54,49 @@ public class HashtagFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
+        View inflated = inflater.inflate(R.layout.fragment_thermometer, container, false);
 
-        View inflated = inflater.inflate(R.layout.fragment_dashboard, container, false);
+        alertListView = (PullToRefreshListView) inflated.findViewById(R.id.alertListView);
+
+        alertListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
+            @Override
+            public void onRefresh(PullToRefreshBase<ListView> refreshView) {
+                getAlerts();
+            }
+        });
+
+        getAlerts();
+        setList();
 
         return inflated;
+    }
+
+    private void setList() {
+        HandlerListViewAlerts adapter = new HandlerListViewAlerts(mActivity, dataUtils.getAlerts());
+        alertListView.setAdapter(adapter);
+    }
+
+    private void getAlerts() {
+        alertUtils.getAlerts(mActivity, new oauthHandler() {
+            @Override
+            public void onStart() {
+
+            }
+
+            @Override
+            public void onSuccess(JSONArray alertsData) {
+                try{
+                    dataUtils.saveAlerts(alertsData);
+                    setList();
+                }catch(Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFinish() {
+                alertListView.onRefreshComplete();
+            }
+        });
     }
 }

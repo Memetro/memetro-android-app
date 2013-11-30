@@ -16,20 +16,17 @@
 
 package com.memetro.android.alerts;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.memetro.android.DashboardActivity;
 import com.memetro.android.R;
-import com.memetro.android.common.Utils;
 import com.memetro.android.oauth.oauthHandler;
 
 import org.json.JSONArray;

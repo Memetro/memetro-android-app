@@ -27,6 +27,7 @@ import com.activeandroid.query.Select;
 import com.memetro.android.R;
 import com.memetro.android.common.AppContext;
 import com.memetro.android.common.MemetroDialog;
+import com.memetro.android.models.Alert;
 import com.memetro.android.models.City;
 import com.memetro.android.models.Country;
 import com.memetro.android.models.Line;
@@ -40,6 +41,7 @@ import com.memetro.android.oauth.oauthHandler;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -73,6 +75,36 @@ public class dataUtils {
 
     public static List<City> getCities(Long countryId) {
         return new Select().from(City.class).where("CountryId = ?", countryId).execute();
+    }
+
+    public static List<Alert> getAlerts() {
+        return new Select().from(Alert.class).execute();
+    }
+
+    public static void saveAlerts(JSONArray alerts) throws JSONException {
+        ActiveAndroid.beginTransaction();
+
+        try {
+            new Delete().from(Alert.class).execute();
+
+            JSONObject currentAlert;
+            for (int i = 0; i < alerts.length(); i++) {
+                currentAlert = alerts.getJSONObject(i);
+                Alert alert = new Alert();
+                //alert.alertId = currentAlert.getLong("id");
+                alert.description = currentAlert.getString("alert");
+                alert.date = currentAlert.getString("date");
+                alert.save();
+            }
+
+            ActiveAndroid.setTransactionSuccessful();
+
+        }finally {
+
+            ActiveAndroid.endTransaction();
+
+        }
+
     }
 
     public void syncWSData(Context context, oauthHandler handler) {
