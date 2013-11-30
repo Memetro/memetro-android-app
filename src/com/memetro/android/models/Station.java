@@ -28,6 +28,12 @@ public class Station extends Model {
     @Column(name = "Longitude")
     public float longitude;
 
+    @Column(name = "stationId")
+    public Long stationId;
+
+    @Column(name = "lineId")
+    public Long lineId;
+
     @Column(name = "Name")
     public String name;
 
@@ -42,6 +48,8 @@ public class Station extends Model {
     public Station(
             float latitude,
             float longitude,
+            Long lineId,
+            Long stationId,
             String name,
             String created
     ){
@@ -49,6 +57,8 @@ public class Station extends Model {
         this.latitude = latitude;
         this.longitude = longitude;
         this.name = name;
+        this.stationId = stationId;
+        this.lineId = lineId;
         this.created = created;
     }
 }

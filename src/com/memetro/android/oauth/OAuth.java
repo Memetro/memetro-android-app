@@ -16,6 +16,9 @@
 
 package com.memetro.android.oauth;
 
+import android.content.Context;
+
+import com.memetro.android.R;
 import com.memetro.android.common.AppContext;
 
 import org.apache.http.HttpResponse;
@@ -38,9 +41,14 @@ import java.util.List;
 
 public class OAuth {
 
+    private Context context;
     private String oauthServer = AppContext.OAUTHSERVER;
     private String clientId = AppContext.OAUTHCLIENTID;
     private String clientSecret = AppContext.OAUTHCLIENTSECRET;
+
+    public OAuth(Context context) {
+        this.context = context;
+    }
 
     public JSONObject login (String username, String password){
 
@@ -85,13 +93,13 @@ public class OAuth {
                 returnJ.put("success", false);
                 switch (statusCode){
                     case 404:
-                        returnJ.put("message", "Action not found. Try again in a few minutes.");
+                        returnJ.put("message", context.getString(R.string.action_not_found));
                         return returnJ;
                     case 500:
-                        returnJ.put("message", "Server error. Try again in a few minutes.");
+                        returnJ.put("message", context.getString(R.string.server_error));
                         return returnJ;
                     default:
-                        returnJ.put("message", "Internal error. Try again in a few minutes.");
+                        returnJ.put("message", context.getString(R.string.internal_error));
                         return returnJ;
                 }
             }

@@ -24,7 +24,9 @@ import com.activeandroid.ActiveAndroid;
 import com.activeandroid.Model;
 import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
+import com.memetro.android.R;
 import com.memetro.android.common.AppContext;
+import com.memetro.android.common.MemetroDialog;
 import com.memetro.android.models.City;
 import com.memetro.android.models.Country;
 import com.memetro.android.models.Line;
@@ -61,7 +63,15 @@ public class dataUtils {
         return new Select().from(Transport.class).execute();
     }
 
-    public static List<City> getCities(String countryId) {
+    public static List<Station> getStations(Long lineId) {
+        return new Select().from(Station.class).where("lineId = ?", lineId).execute();
+    }
+
+    public static List<Line> getLines(Long cityId) {
+        return new Select().from(Line.class).where("cityId = ?", cityId).execute();
+    }
+
+    public static List<City> getCities(Long countryId) {
         return new Select().from(City.class).where("CountryId = ?", countryId).execute();
     }
 
@@ -73,12 +83,16 @@ public class dataUtils {
         new AsyncLogin(context, username, password, handler).execute();
     }
 
+    public void createAlert(Context context, Long stationId, Long lineId, Long cityId, oauthHandler handler) {
+        new AsyncCreateAlert(context, handler, stationId, lineId, cityId).execute();
+    }
+
     private class AsyncLogin extends AsyncTask<String, Integer, JSONObject>{
 
         private Context context;
         private oauthHandler handler;
         private String username, password;
-        private OAuth OAuth = new OAuth();
+        private OAuth OAuth = new OAuth(context);
         private Utils Utils = new Utils();
 
         public AsyncLogin(Context context, String username, String password, oauthHandler handler) {
@@ -132,7 +146,7 @@ public class dataUtils {
 
         @Override
         protected Boolean doInBackground(String... params){
-            OAuth OAuth = new OAuth();
+            OAuth OAuth = new OAuth(context);
             Utils Utils = new Utils();
 
             List<NameValuePair> postParams = new ArrayList<NameValuePair>(1);
@@ -169,7 +183,7 @@ public class dataUtils {
                         currentData = countries.getJSONObject(i);
                         Country country = new Country();
                         country.name =  currentData.getString("name");
-                        country.countryId = currentData.getString("id");
+                        country.countryId = currentData.getLong("id");
                         country.save();
                     }
 
@@ -181,8 +195,8 @@ public class dataUtils {
                         currentData = cities.getJSONObject(i);
                         City city = new City();
                         city.name =  currentData.getString("name");
-                        city.cityId = currentData.getString("id");
-                        city.country_id = currentData.getInt("country_id");
+                        city.cityId = currentData.getLong("id");
+                        city.country_id = currentData.getLong("country_id");
                         city.save();
                     }
 
@@ -193,7 +207,9 @@ public class dataUtils {
                         currentData = lines.getJSONObject(i);
                         Line line = new Line();
                         line.name =  currentData.getString("name");
+                        line.cityId = currentData.getLong("city_id");
                         line.number = currentData.getInt("number");
+                        line.lineId = currentData.getLong("id");
                         line.transport_id = currentData.getInt("transport_id");
                         line.save();
                     }
@@ -217,7 +233,9 @@ public class dataUtils {
                         Station station = new Station();
                         station.name =  currentData.getString("name");
                         station.longitude = currentData.getLong("longitude");
-                        station.latitude = currentData.getInt("latitude");
+                        station.stationId = currentData.getLong("id");
+                        station.latitude = currentData.getLong("latitude");
+                        station.lineId = currentData.getLong("line_id");
                         station.save();
                     }
 
@@ -241,6 +259,69 @@ public class dataUtils {
             if (result) {
                 handler.onSuccess();
             }else {
+                handler.onFailure();
+            }
+
+            handler.onFinish();
+
+        }
+    }
+
+
+    private class AsyncCreateAlert extends AsyncTask<String, Integer, JSONObject> {
+
+        private Context context;
+        private oauthHandler handler;
+        private Long stationId, lineId, cityId;
+
+        public AsyncCreateAlert(Context context, oauthHandler handler, Long stationId, Long lineId, Long cityId) {
+            this.context = context;
+            this.handler = handler;
+            this.stationId = stationId;
+            this.lineId = lineId;
+            this.cityId = cityId;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            handler.onStart();
+        }
+
+        @Override
+        protected JSONObject doInBackground(String... params){
+            OAuth OAuth = new OAuth(context);
+            Utils Utils = new Utils();
+
+            List<NameValuePair> postParams = new ArrayList<NameValuePair>(4);
+            postParams.add(new BasicNameValuePair("access_token", Utils.getToken(context)));
+            postParams.add(new BasicNameValuePair("station_id", String.valueOf(stationId)));
+            postParams.add(new BasicNameValuePair("line_id", String.valueOf(lineId)));
+            postParams.add(new BasicNameValuePair("city_id", String.valueOf(cityId)));
+
+            return OAuth.call("alerts", "add", postParams);
+
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject result) {
+            if (AppContext.DEBUG) Log.d("Create Alert", result.toString());
+
+            Boolean success = false;
+            String message = "";
+
+            try {
+                success = result.getBoolean("success");
+                message = result.getString("message");
+            } catch(Exception e) {
+                e.printStackTrace();
+                message = context.getString(R.string.json_error);
+                success = false;
+            }
+
+            if (success) {
+                handler.onSuccess();
+            }else {
+                MemetroDialog.showDialog(context, null, message);
                 handler.onFailure();
             }
 

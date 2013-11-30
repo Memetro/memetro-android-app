@@ -21,21 +21,21 @@ import android.content.SharedPreferences;
 public class UserPreferences {
 
     public static final String DEFAULT_CITY = "default_city";
-    public static final String DEFAULT_CITY_NAME = "1"; // BCN
+    public static final long DEFAULT_CITY_ID = 1; // BCN
 
-    public static String getUserCity(Context context) {
-        String userCity = getUserPreferences(context).getString(DEFAULT_CITY, "");
-        if (userCity.equals("")) {
-            setUserCity(context, DEFAULT_CITY_NAME);
-            userCity = DEFAULT_CITY_NAME;
+    public static Long getUserCity(Context context) {
+        long userCity = getUserPreferences(context).getLong(DEFAULT_CITY, -1);
+        if (userCity == -1) {
+            setUserCity(context, DEFAULT_CITY_ID);
+            userCity = DEFAULT_CITY_ID;
         }
         return userCity;
     }
 
-    public static void setUserCity(Context context, String cityId){
+    public static void setUserCity(Context context, Long cityId){
         final SharedPreferences prefs = getUserPreferences(context);
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putString(DEFAULT_CITY, cityId);
+        editor.putLong(DEFAULT_CITY, cityId);
         editor.commit();
     }
 

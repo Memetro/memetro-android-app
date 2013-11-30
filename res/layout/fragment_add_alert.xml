@@ -42,6 +42,7 @@
             android:layout_width="match_parent"
             style="@style/button_black"
             android:text="@string/create"
+            android:id="@+id/addAlertButton"
             android:layout_margin="10dp"/>
     </LinearLayout>
 </ScrollView>

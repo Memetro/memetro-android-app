@@ -12,6 +12,12 @@
     <string name="error">Error</string>
     <string name="create">Crear</string>
 
+    <!-- Errors -->
+    <string name="action_not_found">Acción no encontrada. Intentalo de nuevo en unos minutos.</string>
+    <string name="server_error">Error en el servidor. Intentalo de nuevo en unos minutos.</string>
+    <string name="internal_error">Error interno. Intentalo de nuevo en unos minutos.</string>
+    <string name="json_error">Error leyendo datos. Intentalo de nuevo en unos minutos.</string>
+
     <!-- LOGIN -->
     <string name="login">Entrar</string>
     <string name="register">Registrarse</string>
@@ -41,6 +47,7 @@
 
     <!-- Alerts -->
     <string name="description_caps">DESCRIPCIÓN</string>
+    <string name="alert_created">Alerta creada!</string>
 
     <!-- Setting -->
     <string name="user_city">TU CIUDAD</string>

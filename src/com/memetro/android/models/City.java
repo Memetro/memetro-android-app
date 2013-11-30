@@ -23,13 +23,13 @@ import com.activeandroid.annotation.Table;
 @Table(name = "Cities")
 public class City extends Model {
     @Column(name = "CountryId")
-    public int country_id;
+    public Long country_id;
 
     @Column(name = "Name")
     public String name;
 
     @Column(name = "CityId")
-    public String cityId;
+    public Long cityId;
 
 
     public City(){
@@ -37,9 +37,9 @@ public class City extends Model {
     }
 
     public City(
-            int country_id,
+            Long country_id,
             String name,
-            String cityId
+            Long cityId
     ){
         super();
         this.country_id = country_id;

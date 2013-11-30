@@ -69,15 +69,15 @@ public class SettingsFragment extends Fragment {
         spinnerCity = (Spinner) inflated.findViewById(R.id.spinnerCity);
 
         // TODO No harcodear el id
-        List<City> cities = dataUtils.getCities("1");
+        List<City> cities = dataUtils.getCities((long) 1);
 
-        String defaultUserCity = UserPreferences.getUserCity(mActivity);
+        Long defaultUserCity = UserPreferences.getUserCity(mActivity);
 
         LayoutUtils.setDefaultSpinner(mActivity, spinnerCity, cities);
 
         for (int i = 0; cities.size() > i; i++) {
             City city = cities.get(i);
-            if (city.cityId.equals(defaultUserCity)) {
+            if (city.cityId == defaultUserCity) {
                 spinnerCity.setSelection(i);
             }
         }

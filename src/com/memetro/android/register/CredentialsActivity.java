@@ -51,7 +51,7 @@ public class CredentialsActivity extends Activity {
 
     private Context context;
     private MemetroProgress pdialog;
-    private OAuth OAuth = new OAuth();
+    private OAuth OAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +59,7 @@ public class CredentialsActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_register_credentials);
         context = getApplicationContext();
+        OAuth = new OAuth(context);
 
         pdialog = new MemetroProgress(this);
 

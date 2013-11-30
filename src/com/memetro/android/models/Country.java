@@ -26,7 +26,7 @@ public class Country extends Model {
     public String name;
 
     @Column(name = "CountryId")
-    public String countryId;
+    public Long countryId;
 
 
     public Country(){
@@ -35,7 +35,7 @@ public class Country extends Model {
 
     public Country(
             String name,
-            String countryId
+            Long countryId
     ){
         super();
         this.name = name;
