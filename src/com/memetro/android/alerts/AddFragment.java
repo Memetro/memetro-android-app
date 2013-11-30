@@ -94,6 +94,9 @@ public class AddFragment extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 City city = (City) adapterView.getAdapter().getItem(i);
                 Log.d("CIUDAD", city.name);
+
+                LayoutUtils.setDefaultSpinner(mActivity, spinnerTransport, dataUtils.getTransport(city.cityId));
+
                 LayoutUtils.setDefaultSpinner(mActivity, spinnerLine, dataUtils.getLines(city.cityId));
             }
 

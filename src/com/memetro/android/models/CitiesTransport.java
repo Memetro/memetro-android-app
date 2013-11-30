@@ -13,42 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.memetro.android.models;
 
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 
-@Table(name = "Transports")
-public class Transport extends Model {
+@Table(name = "CitiesTransports")
+public class CitiesTransport extends Model {
 
     @Column(name = "TransportId")
     public Long transportId;
 
-    @Column(name = "Name")
-    public String name;
-
-    @Column(name = "Icon")
-    public int icon;
+    @Column(name = "CityId")
+    public Long cityId;
 
 
-    public Transport(){
+    public CitiesTransport(){
         super();
     }
 
-    public Transport(
+    public CitiesTransport(
             Long transportId,
-            String name,
-            int icon
+            Long cityId
     ){
         super();
         this.transportId = transportId;
-        this.name = name;
-        this.icon = icon;
+        this.cityId = cityId;
     }
 
-    public String toString() {
-        return this.name;
-    }
 }

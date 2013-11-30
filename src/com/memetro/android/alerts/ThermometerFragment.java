@@ -41,7 +41,6 @@ public class ThermometerFragment extends Fragment {
     public void onCreate(Bundle savedInstance) {
         super.onCreate(savedInstance);
         this.mActivity = (DashboardActivity) getActivity();
-        mActivity.fullActionBar();
     }
 
     @Override
@@ -52,6 +51,7 @@ public class ThermometerFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
+        mActivity.fullActionBar();
         View inflated = inflater.inflate(R.layout.fragment_thermometer, container, false);
 
         alertListView = (PullToRefreshListView) inflated.findViewById(R.id.alertListView);
