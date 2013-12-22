@@ -254,7 +254,6 @@ public class dataUtils {
                     user.name = userData.getString("name");
                     user.email = userData.getString("email");
                     user.twittername = userData.getString("twittername");
-                    user.avatar = userData.getString("avatar");
                     user.aboutme = userData.getString("aboutme");
                     user.save();
 
@@ -291,7 +290,6 @@ public class dataUtils {
                         Line line = new Line();
                         line.name =  currentData.getString("name");
                         //line.cityId = currentData.getLong("city_id");
-                        line.number = currentData.getInt("number");
                         line.lineId = currentData.getLong("id");
                         line.transport_id = currentData.getInt("transport_id");
                         line.save();
@@ -305,7 +303,7 @@ public class dataUtils {
                         Transport transport = new Transport();
                         transport.transportId = currentData.getLong("id");
                         transport.name =  currentData.getString("name");
-                        transport.icon = currentData.getInt("icon");
+                        transport.icon = currentData.getString("icon");
                         transport.save();
                     }
 

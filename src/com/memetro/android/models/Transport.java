@@ -30,7 +30,7 @@ public class Transport extends Model {
     public String name;
 
     @Column(name = "Icon")
-    public int icon;
+    public String icon;
 
 
     public Transport(){
@@ -40,7 +40,7 @@ public class Transport extends Model {
     public Transport(
             Long transportId,
             String name,
-            int icon
+            String icon
     ){
         super();
         this.transportId = transportId;
