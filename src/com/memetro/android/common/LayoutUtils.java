@@ -19,6 +19,8 @@ import android.content.Context;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import com.memetro.android.R;
+
 import java.util.List;
 
 public class LayoutUtils {
@@ -30,5 +32,14 @@ public class LayoutUtils {
 
         spinner.setAdapter(adapter);
     }
+
+    public static void setDefaultSpinnerGrey(Context context, Spinner spinner, List items) {
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, R.layout.spinner_grey, items);
+
+        adapter.setDropDownViewResource(R.layout.spinner_item_grey);
+
+        spinner.setAdapter(adapter);
+    }
+
 
 }

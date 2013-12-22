@@ -26,12 +26,16 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import com.memetro.android.MainActivity;
 import com.memetro.android.R;
 import com.memetro.android.common.AppContext;
+import com.memetro.android.common.LayoutUtils;
 import com.memetro.android.common.MemetroDialog;
 import com.memetro.android.common.MemetroProgress;
+import com.memetro.android.dataManager.dataUtils;
+import com.memetro.android.models.City;
 import com.memetro.android.oauth.OAuth;
 
 import org.apache.http.NameValuePair;
@@ -48,6 +52,7 @@ public class CredentialsActivity extends Activity {
     private Button register;
     private EditText usernameEt, passwordEt, repeatPasswordEt;
     private String username, password, repeatPassword, name, twitter, mail, about;
+    private Spinner spinnerCity;
 
     private Context context;
     private MemetroProgress pdialog;
@@ -67,6 +72,12 @@ public class CredentialsActivity extends Activity {
         usernameEt = (EditText) findViewById(R.id.username);
         passwordEt = (EditText) findViewById(R.id.password);
         repeatPasswordEt = (EditText) findViewById(R.id.repeat_password);
+        spinnerCity = (Spinner) findViewById(R.id.spinnerCity);
+
+        // TODO No harcodear el id
+        List<City> cities = dataUtils.getCities((long) 3);
+        LayoutUtils.setDefaultSpinnerGrey(context, spinnerCity, cities);
+
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -87,6 +98,11 @@ public class CredentialsActivity extends Activity {
         });
     }
 
+    private Long getCitySelected() {
+        City city = (City) spinnerCity.getSelectedItem();
+        return city.cityId;
+    }
+
     private class AsyncRegister extends AsyncTask<String, Integer, JSONObject>{
 
         Boolean success = false;
@@ -102,6 +118,7 @@ public class CredentialsActivity extends Activity {
             registerParams.add(new BasicNameValuePair("username", username));
             registerParams.add(new BasicNameValuePair("password", password));
             registerParams.add(new BasicNameValuePair("password2", repeatPassword));
+            registerParams.add(new BasicNameValuePair("city_id", String.valueOf(getCitySelected())));
             registerParams.add(new BasicNameValuePair("name", name));
             registerParams.add(new BasicNameValuePair("email", mail));
             registerParams.add(new BasicNameValuePair("twittername", twitter));

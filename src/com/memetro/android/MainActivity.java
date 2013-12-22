@@ -49,6 +49,8 @@ public class MainActivity extends Activity {
 
         pdialog = new MemetroProgress(this);
 
+        getStaticData();
+
         register = (Button) findViewById(R.id.register);
         login = (Button) findViewById(R.id.login);
         usernameEt = (EditText) findViewById(R.id.username);
@@ -70,6 +72,28 @@ public class MainActivity extends Activity {
         });
     }
 
+    private void getStaticData() {
+        if (!dataUtils.getCities().isEmpty() && !dataUtils.getCountries().isEmpty()) {
+            return;
+        }
+        dataUtils.syncStaticWSData(context, new oauthHandler() {
+            @Override
+            public void onStart() {
+                pdialog.show();
+            }
+
+            @Override
+            public void onFailure() {
+                if (pdialog.isShowing()) pdialog.dismiss();
+                MemetroDialog.showDialog(MainActivity.this, null, getString(R.string.sync_error));
+            }
+
+            @Override
+            public void onFinish() {
+                if (pdialog.isShowing()) pdialog.dismiss();
+            }
+        });
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

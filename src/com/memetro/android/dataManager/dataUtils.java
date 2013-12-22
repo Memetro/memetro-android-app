@@ -115,6 +115,14 @@ public class dataUtils {
         return new Select().from(City.class).where("CountryId = ?", countryId).execute();
     }
 
+    public static List<City> getCities() {
+        return new Select().from(City.class).execute();
+    }
+
+    public static List<Country> getCountries() {
+        return new Select().from(Country.class).execute();
+    }
+
     public static List<Alert> getAlerts() {
         return new Select().from(Alert.class).execute();
     }
@@ -147,6 +155,10 @@ public class dataUtils {
 
     public void syncWSData(Context context, oauthHandler handler) {
         new AsyncSync(context, handler).execute();
+    }
+
+    public void syncStaticWSData(Context context, oauthHandler handler) {
+        new AsyncStaticSync(context, handler).execute();
     }
 
     public void login(Context context, String username, String password, oauthHandler handler) {
@@ -320,6 +332,93 @@ public class dataUtils {
                         citiesTransport.transportId =  currentData.getLong("transport_id");
                         citiesTransport.cityId = currentData.getLong("city_id");
                         citiesTransport.save();
+                    }
+
+                    ActiveAndroid.setTransactionSuccessful();
+                }
+                finally {
+                    ActiveAndroid.endTransaction();
+                }
+                return true;
+            }catch(Exception e){
+                if (AppContext.DEBUG) Log.d("Sync", "Sync failed. Cause: "+ e.toString());
+                e.printStackTrace();
+                return false;
+            }
+
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+
+            if (result) {
+                handler.onSuccess();
+            }else {
+                handler.onFailure();
+            }
+
+            handler.onFinish();
+
+        }
+    }
+
+    private class AsyncStaticSync extends AsyncTask<String, Integer, Boolean> {
+
+        private Context context;
+        private oauthHandler handler;
+
+        public AsyncStaticSync(Context context, oauthHandler handler) {
+            this.context = context;
+            this.handler = handler;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            handler.onStart();
+        }
+
+        @Override
+        protected Boolean doInBackground(String... params){
+            OAuth OAuth = new OAuth(context);
+            Utils Utils = new Utils();
+
+            List<NameValuePair> postParams = new ArrayList<NameValuePair>(1);
+            postParams.add(new BasicNameValuePair("client_id", AppContext.OAUTHCLIENTID));
+            postParams.add(new BasicNameValuePair("client_secret", AppContext.OAUTHCLIENTSECRET));
+            JSONObject result = OAuth.call("StaticData", "", postParams);
+
+            if (AppContext.DEBUG) Log.d("SyncStaticData", result.toString());
+
+            try{
+                //Save sync data
+                JSONObject data = result.getJSONObject("data");
+
+                JSONObject currentData;
+                ActiveAndroid.beginTransaction();
+                try {
+                    //Save countries
+                    new Delete().from(Country.class).execute();
+                    JSONArray countries = data.getJSONObject("country").getJSONArray("data");
+
+                    for (int i = 0; i < countries.length(); i++) {
+                        currentData = countries.getJSONObject(i);
+                        Country country = new Country();
+                        country.name =  currentData.getString("name");
+                        country.countryId = currentData.getLong("id");
+                        country.save();
+                    }
+
+                    //Save cities
+                    new Delete().from(City.class).execute();
+                    JSONArray cities = data.getJSONObject("city").getJSONArray("data");
+
+                    for (int i = 0; i < cities.length(); i++) {
+                        currentData = cities.getJSONObject(i);
+                        City city = new City();
+                        city.name =  currentData.getString("name");
+                        city.cityId = currentData.getLong("id");
+                        city.country_id = currentData.getLong("country_id");
+                        city.save();
                     }
 
                     ActiveAndroid.setTransactionSuccessful();
