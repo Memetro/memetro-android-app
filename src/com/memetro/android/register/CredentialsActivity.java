@@ -27,6 +27,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.memetro.android.MainActivity;
 import com.memetro.android.R;
@@ -142,8 +143,7 @@ public class CredentialsActivity extends Activity {
             }
 
             if (success) {
-                MemetroDialog.showDialog(CredentialsActivity.this, null, getString(R.string.register_ok));
-
+                Toast.makeText(context, getString(R.string.register_ok), Toast.LENGTH_SHORT);
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
                 finish();
