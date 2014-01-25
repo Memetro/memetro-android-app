@@ -22,6 +22,8 @@ import android.util.Log;
 import com.memetro.android.R;
 import com.memetro.android.common.Config;
 import com.memetro.android.common.MemetroDialog;
+import com.memetro.android.dataManager.dataUtils;
+import com.memetro.android.models.User;
 import com.memetro.android.oauth.OAuth;
 import com.memetro.android.oauth.Utils;
 import com.memetro.android.oauth.oauthHandler;
@@ -45,10 +47,12 @@ public class AlertUtils {
 
         private Context context;
         private oauthHandler handler;
+        private User userData;
 
         public AsyncGetAlerts(Context context, oauthHandler handler) {
             this.context = context;
             this.handler = handler;
+            this.userData = dataUtils.getUserData();
         }
 
         @Override
@@ -63,7 +67,7 @@ public class AlertUtils {
 
             List<NameValuePair> postParams = new ArrayList<NameValuePair>(4);
             postParams.add(new BasicNameValuePair("access_token", Utils.getToken(context)));
-            postParams.add(new BasicNameValuePair("city_id", String.valueOf(UserPreferences.getUserCity(context))));
+            postParams.add(new BasicNameValuePair("city_id", String.valueOf(userData.cityId)));
             return OAuth.call("alerts", "listAlert", postParams);
 
         }

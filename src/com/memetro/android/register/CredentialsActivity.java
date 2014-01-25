@@ -25,6 +25,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -38,6 +40,7 @@ import com.memetro.android.common.MemetroProgress;
 import com.memetro.android.dataManager.dataUtils;
 import com.memetro.android.models.City;
 import com.memetro.android.oauth.OAuth;
+import com.memetro.android.settings.UserPreferences;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -54,6 +57,7 @@ public class CredentialsActivity extends Activity {
     private EditText usernameEt, passwordEt, repeatPasswordEt;
     private String username, password, repeatPassword, name, twitter, mail, about;
     private Spinner spinnerCity;
+    private CheckBox checkNotifications;
 
     private Context context;
     private MemetroProgress pdialog;
@@ -74,6 +78,9 @@ public class CredentialsActivity extends Activity {
         passwordEt = (EditText) findViewById(R.id.password);
         repeatPasswordEt = (EditText) findViewById(R.id.repeat_password);
         spinnerCity = (Spinner) findViewById(R.id.spinnerCity);
+        checkNotifications = (CheckBox) findViewById(R.id.check_notifications);
+
+        checkNotifications.setEnabled(!UserPreferences.areNotificationsEnabled(context));
 
         // TODO No harcodear el id
         List<City> cities = dataUtils.getCities((long) 3);
@@ -95,6 +102,14 @@ public class CredentialsActivity extends Activity {
                 password = passwordEt.getText().toString();
                 repeatPassword = repeatPasswordEt.getText().toString();
                 new AsyncRegister().execute();
+            }
+        });
+
+        checkNotifications.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                UserPreferences.toggleNotifications(context, !isChecked);
+                Toast.makeText(context, R.string.saved_notifications, Toast.LENGTH_SHORT).show();
             }
         });
     }
