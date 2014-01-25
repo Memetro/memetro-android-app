@@ -57,7 +57,6 @@ public class CredentialsActivity extends Activity {
     private EditText usernameEt, passwordEt, repeatPasswordEt;
     private String username, password, repeatPassword, name, twitter, mail, about;
     private Spinner spinnerCity;
-    private CheckBox checkNotifications;
 
     private Context context;
     private MemetroProgress pdialog;
@@ -78,9 +77,6 @@ public class CredentialsActivity extends Activity {
         passwordEt = (EditText) findViewById(R.id.password);
         repeatPasswordEt = (EditText) findViewById(R.id.repeat_password);
         spinnerCity = (Spinner) findViewById(R.id.spinnerCity);
-        checkNotifications = (CheckBox) findViewById(R.id.check_notifications);
-
-        checkNotifications.setEnabled(!UserPreferences.areNotificationsEnabled(context));
 
         // TODO No harcodear el id
         List<City> cities = dataUtils.getCities((long) 3);
@@ -105,13 +101,6 @@ public class CredentialsActivity extends Activity {
             }
         });
 
-        checkNotifications.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                UserPreferences.toggleNotifications(context, !isChecked);
-                Toast.makeText(context, R.string.saved_notifications, Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     private Long getCitySelected() {

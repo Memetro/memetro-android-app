@@ -25,8 +25,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.memetro.android.MainActivity;
 import com.memetro.android.R;
@@ -42,6 +44,7 @@ public class SettingsFragment extends Fragment {
     private Activity mActivity;
     private Spinner spinnerCity;
     private EditText twitter, name, mail;
+    private CheckBox checkNotifications;
 
     @Override
     public void onCreate(Bundle bundleSavedInstance) {
@@ -58,6 +61,9 @@ public class SettingsFragment extends Fragment {
         twitter = (EditText) inflated.findViewById(R.id.twitter_username);
         name = (EditText) inflated.findViewById(R.id.name);
         mail = (EditText) inflated.findViewById(R.id.email);
+        checkNotifications = (CheckBox) inflated.findViewById(R.id.check_notifications);
+
+        checkNotifications.setEnabled(!UserPreferences.areNotificationsEnabled(mActivity));
 
         // TODO No harcodear el id
         List<City> cities = dataUtils.getCities((long) 3);
@@ -72,6 +78,14 @@ public class SettingsFragment extends Fragment {
         if (!userData.email.equals("")) {
             mail.setText(userData.email);
         }
+
+        checkNotifications.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                UserPreferences.toggleNotifications(mActivity, !checkNotifications.isChecked());
+                Toast.makeText(mActivity, R.string.saved_notifications, Toast.LENGTH_SHORT).show();
+            }
+        });
 
         Long defaultUserCity = userData.cityId;
 
