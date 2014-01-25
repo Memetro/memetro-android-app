@@ -26,6 +26,9 @@
     <string name="login_loading">Entrando…</string>
     <string name="sync_error">Error sincronizando datos</string>
 
+    <!-- COMUNES -->
+    <string name="save">Guardar</string>
+
     <!-- REGISTER -->
     <string name="name">Nombre</string>
     <string name="username">Usuario</string>

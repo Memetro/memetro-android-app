@@ -25,6 +25,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.memetro.android.MainActivity;
@@ -40,6 +41,7 @@ public class SettingsFragment extends Fragment {
 
     private Activity mActivity;
     private Spinner spinnerCity;
+    private EditText twitter, name, mail;
 
     @Override
     public void onCreate(Bundle bundleSavedInstance) {
@@ -52,27 +54,24 @@ public class SettingsFragment extends Fragment {
 
         View inflated = inflater.inflate(R.layout.fragment_settings, container, false);
 
-        // Logout
-        View logout = inflated.findViewById(R.id.logoutButton);
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                dataUtils.clearData(mActivity);
-
-                Intent intent = new Intent().setClass(mActivity, MainActivity.class);
-                startActivity(intent);
-                mActivity.finish();
-
-            }
-        });
-
         spinnerCity = (Spinner) inflated.findViewById(R.id.spinnerCity);
+        twitter = (EditText) inflated.findViewById(R.id.twitter_username);
+        name = (EditText) inflated.findViewById(R.id.name);
+        mail = (EditText) inflated.findViewById(R.id.email);
 
         // TODO No harcodear el id
-        List<City> cities = dataUtils.getCities((long) 1);
+        List<City> cities = dataUtils.getCities((long) 3);
 
         User userData = dataUtils.getUserData();
+        if (!userData.twittername.equals("")) {
+            twitter.setText("@"+userData.twittername);
+        }
+        if (!userData.name.equals("")) {
+            name.setText(userData.name);
+        }
+        if (!userData.email.equals("")) {
+            mail.setText(userData.email);
+        }
 
         Long defaultUserCity = userData.cityId;
 
@@ -85,19 +84,6 @@ public class SettingsFragment extends Fragment {
             }
         }
 
-
-        spinnerCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                City city = (City) adapterView.getAdapter().getItem(i);
-                UserPreferences.setUserCity(mActivity, city.cityId);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
         return inflated;
     }
 }

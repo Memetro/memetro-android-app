@@ -1,72 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fillViewport="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
-
-    <ImageView
-        android:layout_height="wrap_content"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_gravity="center"
-        android:padding="12dp"
-        android:src="@drawable/settings_title" />
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_gravity="center"
+            android:padding="12dp"
+            android:src="@drawable/settings_title" />
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/configuration_menu"
-        android:textSize="24sp"
-        android:paddingBottom="18dp"
-        android:layout_gravity="center"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/configuration_menu"
+            android:textSize="24sp"
+            android:paddingBottom="18dp"
+            android:layout_gravity="center"/>
+
+        <!-- Nombre -->
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:hint="@string/name"
+            android:id="@+id/name"
+            android:padding="14dp"
+            style="@style/edit_text"
+            android:singleLine="true" />
 
 
-    <!-- Elegir ciudad -->
-    <!-- <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/user_city"
-        android:layout_marginLeft="10dp"
-        android:layout_gravity="center"
-        android:textSize="16sp" /> -->
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:id="@+id/spinnerCity" />
+        <!-- Email -->
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:hint="@string/mail"
+            android:id="@+id/email"
+            android:singleLine="true"
+            android:padding="14dp"
+            style="@style/edit_text"
+            android:inputType="textEmailAddress" />
+
+        <!-- Twitter -->
+        <EditText
+            android:enabled="false"
+            android:hint="@string/user_twitter"
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:padding="14dp"
+            style="@style/edit_text"
+            android:id="@+id/twitter_username" />
 
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="12dp"
-        android:background="#ddd" />
+        <!-- Pais -->
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:id="@+id/spinnerCountry" />
 
-    <!-- Silenciar notificaciones -->
-    <CheckBox
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:text="@string/silent_notifications"
-        android:id="@+id/check_notifications" />
+        <!-- Elegir ciudad -->
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:id="@+id/spinnerCity" />
+
+        <!-- Silenciar notificaciones -->
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="@string/silent_notifications"
+            android:id="@+id/check_notifications" />
 
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="12dp"
-        android:background="#ddd" />
-    <!-- Desconectar -->
-    <TextView
-        android:id="@+id/logoutButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/logout_menu"
-        android:layout_marginLeft="10dp"
-        android:layout_gravity="center"
-        android:textSize="16sp" />
-
-</LinearLayout>
+        <!-- Guardar -->
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/button_red"
+            android:text="@string/save"
+            android:layout_marginBottom="45dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp" />
+    </LinearLayout>
+</ScrollView>

@@ -252,6 +252,7 @@ public class dataUtils {
                     user.email = userData.getString("email");
                     user.twittername = userData.getString("twittername");
                     user.aboutme = userData.getString("aboutme");
+                    user.cityId = userData.getLong("city_id");
                     user.save();
 
                     //Save countries

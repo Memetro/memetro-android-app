@@ -20,22 +20,17 @@ import android.content.SharedPreferences;
 
 public class UserPreferences {
 
-    public static final String DEFAULT_CITY = "default_city";
-    public static final long DEFAULT_CITY_ID = 1; // BCN
+    public static final String NOTIFICATIONS_KEY = "default_city";
+    public static final boolean DEFAULT_NOTIFICATION = true;
 
-    public static Long getUserCity(Context context) {
-        long userCity = getUserPreferences(context).getLong(DEFAULT_CITY, -1);
-        if (userCity == -1) {
-            setUserCity(context, DEFAULT_CITY_ID);
-            userCity = DEFAULT_CITY_ID;
-        }
-        return userCity;
+    public static boolean areNotificationsEnabled(Context context) {
+        return getUserPreferences(context).getBoolean(NOTIFICATIONS_KEY, DEFAULT_NOTIFICATION);
     }
 
-    public static void setUserCity(Context context, Long cityId){
+    public static void toggleNotifications(Context context, boolean enabled){
         final SharedPreferences prefs = getUserPreferences(context);
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putLong(DEFAULT_CITY, cityId);
+        editor.putBoolean(NOTIFICATIONS_KEY, enabled);
         editor.commit();
     }
 
