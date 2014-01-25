@@ -29,6 +29,7 @@ import android.widget.EditText;
 import com.memetro.android.common.MemetroDialog;
 import com.memetro.android.common.MemetroProgress;
 import com.memetro.android.dataManager.dataUtils;
+import com.memetro.android.models.User;
 import com.memetro.android.oauth.oauthHandler;
 import com.memetro.android.register.PersonalActivity;
 
@@ -55,6 +56,12 @@ public class MainActivity extends Activity {
         login = (Button) findViewById(R.id.login);
         usernameEt = (EditText) findViewById(R.id.username);
         passwordEt = (EditText) findViewById(R.id.password);
+
+        User userData = dataUtils.getUserData();
+        if (userData != null) {
+            usernameEt.setText(userData.username);
+            passwordEt.requestFocus();
+        }
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override

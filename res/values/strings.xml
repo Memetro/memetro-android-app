@@ -59,5 +59,6 @@
 
     <!-- Setting -->
     <string name="user_city">TU CIUDAD</string>
+    <string name="silent_notifications">Silenciar notificaciones</string>
 
 </resources>

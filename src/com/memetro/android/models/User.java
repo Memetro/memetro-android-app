@@ -43,6 +43,9 @@ public class User extends Model {
     @Column(name = "AboutMe")
     public String aboutme;
 
+    @Column(name = "CityId")
+    public Long cityId;
+
     public User(){
         super();
     }
@@ -54,7 +57,8 @@ public class User extends Model {
             String twittername,
             String birthdate,
             String avatar,
-            String aboutme
+            String aboutme,
+            Long cityId
     ){
         super();
         this.username = username;
@@ -64,5 +68,6 @@ public class User extends Model {
         this.birthdate = birthdate;
         this.avatar = avatar;
         this.aboutme = aboutme;
+        this.cityId = cityId;
     }
 }

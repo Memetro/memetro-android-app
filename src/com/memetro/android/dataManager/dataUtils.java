@@ -56,9 +56,7 @@ public class dataUtils {
     }
 
     public static User getUserData() {
-        List<User> rs = new Select().from(User.class).execute();
-        if (rs.isEmpty()) return null;
-        return rs.get(0);
+        return new Select().from(User.class).executeSingle();
     }
 
     public static List<Transport> getTransport() {

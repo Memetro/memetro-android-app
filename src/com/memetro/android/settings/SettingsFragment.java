@@ -32,6 +32,7 @@ import com.memetro.android.R;
 import com.memetro.android.common.LayoutUtils;
 import com.memetro.android.dataManager.dataUtils;
 import com.memetro.android.models.City;
+import com.memetro.android.models.User;
 
 import java.util.List;
 
@@ -71,7 +72,9 @@ public class SettingsFragment extends Fragment {
         // TODO No harcodear el id
         List<City> cities = dataUtils.getCities((long) 1);
 
-        Long defaultUserCity = UserPreferences.getUserCity(mActivity);
+        User userData = dataUtils.getUserData();
+
+        Long defaultUserCity = userData.cityId;
 
         LayoutUtils.setDefaultSpinner(mActivity, spinnerCity, cities);
 
