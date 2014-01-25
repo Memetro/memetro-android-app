@@ -21,6 +21,7 @@ import com.activeandroid.annotation.Table;
 
 @Table(name = "Alerts")
 public class Alert extends Model {
+
     @Column(name = "AlertId")
     public Long alertId;
 
@@ -33,6 +34,27 @@ public class Alert extends Model {
     @Column(name = "Username")
     public String username;
 
+    @Column(name = "Latitude")
+    public Long latitude;
+
+    @Column(name = "Longitude")
+    public Long longitude;
+
+    @Column(name = "Line")
+    public String line;
+
+    @Column(name = "City")
+    public String city;
+
+    @Column(name = "Station")
+    public String station;
+
+    @Column(name = "Transport")
+    public String transport;
+
+    @Column(name = "Icon")
+    public String icon;
+
     public Alert(){
         super();
     }
@@ -41,13 +63,27 @@ public class Alert extends Model {
             Long alertId,
             String description,
             String date,
-            String username
+            String username,
+            Long latitude,
+            Long longitude,
+            String line,
+            String city,
+            String station,
+            String transport,
+            String icon
     ){
         super();
         this.alertId = alertId;
         this.description = description;
         this.date = date;
         this.username = username;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.line = line;
+        this.city = city;
+        this.station = station;
+        this.transport = transport;
+        this.icon = icon;
     }
 
     public String toString() {
