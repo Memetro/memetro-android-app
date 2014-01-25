@@ -20,7 +20,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.memetro.android.R;
-import com.memetro.android.common.AppContext;
+import com.memetro.android.common.Config;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -44,9 +44,9 @@ import java.util.List;
 public class OAuth {
 
     private Context context;
-    private String oauthServer = AppContext.OAUTHSERVER;
-    private String clientId = AppContext.OAUTHCLIENTID;
-    private String clientSecret = AppContext.OAUTHCLIENTSECRET;
+    private String oauthServer = Config.OAUTHSERVER;
+    private String clientId = Config.OAUTHCLIENTID;
+    private String clientSecret = Config.OAUTHCLIENTSECRET;
 
     public OAuth(Context context) {
         this.context = context;

@@ -16,7 +16,7 @@
 
 package com.memetro.android.common;
 
-public final class AppContext {
+public final class Config {
     // Application
     public final static boolean DEBUG = true;
 

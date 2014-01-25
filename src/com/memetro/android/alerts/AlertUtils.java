@@ -20,7 +20,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.memetro.android.R;
-import com.memetro.android.common.AppContext;
+import com.memetro.android.common.Config;
 import com.memetro.android.common.MemetroDialog;
 import com.memetro.android.oauth.OAuth;
 import com.memetro.android.oauth.Utils;
@@ -70,7 +70,7 @@ public class AlertUtils {
 
         @Override
         protected void onPostExecute(JSONObject result) {
-            if (AppContext.DEBUG) Log.d("Get Alerts", result.toString());
+            if (Config.DEBUG) Log.d("Get Alerts", result.toString());
 
             Boolean success = false;
             String message = "";

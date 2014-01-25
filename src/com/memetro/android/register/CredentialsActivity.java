@@ -31,7 +31,7 @@ import android.widget.Toast;
 
 import com.memetro.android.MainActivity;
 import com.memetro.android.R;
-import com.memetro.android.common.AppContext;
+import com.memetro.android.common.Config;
 import com.memetro.android.common.LayoutUtils;
 import com.memetro.android.common.MemetroDialog;
 import com.memetro.android.common.MemetroProgress;
@@ -125,8 +125,8 @@ public class CredentialsActivity extends Activity {
             registerParams.add(new BasicNameValuePair("twittername", twitter));
             registerParams.add(new BasicNameValuePair("aboutme", about));
 
-            registerParams.add(new BasicNameValuePair("client_id", AppContext.OAUTHCLIENTID));
-            registerParams.add(new BasicNameValuePair("client_secret", AppContext.OAUTHCLIENTSECRET));
+            registerParams.add(new BasicNameValuePair("client_id", Config.OAUTHCLIENTID));
+            registerParams.add(new BasicNameValuePair("client_secret", Config.OAUTHCLIENTSECRET));
 
             return OAuth.call("Register", "index", registerParams);
         }
@@ -134,7 +134,7 @@ public class CredentialsActivity extends Activity {
         protected void onPostExecute(JSONObject result) {
             if (pdialog.isShowing()) pdialog.dismiss();
 
-            if (AppContext.DEBUG) Log.d(TAG, result.toString());
+            if (Config.DEBUG) Log.d(TAG, result.toString());
 
             try {
                 success = result.getBoolean("success");
@@ -143,7 +143,7 @@ public class CredentialsActivity extends Activity {
             }
 
             if (success) {
-                Toast.makeText(context, getString(R.string.register_ok), Toast.LENGTH_SHORT);
+                Toast.makeText(context, getString(R.string.register_ok), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
                 finish();

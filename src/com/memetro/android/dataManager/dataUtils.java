@@ -21,11 +21,10 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.activeandroid.ActiveAndroid;
-import com.activeandroid.Model;
 import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
 import com.memetro.android.R;
-import com.memetro.android.common.AppContext;
+import com.memetro.android.common.Config;
 import com.memetro.android.common.MemetroDialog;
 import com.memetro.android.models.Alert;
 import com.memetro.android.models.CitiesTransport;
@@ -52,7 +51,7 @@ public class dataUtils {
 
     public static void clearData(Context context){
         context.getSharedPreferences(Utils.SHARED_NAME, 0).edit().clear().commit();
-        // context.deleteDatabase(AppContext.DB_NAME);
+        // context.deleteDatabase(Config.DB_NAME);
         // ActiveAndroid.clearCache();
     }
 
@@ -195,7 +194,7 @@ public class dataUtils {
         }
 
         protected void onPostExecute(JSONObject result) {
-            if (AppContext.DEBUG) Log.d("Login", result.toString());
+            if (Config.DEBUG) Log.d("Login", result.toString());
 
             // Trying to get the token...
             try{
@@ -205,7 +204,7 @@ public class dataUtils {
                 handler.onSuccess();
             }catch(Exception e){
                 // Token failed
-                if (AppContext.DEBUG) Log.d("Login", "Login failed. Cause: "+ e.toString());
+                if (Config.DEBUG) Log.d("Login", "Login failed. Cause: "+ e.toString());
                 handler.onFailure();
             }
             handler.onFinish();
@@ -236,7 +235,7 @@ public class dataUtils {
             postParams.add(new BasicNameValuePair("access_token", Utils.getToken(context)));
             JSONObject result = OAuth.call("synchronize", "", postParams);
 
-            if (AppContext.DEBUG) Log.d("Sync", result.toString());
+            if (Config.DEBUG) Log.d("Sync", result.toString());
 
             try{
                 //Save sync data
@@ -339,7 +338,7 @@ public class dataUtils {
                 }
                 return true;
             }catch(Exception e){
-                if (AppContext.DEBUG) Log.d("Sync", "Sync failed. Cause: "+ e.toString());
+                if (Config.DEBUG) Log.d("Sync", "Sync failed. Cause: "+ e.toString());
                 e.printStackTrace();
                 return false;
             }
@@ -381,11 +380,11 @@ public class dataUtils {
             Utils Utils = new Utils();
 
             List<NameValuePair> postParams = new ArrayList<NameValuePair>(1);
-            postParams.add(new BasicNameValuePair("client_id", AppContext.OAUTHCLIENTID));
-            postParams.add(new BasicNameValuePair("client_secret", AppContext.OAUTHCLIENTSECRET));
+            postParams.add(new BasicNameValuePair("client_id", Config.OAUTHCLIENTID));
+            postParams.add(new BasicNameValuePair("client_secret", Config.OAUTHCLIENTSECRET));
             JSONObject result = OAuth.call("StaticData", "", postParams);
 
-            if (AppContext.DEBUG) Log.d("SyncStaticData", result.toString());
+            if (Config.DEBUG) Log.d("SyncStaticData", result.toString());
 
             try{
                 //Save sync data
@@ -426,7 +425,7 @@ public class dataUtils {
                 }
                 return true;
             }catch(Exception e){
-                if (AppContext.DEBUG) Log.d("Sync", "Sync failed. Cause: "+ e.toString());
+                if (Config.DEBUG) Log.d("Sync", "Sync failed. Cause: "+ e.toString());
                 e.printStackTrace();
                 return false;
             }
@@ -484,7 +483,7 @@ public class dataUtils {
 
         @Override
         protected void onPostExecute(JSONObject result) {
-            if (AppContext.DEBUG) Log.d("Create Alert", result.toString());
+            if (Config.DEBUG) Log.d("Create Alert", result.toString());
 
             Boolean success = false;
             String message = "";
