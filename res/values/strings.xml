@@ -11,6 +11,7 @@
     <string name="alert">Alerta</string>
     <string name="error">Error</string>
     <string name="create">Crear</string>
+    <string name="ago">Hace</string>
 
     <!-- Errors -->
     <string name="action_not_found">Acción no encontrada. Intentalo de nuevo en unos minutos.</string>

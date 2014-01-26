@@ -46,10 +46,6 @@ public class AlertUtils {
         new AsyncGetAlerts(context, handler).execute();
     }
 
-    public static List<Alert> getAlertsFromCache() {
-        return new Select().from(Alert.class).execute();
-    }
-
     private class AsyncGetAlerts extends AsyncTask<String, Integer, JSONObject> {
 
         private Context context;
@@ -76,6 +72,75 @@ public class AlertUtils {
             postParams.add(new BasicNameValuePair("access_token", Utils.getToken(context)));
             postParams.add(new BasicNameValuePair("city_id", String.valueOf(userData.cityId)));
             return OAuth.call("alerts", "listAlert", postParams);
+
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject result) {
+            if (Config.DEBUG) Log.d("Get Alerts", result.toString());
+
+            Boolean success = false;
+            String message = "";
+            JSONArray data = new JSONArray();
+
+            try {
+                success = result.getBoolean("success");
+                message = result.getString("message");
+                data = result.getJSONArray("data");
+            } catch(Exception e) {
+                e.printStackTrace();
+                message = context.getString(R.string.json_error);
+                success = false;
+            }
+
+            if (success) {
+                try {
+                    dataUtils.saveAlerts(data);
+                } catch (JSONException e) {
+                    Log.e("Alerts", "Error saving alerts...");
+                    e.printStackTrace();
+                }
+                handler.onSuccess(data);
+            }else {
+                MemetroDialog.showDialog(context, null, message);
+                handler.onFailure();
+            }
+
+            handler.onFinish();
+
+        }
+    }
+
+    public void getTweets(Context context, oauthHandler handler) {
+        new AsyncGetTweets(context, handler).execute();
+    }
+
+    private class AsyncGetTweets extends AsyncTask<String, Integer, JSONObject> {
+
+        private Context context;
+        private oauthHandler handler;
+        private User userData;
+
+        public AsyncGetTweets(Context context, oauthHandler handler) {
+            this.context = context;
+            this.handler = handler;
+            this.userData = dataUtils.getUserData();
+        }
+
+        @Override
+        protected void onPreExecute() {
+            handler.onStart();
+        }
+
+        @Override
+        protected JSONObject doInBackground(String... params){
+            OAuth OAuth = new OAuth(context);
+            Utils Utils = new Utils();
+
+            List<NameValuePair> postParams = new ArrayList<NameValuePair>(4);
+            postParams.add(new BasicNameValuePair("access_token", Utils.getToken(context)));
+            postParams.add(new BasicNameValuePair("city_id", String.valueOf(userData.cityId)));
+            return OAuth.call("alerts", "getTweets", postParams);
 
         }
 

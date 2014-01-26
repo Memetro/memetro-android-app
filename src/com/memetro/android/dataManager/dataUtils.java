@@ -33,6 +33,7 @@ import com.memetro.android.models.Country;
 import com.memetro.android.models.Line;
 import com.memetro.android.models.Station;
 import com.memetro.android.models.Transport;
+import com.memetro.android.models.Tweet;
 import com.memetro.android.models.User;
 import com.memetro.android.oauth.OAuth;
 import com.memetro.android.oauth.Utils;
@@ -118,6 +119,38 @@ public class dataUtils {
 
     public static List<Country> getCountries() {
         return new Select().from(Country.class).execute();
+    }
+
+    public static List<Tweet> getTweets() {
+        return new Select().from(Tweet.class).execute();
+    }
+
+    public static void saveTweets(JSONArray alerts) throws JSONException {
+        ActiveAndroid.beginTransaction();
+
+        try {
+            new Delete().from(Tweet.class).execute();
+
+            JSONObject currentAlert;
+            for (int i = 0; i < alerts.length(); i++) {
+                currentAlert = alerts.getJSONObject(i);
+
+                Tweet tweet = new Tweet();
+                tweet.text = currentAlert.getString("text");
+                tweet.user = currentAlert.getString("user");
+                tweet.rtUser = currentAlert.getString("rt_user");
+                tweet.date = currentAlert.getString("date");
+                tweet.save();
+            }
+
+            ActiveAndroid.setTransactionSuccessful();
+
+        }finally {
+
+            ActiveAndroid.endTransaction();
+
+        }
+
     }
 
     public static List<Alert> getAlerts() {

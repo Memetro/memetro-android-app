@@ -15,7 +15,6 @@
  */
 package com.memetro.android.alerts;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -27,7 +26,8 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.memetro.android.DashboardActivity;
 import com.memetro.android.R;
-import com.memetro.android.alerts.listView.HandlerListViewAlerts;
+import com.memetro.android.alerts.listView.hashtag.HandlerListViewHashtag;
+import com.memetro.android.alerts.listView.thermometer.HandlerListViewAlerts;
 import com.memetro.android.dataManager.dataUtils;
 import com.memetro.android.oauth.oauthHandler;
 
@@ -61,34 +61,34 @@ public class HashtagFragment extends Fragment {
         alertListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
             @Override
             public void onRefresh(PullToRefreshBase<ListView> refreshView) {
-                getAlerts();
+                getTweets();
             }
         });
 
-        getAlerts();
+        getTweets();
         setList();
 
         return inflated;
     }
 
     private void setList() {
-        HandlerListViewAlerts adapter = new HandlerListViewAlerts(mActivity, dataUtils.getAlerts());
+        HandlerListViewHashtag adapter = new HandlerListViewHashtag(mActivity, dataUtils.getTweets());
         alertListView.setAdapter(adapter);
     }
 
-    private void getAlerts() {
-        alertUtils.getAlerts(mActivity, new oauthHandler() {
+    private void getTweets() {
+        alertUtils.getTweets(mActivity, new oauthHandler() {
             @Override
             public void onStart() {
 
             }
 
             @Override
-            public void onSuccess(JSONArray alertsData) {
-                try{
-                    dataUtils.saveAlerts(alertsData);
+            public void onSuccess(JSONArray tweetsData) {
+                try {
+                    dataUtils.saveTweets(tweetsData);
                     setList();
-                }catch(Exception e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
