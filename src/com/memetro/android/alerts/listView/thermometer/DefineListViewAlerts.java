@@ -39,7 +39,7 @@ public class DefineListViewAlerts  extends LinearLayout {
 
         infService = Context.LAYOUT_INFLATER_SERVICE;
         li = (LayoutInflater) getContext().getSystemService(infService);
-        li.inflate(R.layout.item_alert_hastag, this, true);
+        li.inflate(R.layout.item_alert_thermometer, this, true);
 
         description = (TextView) findViewById(R.id.alertText);
         description.setText(alert.description);

@@ -53,6 +53,12 @@ public class HashtagFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onPause();
+        mActivity.fullActionBar();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         View inflated = inflater.inflate(R.layout.fragment_thermometer, container, false);
 
