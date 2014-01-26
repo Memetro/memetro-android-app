@@ -48,6 +48,8 @@ public class OAuth {
     private String clientId = Config.OAUTHCLIENTID;
     private String clientSecret = Config.OAUTHCLIENTSECRET;
 
+    private Boolean refreshAction = false;
+
     public OAuth(Context context) {
         this.context = context;
     }
@@ -99,6 +101,7 @@ public class OAuth {
 
                 switch (statusCode){
                     case 401:
+                        // TODO Desconectar
                         returnJ.put("message", context.getString(R.string.token_denied));
                         return returnJ;
                     case 404:

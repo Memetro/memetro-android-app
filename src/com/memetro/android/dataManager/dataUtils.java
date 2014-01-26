@@ -133,10 +133,19 @@ public class dataUtils {
             JSONObject currentAlert;
             for (int i = 0; i < alerts.length(); i++) {
                 currentAlert = alerts.getJSONObject(i);
+
                 Alert alert = new Alert();
-                //alert.alertId = currentAlert.getLong("id");
+                alert.alertId = currentAlert.getLong("id");
                 alert.description = currentAlert.getString("alert");
                 alert.date = currentAlert.getString("date");
+                alert.username = currentAlert.getString("username");
+                alert.latitude = currentAlert.getLong("latitude");
+                alert.longitude = currentAlert.getLong("longitude");
+                alert.line = currentAlert.getString("line");
+                alert.city = currentAlert.getString("city");
+                alert.station = currentAlert.getString("station");
+                alert.transport = currentAlert.getString("transport");
+                alert.icon = currentAlert.getString("icon");
                 alert.save();
             }
 
@@ -246,12 +255,27 @@ public class dataUtils {
                     //Save user data
                     new Delete().from(User.class).execute();
                     JSONObject userData = data.getJSONObject("user");
+                    Log.d("User", "User data > "+userData );
                     User user = new User();
                     user.username = userData.getString("username");
                     user.name = userData.getString("name");
-                    user.email = userData.getString("email");
-                    user.twittername = userData.getString("twittername");
-                    user.aboutme = userData.getString("aboutme");
+                    String email = "";
+                    if (!userData.isNull("email")) {
+                        email = userData.getString("email");
+                    }
+                    user.email = email;
+
+                    String twitter = "";
+                    if (!userData.isNull("twittername")) {
+                        twitter = userData.getString("twittername");
+                    }
+                    user.twittername = twitter;
+
+                    String aboutme = "";
+                    if (!userData.isNull("aboutme")) {
+                        aboutme = userData.getString("aboutme");
+                    }
+                    user.aboutme = aboutme;
                     user.cityId = userData.getLong("city_id");
                     user.save();
 

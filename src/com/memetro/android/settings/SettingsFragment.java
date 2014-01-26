@@ -62,6 +62,7 @@ public class SettingsFragment extends Fragment {
     private CheckBox checkNotifications;
     private Button saveButton;
     private MemetroProgress pdialog;
+    private User userData;
 
     @Override
     public void onCreate(Bundle bundleSavedInstance) {
@@ -87,7 +88,7 @@ public class SettingsFragment extends Fragment {
         // TODO No harcodear el id
         List<City> cities = dataUtils.getCities((long) 3);
 
-        User userData = dataUtils.getUserData();
+        userData = dataUtils.getUserData();
         if (!userData.twittername.equals("")) {
             twitter.setText("@"+userData.twittername);
         }
@@ -154,6 +155,8 @@ public class SettingsFragment extends Fragment {
             postParams.add(new BasicNameValuePair("name", name));
             postParams.add(new BasicNameValuePair("email", email));
             postParams.add(new BasicNameValuePair("city_id", String.valueOf(cityId)));
+            postParams.add(new BasicNameValuePair("twittername", userData.twittername));
+            postParams.add(new BasicNameValuePair("aboutme", userData.aboutme));
 
             return OAuth.call("users", "edit_user_data", postParams);
 

@@ -19,10 +19,12 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.activeandroid.query.Select;
 import com.memetro.android.R;
 import com.memetro.android.common.Config;
 import com.memetro.android.common.MemetroDialog;
 import com.memetro.android.dataManager.dataUtils;
+import com.memetro.android.models.Alert;
 import com.memetro.android.models.User;
 import com.memetro.android.oauth.OAuth;
 import com.memetro.android.oauth.Utils;
@@ -32,6 +34,7 @@ import com.memetro.android.settings.UserPreferences;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -41,6 +44,10 @@ public class AlertUtils {
 
     public void getAlerts(Context context, oauthHandler handler) {
         new AsyncGetAlerts(context, handler).execute();
+    }
+
+    public static List<Alert> getAlertsFromCache() {
+        return new Select().from(Alert.class).execute();
     }
 
     private class AsyncGetAlerts extends AsyncTask<String, Integer, JSONObject> {
@@ -91,6 +98,12 @@ public class AlertUtils {
             }
 
             if (success) {
+                try {
+                    dataUtils.saveAlerts(data);
+                } catch (JSONException e) {
+                    Log.e("Alerts", "Error saving alerts...");
+                    e.printStackTrace();
+                }
                 handler.onSuccess(data);
             }else {
                 MemetroDialog.showDialog(context, null, message);
