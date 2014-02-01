@@ -71,6 +71,7 @@ public class ThermometerFragment extends Fragment {
             }
         });
 
+        setList();
         getAlerts();
 
         return inflated;

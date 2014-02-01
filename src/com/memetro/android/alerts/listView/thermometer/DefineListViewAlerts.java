@@ -16,6 +16,7 @@
 package com.memetro.android.alerts.listView.thermometer;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -25,10 +26,12 @@ import com.memetro.android.models.Alert;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class DefineListViewAlerts  extends LinearLayout {
 
-    private TextView description, info;
+    private TextView description, hour;
     private String infService;
     private LayoutInflater li;
 
@@ -41,40 +44,50 @@ public class DefineListViewAlerts  extends LinearLayout {
         li = (LayoutInflater) getContext().getSystemService(infService);
         li.inflate(R.layout.item_alert_thermometer, this, true);
 
-        description = (TextView) findViewById(R.id.alertText);
-        description.setText(alert.description);
+        description = (TextView) findViewById(R.id.alert_text);
+        description.setText(alert.station);
 
 
-        String infoMessage = context.getString(R.string.alert)+" "+getDateToShow(context, alert.date);
 
-        info = (TextView) findViewById(R.id.alertInfo);
-        info.setText(infoMessage);
+        hour = (TextView) findViewById(R.id.hour_text);
+        hour.setText(getHourFromDate(alert.date));
+        hour.setBackgroundResource(getBgFromHour(alert.date));
 
     }
 
-    private String getDateToShow(Context context, String str_date) {
-        long time = (System.currentTimeMillis()/ 1000) - dateToTime(str_date);
+    private int getBgFromHour(String str_date) {
+        Calendar calendar = getCalendarFromString(str_date);
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        Calendar currentCalendar = GregorianCalendar.getInstance();
+        int currentHour = currentCalendar.get(Calendar.HOUR_OF_DAY);
 
-        if (time < 0) time = 0;
-
-        String type = context.getString(R.string.seconds);
-
-        if (time > 86400) {
-            type = context.getString(R.string.days);
-            time = time / 86400;
-            return time+" "+type;
-        }else if (time > 3600) {
-            type = context.getString(R.string.hours);
-            time = time / 3600;
-            return time+" "+type;
-        }
-        else if (time > 60) {
-            type = context.getString(R.string.minutes);
-            time = time / 60;
-            return time+" "+type;
+        if ((currentHour - hour) < 2) {
+            return R.drawable.thermometer_red;
         }
 
-        return time+" "+type;
+        if ((currentHour - hour) < 5) {
+            return R.drawable.thermometer_orange;
+        }
+
+        return R.drawable.thermometer_yellow;
+    }
+
+    private String getHourFromDate(String str_date) {
+        Calendar calendar = getCalendarFromString(str_date);
+        return calendar.get(Calendar.HOUR_OF_DAY)+":"+calendar.get(Calendar.MINUTE);
+    }
+
+    private Calendar getCalendarFromString(String str_date) {
+        try {
+            java.text.DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            java.util.Date date = formatter.parse(str_date);
+            Calendar calendar = GregorianCalendar.getInstance();
+            calendar.setTime(date);
+            return calendar;
+        }catch(Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     private long dateToTime(String str_date) {

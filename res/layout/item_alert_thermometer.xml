@@ -27,6 +27,7 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/hour_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"

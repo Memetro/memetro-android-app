@@ -178,7 +178,7 @@ public class dataUtils {
                 alert.city = currentAlert.getString("city");
                 alert.station = currentAlert.getString("station");
                 alert.transport = currentAlert.getString("transport");
-                alert.icon = currentAlert.getString("icon");
+                alert.icon = currentAlert.getString("transport_icon");
                 alert.save();
             }
 
