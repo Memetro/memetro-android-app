@@ -50,7 +50,7 @@ public class ThermometerFragment extends Fragment {
         super.onPause();
         mActivity.compressActionBar();
     }
-    
+
     @Override
     public void onResume() {
         super.onPause();

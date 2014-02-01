@@ -1,38 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:padding="10dp">
+    android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="80dp"
-        android:layout_height="match_parent" >
     <ImageView
-        android:id="@+id/avatar_tweet"
-        android:src="@drawable/ic_launcher"
+        android:id="@+id/alert_icon"
+        android:src="@drawable/icon_metro"
         android:layout_gravity="center"
         android:layout_width="wrap_content"
+        android:padding="8dp"
         android:layout_height="wrap_content" />
-    </LinearLayout>
 
     <LinearLayout
+        android:layout_weight="1"
         android:orientation="vertical"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="match_parent" >
-
         <TextView
-            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_height="match_parent"
             android:layout_width="match_parent"
-            android:id="@+id/alertText"
-            android:text="@string/login_loading"/>
-
-        <TextView
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:textSize="11sp"
+            android:id="@+id/alert_text"
             android:textStyle="bold"
-            android:id="@+id/alertInfo"
-            android:text="@string/login_loading"
-            />
+            android:textSize="20sp"
+            android:text="@string/login_loading"/>
     </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        android:layout_gravity="center"
+        android:paddingLeft="7dp"
+        android:text="00:00"
+        android:background="@drawable/thermometer_red"/>
+
 
 </LinearLayout>
