@@ -39,6 +39,7 @@ public class DefineListViewAlerts  extends LinearLayout {
 
         super(context);
 
+        // TODO Cambiar el icono del transporte
 
         infService = Context.LAYOUT_INFLATER_SERVICE;
         li = (LayoutInflater) getContext().getSystemService(infService);

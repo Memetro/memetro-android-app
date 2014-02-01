@@ -16,11 +16,14 @@
 package com.memetro.android.alerts.listView.hashtag;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.memetro.android.R;
+import com.memetro.android.alerts.listView.hashtag.imageUtils.ImageLoader;
 import com.memetro.android.models.Tweet;
 
 import java.sql.Timestamp;
@@ -29,12 +32,14 @@ import java.text.SimpleDateFormat;
 public class DefineListViewHashtag extends LinearLayout {
 
     private TextView description, info;
+    private ImageView avatarTweet;
     private String infService;
     private LayoutInflater li;
+    public ImageLoader imageLoader;
 
     public DefineListViewHashtag(Context context, Tweet tweet, Long itemId){
-
         super(context);
+        imageLoader=new ImageLoader(context.getApplicationContext());
 
 
         infService = Context.LAYOUT_INFLATER_SERVICE;
@@ -49,6 +54,12 @@ public class DefineListViewHashtag extends LinearLayout {
 
         info = (TextView) findViewById(R.id.alertInfo);
         info.setText(infoMessage);
+
+        avatarTweet = (ImageView) findViewById(R.id.avatar_tweet);
+
+        String avatarUrl = "http://twitter.com/api/users/profile_image?size=bigger&screen_name="+tweet.rtUser;
+        Log.d("Hashtag", "Avatar > "+avatarUrl);
+        imageLoader.DisplayImage(avatarUrl, avatarTweet);
 
     }
 
