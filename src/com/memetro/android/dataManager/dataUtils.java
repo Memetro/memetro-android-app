@@ -172,8 +172,8 @@ public class dataUtils {
                 alert.description = currentAlert.getString("alert");
                 alert.date = currentAlert.getString("date");
                 alert.username = currentAlert.getString("username");
-                alert.latitude = currentAlert.getLong("latitude");
-                alert.longitude = currentAlert.getLong("longitude");
+                alert.latitude = currentAlert.getDouble("latitude");
+                alert.longitude = currentAlert.getDouble("longitude");
                 alert.line = currentAlert.getString("line");
                 alert.city = currentAlert.getString("city");
                 alert.station = currentAlert.getString("station");

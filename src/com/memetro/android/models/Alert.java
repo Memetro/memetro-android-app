@@ -35,10 +35,10 @@ public class Alert extends Model {
     public String username;
 
     @Column(name = "Latitude")
-    public Long latitude;
+    public Double latitude;
 
     @Column(name = "Longitude")
-    public Long longitude;
+    public Double longitude;
 
     @Column(name = "Line")
     public String line;
@@ -64,8 +64,8 @@ public class Alert extends Model {
             String description,
             String date,
             String username,
-            Long latitude,
-            Long longitude,
+            Double latitude,
+            Double longitude,
             String line,
             String city,
             String station,
