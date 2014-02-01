@@ -27,8 +27,9 @@ import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.LocationSource;
@@ -36,6 +37,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.memetro.android.DashboardActivity;
 import com.memetro.android.R;
 
 public class MapFragment extends Fragment {
@@ -46,11 +48,17 @@ public class MapFragment extends Fragment {
     private LocationManager locationManager;
     private LatLng latlng = new LatLng(40.415364,-3.707398);
     private FollowMeLocationSource followMeLocationSource;
+    private DashboardActivity mActivity;
+
+    @Override
+    public void onCreate(Bundle savedInstance) {
+        super.onCreate(savedInstance);
+        this.mActivity = (DashboardActivity) getActivity();
+        mActivity.fullActionBar();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON, WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-
         if (inflaterMap != null) {
             ViewGroup parent = (ViewGroup) inflaterMap.getParent();
             if (parent != null)
@@ -62,7 +70,7 @@ public class MapFragment extends Fragment {
             //
         }
 
-        map = ((SupportMapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
+        map = ((SupportMapFragment) getFragmentManager().findFragmentById(R.id.map_fragment)).getMap();
 
         locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         followMeLocationSource = new FollowMeLocationSource();
@@ -94,6 +102,15 @@ public class MapFragment extends Fragment {
     public void onResume() {
         super.onResume();
         followMeLocationSource.getBestAvailableProvider();
+        mActivity.fullActionBar();
+        mActivity.disableSliderMenu();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mActivity.compressActionBar();
+        mActivity.activateSliderMenu();
     }
 
     public void onLocationChanged(Location location) {

@@ -43,16 +43,6 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/actionbarTws"
-                android:paddingLeft="3dp"
-                android:paddingRight="3dp"
-                android:src="@drawable/actionbar_tw"
-                android:background="@null"
-                android:layout_width="wrap_content"
-                android:visibility="gone"
-                android:layout_height="fill_parent" />
-
-            <ImageView
                 android:id="@+id/actionbarAlerts"
                 android:paddingLeft="3dp"
                 android:paddingRight="5dp"
@@ -60,6 +50,28 @@
                 android:background="@null"
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent" />
+
+            <ImageView
+                android:id="@+id/actionbarTws"
+                android:paddingLeft="3dp"
+                android:paddingRight="5dp"
+                android:src="@drawable/actionbar_tw"
+                android:background="@null"
+                android:layout_width="wrap_content"
+                android:visibility="gone"
+                android:layout_height="fill_parent" />
+
+            <ImageView
+                android:id="@+id/actionbarMap"
+                android:paddingLeft="3dp"
+                android:paddingRight="5dp"
+                android:src="@drawable/actionbar_map"
+                android:background="@null"
+                android:layout_width="wrap_content"
+                android:visibility="gone"
+                android:layout_height="fill_parent" />
+
+
         </LinearLayout>
 
     </RelativeLayout>

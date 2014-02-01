@@ -28,6 +28,7 @@ import android.widget.TextView;
 
 import com.memetro.android.alerts.AddFragment;
 import com.memetro.android.alerts.HashtagFragment;
+import com.memetro.android.alerts.MapFragment;
 import com.memetro.android.alerts.ThermometerFragment;
 import com.memetro.android.common.SlideHolder;
 import com.memetro.android.common.Utils;
@@ -42,7 +43,7 @@ public class DashboardActivity extends FragmentActivity {
     private Boolean lastWindow = true;
 
     private TextView usernameMenu;
-    private ImageView actionbarAlerts, actionbarTwitter;
+    private ImageView actionbarAlerts, actionbarTwitter, actionbarMap;
     private ImageView speakerButton;
 
     @Override
@@ -55,6 +56,7 @@ public class DashboardActivity extends FragmentActivity {
         usernameMenu = (TextView) findViewById(R.id.usernameMenu);
         actionbarAlerts = (ImageView) findViewById(R.id.actionbarAlerts);
         actionbarTwitter = (ImageView) findViewById(R.id.actionbarTws);
+        actionbarMap = (ImageView) findViewById(R.id.actionbarMap);
 
         // Launch default fragment
         changeMainFragment(new ThermometerFragment(), true);
@@ -73,6 +75,13 @@ public class DashboardActivity extends FragmentActivity {
             @Override
             public void onClick(View view) {
                 changeMainFragment(new HashtagFragment());
+            }
+        });
+
+        actionbarMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                changeMainFragment(new MapFragment());
             }
         });
 
@@ -170,12 +179,26 @@ public class DashboardActivity extends FragmentActivity {
         if (speakerButton != null) speakerButton.setVisibility(View.GONE);
     }
 
+    public void disableSliderMenu() {
+        mSlideHolder.setEnabled(false);
+    }
+
+    public void activateSliderMenu() {
+        mSlideHolder.setEnabled(true);
+    }
+
     public void fullActionBar() {
-        if (actionbarTwitter != null) actionbarTwitter.setVisibility(View.VISIBLE);
+        if (actionbarTwitter != null) {
+            actionbarTwitter.setVisibility(View.VISIBLE);
+            actionbarMap.setVisibility(View.VISIBLE);
+        }
     }
 
     public void compressActionBar() {
-        if (actionbarTwitter != null) actionbarTwitter.setVisibility(View.GONE);
+        if (actionbarTwitter != null) {
+            actionbarTwitter.setVisibility(View.GONE);
+            actionbarMap.setVisibility(View.GONE);
+        }
     }
 
     private void changeMainFragment(Fragment fragment){
