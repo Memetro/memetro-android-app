@@ -24,6 +24,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -47,6 +48,7 @@ public class AddFragment extends Fragment {
     private DataUtils dataUtils = new DataUtils();
     private MemetroProgress pdialog;
     private Spinner spinnerCity, spinnerTransport, spinnerLine, spinnerStation;
+    private EditText descriptionText;
     private Button addAlertButton;
 
     @Override
@@ -73,6 +75,7 @@ public class AddFragment extends Fragment {
         spinnerLine = (Spinner) inflated.findViewById(R.id.spinnerLine);
         spinnerStation = (Spinner) inflated.findViewById(R.id.spinnerStation);
         addAlertButton = (Button) inflated.findViewById(R.id.addAlertButton);
+        descriptionText = (EditText) inflated.findViewById(R.id.description_text);
 
         LayoutUtils.setDefaultSpinner(mActivity, spinnerTransport, DataUtils.getTransport());
 
@@ -144,6 +147,7 @@ public class AddFragment extends Fragment {
                         getStationSelected(),
                         getLineSelected(),
                         getCitySelected(),
+                        descriptionText.getText().toString(),
                         new oauthHandler() {
                             @Override
                             public void onStart() {
