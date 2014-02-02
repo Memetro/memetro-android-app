@@ -43,12 +43,13 @@ import com.memetro.android.oauth.OAuth;
 import com.memetro.android.settings.UserPreferences;
 
 import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CredentialsActivity extends Activity {
 
@@ -118,19 +119,19 @@ public class CredentialsActivity extends Activity {
 
         protected JSONObject doInBackground(String... params){
 
-            List<NameValuePair> registerParams = new ArrayList<NameValuePair>(9);
+            Map<String, String> registerParams = new HashMap<String, String>(9);
 
-            registerParams.add(new BasicNameValuePair("username", username));
-            registerParams.add(new BasicNameValuePair("password", password));
-            registerParams.add(new BasicNameValuePair("password2", repeatPassword));
-            registerParams.add(new BasicNameValuePair("city_id", String.valueOf(getCitySelected())));
-            registerParams.add(new BasicNameValuePair("name", name));
-            registerParams.add(new BasicNameValuePair("email", mail));
-            registerParams.add(new BasicNameValuePair("twittername", twitter));
-            registerParams.add(new BasicNameValuePair("aboutme", about));
+            registerParams.put("username", username);
+            registerParams.put("password", password);
+            registerParams.put("password2", repeatPassword);
+            registerParams.put("city_id", String.valueOf(getCitySelected()));
+            registerParams.put("name", name);
+            registerParams.put("email", mail);
+            registerParams.put("twittername", twitter);
+            registerParams.put("aboutme", about);
 
-            registerParams.add(new BasicNameValuePair("client_id", Config.OAUTHCLIENTID));
-            registerParams.add(new BasicNameValuePair("client_secret", Config.OAUTHCLIENTSECRET));
+            registerParams.put("client_id", Config.OAUTHCLIENTID);
+            registerParams.put("client_secret", Config.OAUTHCLIENTSECRET);
 
             return OAuth.call("Register", "index", registerParams);
         }

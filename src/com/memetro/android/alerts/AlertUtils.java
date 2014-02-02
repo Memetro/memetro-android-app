@@ -32,13 +32,14 @@ import com.memetro.android.oauth.oauthHandler;
 import com.memetro.android.settings.UserPreferences;
 
 import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class AlertUtils {
 
@@ -68,9 +69,9 @@ public class AlertUtils {
             OAuth OAuth = new OAuth(context);
             Utils Utils = new Utils();
 
-            List<NameValuePair> postParams = new ArrayList<NameValuePair>(4);
-            postParams.add(new BasicNameValuePair("access_token", Utils.getToken(context)));
-            postParams.add(new BasicNameValuePair("city_id", String.valueOf(userData.cityId)));
+            Map<String, String> postParams = new HashMap<String, String>(4);
+            postParams.put("access_token", Utils.getToken(context));
+            postParams.put("city_id", String.valueOf(userData.cityId));
             return OAuth.call("alerts", "listAlert", postParams);
 
         }
@@ -137,9 +138,9 @@ public class AlertUtils {
             OAuth OAuth = new OAuth(context);
             Utils Utils = new Utils();
 
-            List<NameValuePair> postParams = new ArrayList<NameValuePair>(4);
-            postParams.add(new BasicNameValuePair("access_token", Utils.getToken(context)));
-            postParams.add(new BasicNameValuePair("city_id", String.valueOf(userData.cityId)));
+            Map<String, String> postParams = new HashMap<String, String>(4);
+            postParams.put("access_token", Utils.getToken(context));
+            postParams.put("city_id", String.valueOf(userData.cityId));
             return OAuth.call("alerts", "getTweets", postParams);
 
         }

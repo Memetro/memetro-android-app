@@ -17,8 +17,11 @@
 package com.memetro.android.oauth;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.memetro.android.MainActivity;
 import com.memetro.android.R;
 import com.memetro.android.common.Config;
 
@@ -39,7 +42,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class OAuth {
 
@@ -48,7 +53,8 @@ public class OAuth {
     private String clientId = Config.OAUTHCLIENTID;
     private String clientSecret = Config.OAUTHCLIENTSECRET;
 
-    private Boolean refreshAction = false;
+    private boolean firstAuthCall = true;
+    private int lastHttpStatus = -1;
 
     public OAuth(Context context) {
         this.context = context;
@@ -56,13 +62,13 @@ public class OAuth {
 
     public JSONObject login (String username, String password){
 
-        List<NameValuePair> params = new ArrayList<NameValuePair>(5);
+        Map<String, String> params = new HashMap<String, String>(5);
 
-        params.add(new BasicNameValuePair("username", username));
-        params.add(new BasicNameValuePair("password", password));
-        params.add(new BasicNameValuePair("client_id", clientId));
-        params.add(new BasicNameValuePair("client_secret", clientSecret));
-        params.add(new BasicNameValuePair("grant_type", "password"));
+        params.put("username", username);
+        params.put("password", password);
+        params.put("client_id", clientId);
+        params.put("client_secret", clientSecret);
+        params.put("grant_type", "password");
 
         JSONObject result = call("oauth", "token", params);
 
@@ -78,20 +84,20 @@ public class OAuth {
         return result;
     }
 
-    public JSONObject call(String controller, String action, List<NameValuePair> params) {
+    public JSONObject call(String controller, String action, Map<String, String> params) {
         HttpClient httpclient = new DefaultHttpClient();
         HttpPost httppost = new HttpPost(oauthServer+controller+"/"+action);
 
         try {
             // Add data
-            httppost.setEntity(new UrlEncodedFormEntity(params));
+            httppost.setEntity(new UrlEncodedFormEntity(Map2NameValuePair(params)));
 
             // Execute Post
             HttpResponse response = httpclient.execute(httppost);
 
             // Catch headers
             int statusCode = response.getStatusLine().getStatusCode();
-
+            lastHttpStatus = statusCode;
             if (statusCode != 200){
                 JSONObject returnJ = new JSONObject();
                 returnJ.put("success", false);
@@ -101,8 +107,17 @@ public class OAuth {
 
                 switch (statusCode){
                     case 401:
-                        // TODO Desconectar
-                        returnJ.put("message", context.getString(R.string.token_denied));
+                        if (refreshToken() && firstAuthCall) {
+                            firstAuthCall = false;
+                            Utils utils = new Utils();
+                            params.put("access_token", utils.getToken(context));
+                            return call(controller, action, params);
+                        }
+
+                        returnJ.put("message", context.getString(R.string.session_expired));
+                        Intent intent = new Intent(context, MainActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        context.startActivity(intent);
                         return returnJ;
                     case 404:
                         returnJ.put("message", context.getString(R.string.action_not_found));
@@ -137,4 +152,34 @@ public class OAuth {
         return new JSONObject();
     }
 
+    private boolean refreshToken() {
+        Map<String, String> params = new HashMap<String, String>(4);
+
+        Utils Utils = new Utils();
+        params.put("refresh_token", Utils.getRefreshToken(context));
+        params.put("client_id", clientId);
+        params.put("client_secret", clientSecret);
+        params.put("grant_type", "refresh_token");
+
+        JSONObject result = call("oauth", "token", params);
+
+        if (lastHttpStatus == 200) {
+            try{
+                Utils.setToken(context, result.getString("access_token"), result.getString("refresh_token"));
+                return true;
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+
+    private List<NameValuePair> Map2NameValuePair(Map<String, String> params) {
+        List<NameValuePair> returnParams = new ArrayList<NameValuePair>();
+        if (params == null) return returnParams;
+        for (Map.Entry<String, String> entry : params.entrySet()) {
+            returnParams.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
+        }
+        return returnParams;
+    }
 }

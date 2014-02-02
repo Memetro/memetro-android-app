@@ -48,11 +48,12 @@ import com.memetro.android.oauth.Utils;
 import com.memetro.android.oauth.oauthHandler;
 
 import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SettingsFragment extends Fragment {
 
@@ -150,13 +151,13 @@ public class SettingsFragment extends Fragment {
             OAuth OAuth = new OAuth(context);
             Utils Utils = new Utils();
 
-            List<NameValuePair> postParams = new ArrayList<NameValuePair>(4);
-            postParams.add(new BasicNameValuePair("access_token", Utils.getToken(context)));
-            postParams.add(new BasicNameValuePair("name", name));
-            postParams.add(new BasicNameValuePair("email", email));
-            postParams.add(new BasicNameValuePair("city_id", String.valueOf(cityId)));
-            postParams.add(new BasicNameValuePair("twittername", userData.twittername));
-            postParams.add(new BasicNameValuePair("aboutme", userData.aboutme));
+            Map<String, String> postParams = new HashMap<String, String>(4);
+            postParams.put("access_token", Utils.getToken(context));
+            postParams.put("name", name);
+            postParams.put("email", email);
+            postParams.put("city_id", String.valueOf(cityId));
+            postParams.put("twittername", userData.twittername);
+            postParams.put("aboutme", userData.aboutme);
 
             return OAuth.call("users", "edit_user_data", postParams);
 

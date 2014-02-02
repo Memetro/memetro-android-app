@@ -19,6 +19,7 @@
     <string name="server_error">Error en el servidor. Intentalo de nuevo en unos minutos.</string>
     <string name="internal_error">Error interno. Intentalo de nuevo en unos minutos.</string>
     <string name="json_error">Error leyendo datos. Intentalo de nuevo en unos minutos.</string>
+    <string name="session_expired">La sesión ha caducado.</string>
 
     <!-- LOGIN -->
     <string name="login">Entrar</string>

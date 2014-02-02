@@ -40,13 +40,14 @@ import com.memetro.android.oauth.Utils;
 import com.memetro.android.oauth.oauthHandler;
 
 import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class dataUtils {
 
@@ -271,8 +272,8 @@ public class dataUtils {
             OAuth OAuth = new OAuth(context);
             Utils Utils = new Utils();
 
-            List<NameValuePair> postParams = new ArrayList<NameValuePair>(1);
-            postParams.add(new BasicNameValuePair("access_token", Utils.getToken(context)));
+            Map<String, String> postParams = new HashMap<String, String>(1);
+            postParams.put("access_token", Utils.getToken(context));
             JSONObject result = OAuth.call("synchronize", "", postParams);
 
             if (Config.DEBUG) Log.d("Sync", result.toString());
@@ -435,9 +436,9 @@ public class dataUtils {
             OAuth OAuth = new OAuth(context);
             Utils Utils = new Utils();
 
-            List<NameValuePair> postParams = new ArrayList<NameValuePair>(1);
-            postParams.add(new BasicNameValuePair("client_id", Config.OAUTHCLIENTID));
-            postParams.add(new BasicNameValuePair("client_secret", Config.OAUTHCLIENTSECRET));
+            Map<String, String> postParams = new HashMap<String, String>(1);
+            postParams.put("client_id", Config.OAUTHCLIENTID);
+            postParams.put("client_secret", Config.OAUTHCLIENTSECRET);
             JSONObject result = OAuth.call("StaticData", "", postParams);
 
             if (Config.DEBUG) Log.d("SyncStaticData", result.toString());
@@ -527,11 +528,11 @@ public class dataUtils {
             OAuth OAuth = new OAuth(context);
             Utils Utils = new Utils();
 
-            List<NameValuePair> postParams = new ArrayList<NameValuePair>(4);
-            postParams.add(new BasicNameValuePair("access_token", Utils.getToken(context)));
-            postParams.add(new BasicNameValuePair("station_id", String.valueOf(stationId)));
-            postParams.add(new BasicNameValuePair("line_id", String.valueOf(lineId)));
-            postParams.add(new BasicNameValuePair("city_id", String.valueOf(cityId)));
+            Map<String, String> postParams = new HashMap<String, String>(4);
+            postParams.put("access_token", Utils.getToken(context));
+            postParams.put("station_id", String.valueOf(stationId));
+            postParams.put("line_id", String.valueOf(lineId));
+            postParams.put("city_id", String.valueOf(cityId));
 
             return OAuth.call("alerts", "add", postParams);
 
