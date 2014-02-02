@@ -18,7 +18,6 @@ package com.memetro.android.settings;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -26,15 +25,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
-import com.memetro.android.MainActivity;
 import com.memetro.android.R;
 import com.memetro.android.common.Config;
 import com.memetro.android.common.LayoutUtils;
@@ -45,12 +41,9 @@ import com.memetro.android.models.City;
 import com.memetro.android.models.User;
 import com.memetro.android.oauth.OAuth;
 import com.memetro.android.oauth.Utils;
-import com.memetro.android.oauth.oauthHandler;
 
-import org.apache.http.NameValuePair;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
