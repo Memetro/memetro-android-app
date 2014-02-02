@@ -49,7 +49,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class dataUtils {
+public class DataUtils {
 
     public static void clearData(Context context){
         context.getSharedPreferences(Utils.SHARED_NAME, 0).edit().clear().commit();

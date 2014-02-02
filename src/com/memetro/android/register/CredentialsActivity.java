@@ -25,8 +25,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -37,16 +35,13 @@ import com.memetro.android.common.Config;
 import com.memetro.android.common.LayoutUtils;
 import com.memetro.android.common.MemetroDialog;
 import com.memetro.android.common.MemetroProgress;
-import com.memetro.android.dataManager.dataUtils;
+import com.memetro.android.dataManager.DataUtils;
 import com.memetro.android.models.City;
 import com.memetro.android.oauth.OAuth;
-import com.memetro.android.settings.UserPreferences;
 
-import org.apache.http.NameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -80,7 +75,7 @@ public class CredentialsActivity extends Activity {
         spinnerCity = (Spinner) findViewById(R.id.spinnerCity);
 
         // TODO No harcodear el id
-        List<City> cities = dataUtils.getCities((long) 3);
+        List<City> cities = DataUtils.getCities((long) 3);
         LayoutUtils.setDefaultSpinnerGrey(context, spinnerCity, cities);
 
 

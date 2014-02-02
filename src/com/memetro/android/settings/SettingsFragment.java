@@ -36,7 +36,7 @@ import com.memetro.android.common.Config;
 import com.memetro.android.common.LayoutUtils;
 import com.memetro.android.common.MemetroDialog;
 import com.memetro.android.common.MemetroProgress;
-import com.memetro.android.dataManager.dataUtils;
+import com.memetro.android.dataManager.DataUtils;
 import com.memetro.android.models.City;
 import com.memetro.android.models.User;
 import com.memetro.android.oauth.OAuth;
@@ -80,9 +80,9 @@ public class SettingsFragment extends Fragment {
         checkNotifications.setChecked(!UserPreferences.areNotificationsEnabled(mActivity));
 
         // TODO No harcodear el id
-        List<City> cities = dataUtils.getCities((long) 3);
+        List<City> cities = DataUtils.getCities((long) 3);
 
-        userData = dataUtils.getUserData();
+        userData = DataUtils.getUserData();
         if (!userData.twittername.equals("")) {
             twitter.setText("@"+userData.twittername);
         }

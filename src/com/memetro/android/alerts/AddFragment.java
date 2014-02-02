@@ -16,7 +16,6 @@
 
 package com.memetro.android.alerts;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -32,21 +31,20 @@ import com.memetro.android.DashboardActivity;
 import com.memetro.android.R;
 import com.memetro.android.common.LayoutUtils;
 import com.memetro.android.common.MemetroProgress;
-import com.memetro.android.dataManager.dataUtils;
+import com.memetro.android.dataManager.DataUtils;
 import com.memetro.android.models.City;
 import com.memetro.android.models.Line;
 import com.memetro.android.models.Station;
 import com.memetro.android.models.Transport;
 import com.memetro.android.models.User;
 import com.memetro.android.oauth.oauthHandler;
-import com.memetro.android.settings.UserPreferences;
 
 import java.util.List;
 
 public class AddFragment extends Fragment {
 
     private DashboardActivity mActivity;
-    private dataUtils dataUtils = new dataUtils();
+    private DataUtils dataUtils = new DataUtils();
     private MemetroProgress pdialog;
     private Spinner spinnerCity, spinnerTransport, spinnerLine, spinnerStation;
     private Button addAlertButton;
@@ -76,12 +74,12 @@ public class AddFragment extends Fragment {
         spinnerStation = (Spinner) inflated.findViewById(R.id.spinnerStation);
         addAlertButton = (Button) inflated.findViewById(R.id.addAlertButton);
 
-        LayoutUtils.setDefaultSpinner(mActivity, spinnerTransport, dataUtils.getTransport());
+        LayoutUtils.setDefaultSpinner(mActivity, spinnerTransport, DataUtils.getTransport());
 
         // TODO No harcodear el id
-        List<City> cities = dataUtils.getCities((long) 3);
+        List<City> cities = DataUtils.getCities((long) 3);
 
-        User userData = dataUtils.getUserData();
+        User userData = DataUtils.getUserData();
 
         Long defaultUserCity = userData.cityId;
 
@@ -99,7 +97,7 @@ public class AddFragment extends Fragment {
                 City city = (City) adapterView.getAdapter().getItem(i);
                 Log.d("CIUDAD", city.name);
 
-                LayoutUtils.setDefaultSpinner(mActivity, spinnerTransport, dataUtils.getTransport(city.cityId));
+                LayoutUtils.setDefaultSpinner(mActivity, spinnerTransport, DataUtils.getTransport(city.cityId));
 
             }
 
@@ -115,7 +113,7 @@ public class AddFragment extends Fragment {
                 Transport transport = (Transport) adapterView.getAdapter().getItem(i);
                 Log.d("Transport", transport.name);
 
-                LayoutUtils.setDefaultSpinner(mActivity, spinnerLine, dataUtils.getLines(getCitySelected(), getTransportSelected()));
+                LayoutUtils.setDefaultSpinner(mActivity, spinnerLine, DataUtils.getLines(getCitySelected(), getTransportSelected()));
             }
 
             @Override
@@ -129,7 +127,7 @@ public class AddFragment extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 Line line = (Line) adapterView.getAdapter().getItem(i);
                 Log.d("LINEA", line.name);
-                LayoutUtils.setDefaultSpinner(mActivity, spinnerStation, dataUtils.getStations(getCitySelected()));
+                LayoutUtils.setDefaultSpinner(mActivity, spinnerStation, DataUtils.getStations(getCitySelected()));
             }
 
             @Override

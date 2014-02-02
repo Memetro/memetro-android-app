@@ -28,7 +28,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.memetro.android.DashboardActivity;
 import com.memetro.android.R;
 import com.memetro.android.alerts.listView.thermometer.HandlerListViewAlerts;
-import com.memetro.android.dataManager.dataUtils;
+import com.memetro.android.dataManager.DataUtils;
 import com.memetro.android.oauth.oauthHandler;
 
 import org.json.JSONArray;
@@ -78,7 +78,7 @@ public class ThermometerFragment extends Fragment {
     }
 
     private void setList() {
-        HandlerListViewAlerts adapter = new HandlerListViewAlerts(mActivity, dataUtils.getAlerts());
+        HandlerListViewAlerts adapter = new HandlerListViewAlerts(mActivity, DataUtils.getAlerts());
         alertListView.setAdapter(adapter);
     }
 
@@ -92,7 +92,7 @@ public class ThermometerFragment extends Fragment {
             @Override
             public void onSuccess(JSONArray alertsData) {
                 try{
-                    dataUtils.saveAlerts(alertsData);
+                    DataUtils.saveAlerts(alertsData);
                     setList();
                 }catch(Exception e) {
                     e.printStackTrace();

@@ -31,8 +31,7 @@ import com.memetro.android.alerts.HashtagFragment;
 import com.memetro.android.alerts.MapFragment;
 import com.memetro.android.alerts.ThermometerFragment;
 import com.memetro.android.common.SlideHolder;
-import com.memetro.android.common.Utils;
-import com.memetro.android.dataManager.dataUtils;
+import com.memetro.android.dataManager.DataUtils;
 import com.memetro.android.info.InfoFragment;
 import com.memetro.android.models.User;
 import com.memetro.android.settings.SettingsFragment;
@@ -61,7 +60,7 @@ public class DashboardActivity extends FragmentActivity {
         // Launch default fragment
         changeMainFragment(new ThermometerFragment(), true);
 
-        User userData = dataUtils.getUserData();
+        User userData = DataUtils.getUserData();
         usernameMenu.setText("@"+userData.username);
 
         actionbarAlerts.setOnClickListener(new View.OnClickListener() {
@@ -113,7 +112,7 @@ public class DashboardActivity extends FragmentActivity {
             @Override
             public void onClick(View view) {
 
-                dataUtils.clearData(getApplicationContext());
+                DataUtils.clearData(getApplicationContext());
 
                 Intent intent = new Intent().setClass(DashboardActivity.this, MainActivity.class);
                 startActivity(intent);

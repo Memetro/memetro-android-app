@@ -19,26 +19,20 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.activeandroid.query.Select;
 import com.memetro.android.R;
 import com.memetro.android.common.Config;
 import com.memetro.android.common.MemetroDialog;
-import com.memetro.android.dataManager.dataUtils;
-import com.memetro.android.models.Alert;
+import com.memetro.android.dataManager.DataUtils;
 import com.memetro.android.models.User;
 import com.memetro.android.oauth.OAuth;
 import com.memetro.android.oauth.Utils;
 import com.memetro.android.oauth.oauthHandler;
-import com.memetro.android.settings.UserPreferences;
 
-import org.apache.http.NameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class AlertUtils {
@@ -56,7 +50,7 @@ public class AlertUtils {
         public AsyncGetAlerts(Context context, oauthHandler handler) {
             this.context = context;
             this.handler = handler;
-            this.userData = dataUtils.getUserData();
+            this.userData = DataUtils.getUserData();
         }
 
         @Override
@@ -96,7 +90,7 @@ public class AlertUtils {
 
             if (success) {
                 try {
-                    dataUtils.saveAlerts(data);
+                    DataUtils.saveAlerts(data);
                 } catch (JSONException e) {
                     Log.e("Alerts", "Error saving alerts...");
                     e.printStackTrace();
@@ -125,7 +119,7 @@ public class AlertUtils {
         public AsyncGetTweets(Context context, oauthHandler handler) {
             this.context = context;
             this.handler = handler;
-            this.userData = dataUtils.getUserData();
+            this.userData = DataUtils.getUserData();
         }
 
         @Override
@@ -165,7 +159,7 @@ public class AlertUtils {
 
             if (success) {
                 try {
-                    dataUtils.saveAlerts(data);
+                    DataUtils.saveAlerts(data);
                 } catch (JSONException e) {
                     Log.e("Alerts", "Error saving alerts...");
                     e.printStackTrace();

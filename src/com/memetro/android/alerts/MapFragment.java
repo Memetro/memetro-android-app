@@ -28,20 +28,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.LocationSource;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.memetro.android.DashboardActivity;
 import com.memetro.android.R;
-import com.memetro.android.dataManager.dataUtils;
+import com.memetro.android.dataManager.DataUtils;
 import com.memetro.android.models.Alert;
 
 import java.text.SimpleDateFormat;
@@ -92,7 +88,7 @@ public class MapFragment extends Fragment {
         map.setMyLocationEnabled(true);
 
 
-        List<Alert> alerts = dataUtils.getAlerts();
+        List<Alert> alerts = DataUtils.getAlerts();
 
         MarkerOptions markerOptions = new MarkerOptions();
 

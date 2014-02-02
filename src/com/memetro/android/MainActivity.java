@@ -28,7 +28,7 @@ import android.widget.EditText;
 
 import com.memetro.android.common.MemetroDialog;
 import com.memetro.android.common.MemetroProgress;
-import com.memetro.android.dataManager.dataUtils;
+import com.memetro.android.dataManager.DataUtils;
 import com.memetro.android.models.User;
 import com.memetro.android.oauth.oauthHandler;
 import com.memetro.android.register.PersonalActivity;
@@ -38,7 +38,7 @@ public class MainActivity extends Activity {
     private Button register, login;
     private EditText usernameEt, passwordEt;
     private Context context;
-    private dataUtils dataUtils = new dataUtils();
+    private DataUtils dataUtils = new DataUtils();
     private MemetroProgress pdialog;
 
     @Override
@@ -148,7 +148,7 @@ public class MainActivity extends Activity {
             @Override
             public void onFailure() {
                 MemetroDialog.showDialog(MainActivity.this, null, getString(R.string.sync_error));
-                com.memetro.android.dataManager.dataUtils.clearData(context);
+                DataUtils.clearData(context);
             }
 
         });
