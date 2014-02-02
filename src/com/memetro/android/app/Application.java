@@ -7,7 +7,7 @@ import com.activeandroid.Configuration;
 
 public class Application extends android.app.Application {
 
-    private final int schemaVersion = 1;
+    private final int schemaVersion = 3;
 
     @Override
     public void onCreate() {

@@ -3,6 +3,8 @@ package com.memetro.android.app;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.memetro.android.oauth.Utils;
+
 public class MigrationManager {
 
     private Context context;
@@ -47,6 +49,8 @@ public class MigrationManager {
 
     private void deleteSQLite() {
         context.deleteDatabase(DB_NAME);
+        Utils utils = new Utils();
+        utils.setToken(context, "", "");
     }
 
 }

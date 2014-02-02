@@ -31,6 +31,7 @@ import com.memetro.android.models.CitiesTransport;
 import com.memetro.android.models.City;
 import com.memetro.android.models.Country;
 import com.memetro.android.models.Line;
+import com.memetro.android.models.LinesStation;
 import com.memetro.android.models.Station;
 import com.memetro.android.models.Transport;
 import com.memetro.android.models.Tweet;
@@ -86,7 +87,23 @@ public class DataUtils {
     }
 
     public static List<Station> getStations(Long lineId) {
-        return new Select().from(Station.class).where("lineId = ?", lineId).execute();
+        List<LinesStation> linesStations = new Select().
+                from(LinesStation.class).
+                where("LineId = ?", lineId).
+                execute();
+        if (linesStations.size() == 0) return new ArrayList<Station>();
+        if (linesStations.size() == 1) {
+            return new Select().from(Station.class).where("stationId = ?", linesStations.get(0).stationId).execute();
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < linesStations.size() - 1; i++) {
+            sb.append(linesStations.get(i).stationId);
+            sb.append(",");
+        }
+        sb.append(linesStations.get(linesStations.size() - 1).stationId);
+
+        return new Select().from(Station.class).where("stationId IN ("+sb.toString()+")").execute();
     }
 
     public static List<Line> getLines(Long cityId, Long transportId) {
@@ -386,6 +403,17 @@ public class DataUtils {
                         citiesTransport.transportId =  currentData.getLong("transport_id");
                         citiesTransport.cityId = currentData.getLong("city_id");
                         citiesTransport.save();
+                    }
+
+                    //Save LineStations
+                    new Delete().from(LinesStation.class).execute();
+                    JSONArray lineStations = data.getJSONObject("linesstations").getJSONArray("data");
+                    for (int i = 0; i < lineStations.length(); i++) {
+                        currentData = lineStations.getJSONObject(i);
+                        LinesStation linesStation = new LinesStation();
+                        linesStation.lineId =  currentData.getLong("line_id");
+                        linesStation.stationId = currentData.getLong("station_id");
+                        linesStation.save();
                     }
 
                     ActiveAndroid.setTransactionSuccessful();
