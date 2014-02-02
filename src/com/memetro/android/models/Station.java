@@ -23,10 +23,10 @@ import com.activeandroid.annotation.Table;
 @Table(name = "Stations")
 public class Station extends Model {
     @Column(name = "Latitude")
-    public float latitude;
+    public Double latitude;
 
     @Column(name = "Longitude")
-    public float longitude;
+    public Double longitude;
 
     @Column(name = "stationId")
     public Long stationId;
@@ -46,8 +46,8 @@ public class Station extends Model {
     }
 
     public Station(
-            float latitude,
-            float longitude,
+            Double latitude,
+            Double longitude,
             Long lineId,
             Long stationId,
             String name,

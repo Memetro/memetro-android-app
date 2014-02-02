@@ -370,9 +370,9 @@ public class dataUtils {
                         currentData = stations.getJSONObject(i);
                         Station station = new Station();
                         station.name =  currentData.getString("name");
-                        station.longitude = currentData.getLong("longitude");
+                        station.longitude = currentData.getDouble("longitude");
                         station.stationId = currentData.getLong("id");
-                        station.latitude = currentData.getLong("latitude");
+                        station.latitude = currentData.getDouble("latitude");
                         //station.lineId = currentData.getLong("line_id");
                         station.save();
                     }
