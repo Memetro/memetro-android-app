@@ -45,7 +45,7 @@
             <ImageView
                 android:id="@+id/actionbarAlerts"
                 android:paddingLeft="3dp"
-                android:paddingRight="5dp"
+                android:paddingRight="7dp"
                 android:src="@drawable/actionbar_alerts"
                 android:background="@null"
                 android:layout_width="wrap_content"
@@ -54,7 +54,7 @@
             <ImageView
                 android:id="@+id/actionbarTws"
                 android:paddingLeft="3dp"
-                android:paddingRight="5dp"
+                android:paddingRight="7dp"
                 android:src="@drawable/actionbar_tw"
                 android:background="@null"
                 android:layout_width="wrap_content"
@@ -64,7 +64,7 @@
             <ImageView
                 android:id="@+id/actionbarMap"
                 android:paddingLeft="3dp"
-                android:paddingRight="5dp"
+                android:paddingRight="7dp"
                 android:src="@drawable/actionbar_map"
                 android:background="@null"
                 android:layout_width="wrap_content"
