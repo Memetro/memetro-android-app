@@ -31,9 +31,6 @@ public class Station extends Model {
     @Column(name = "stationId")
     public Long stationId;
 
-    @Column(name = "lineId")
-    public Long lineId;
-
     @Column(name = "Name")
     public String name;
 
@@ -48,7 +45,6 @@ public class Station extends Model {
     public Station(
             Double latitude,
             Double longitude,
-            Long lineId,
             Long stationId,
             String name,
             String created
@@ -58,7 +54,6 @@ public class Station extends Model {
         this.longitude = longitude;
         this.name = name;
         this.stationId = stationId;
-        this.lineId = lineId;
         this.created = created;
     }
 }
