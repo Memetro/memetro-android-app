@@ -66,5 +66,14 @@
     <string name="user_city">TU CIUDAD</string>
     <string name="silent_notifications">Silenciar notificaciones</string>
     <string name="saved_notifications">Notificaciones guardadas</string>
+    
+    <!-- Asociación -->
+    <string name="transtorno">Transtorno</string>
+    <string name="asociarse">Asociarse</string>
+    <string name="asesoriamiento">Asesoramiento</string>
+    <string name="memetroles">Memetroles</string>
+    <string name="sintomas">Sintomas</string>
+    <string name="contacto">Contacto</string>
+
 
 </resources>
