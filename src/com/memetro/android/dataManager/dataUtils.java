@@ -227,8 +227,16 @@ public class DataUtils {
         new AsyncLogin(context, username, password, handler).execute();
     }
 
-    public void createAlert(Context context, Long stationId, Long lineId, Long cityId, String description, oauthHandler handler) {
-        new AsyncCreateAlert(context, handler, stationId, lineId, cityId, description).execute();
+    public void createAlert(
+            Context context,
+            Long stationId,
+            Long lineId,
+            Long cityId,
+            Long transportId,
+            String description,
+            oauthHandler handler
+    ) {
+        new AsyncCreateAlert(context, handler, stationId, lineId, cityId, transportId, description).execute();
     }
 
     private class AsyncLogin extends AsyncTask<String, Integer, JSONObject>{
@@ -541,15 +549,24 @@ public class DataUtils {
 
         private Context context;
         private oauthHandler handler;
-        private Long stationId, lineId, cityId;
+        private Long stationId, lineId, cityId, transportId;
         private String description;
 
-        public AsyncCreateAlert(Context context, oauthHandler handler, Long stationId, Long lineId, Long cityId, String description) {
+        public AsyncCreateAlert(
+                Context context,
+                oauthHandler handler,
+                Long stationId,
+                Long lineId,
+                Long cityId,
+                Long transportId,
+                String description
+        ) {
             this.context = context;
             this.handler = handler;
             this.stationId = stationId;
             this.lineId = lineId;
             this.cityId = cityId;
+            this.transportId = transportId;
             this.description = description;
         }
 
@@ -568,7 +585,8 @@ public class DataUtils {
             postParams.put("station_id", String.valueOf(stationId));
             postParams.put("line_id", String.valueOf(lineId));
             postParams.put("city_id", String.valueOf(cityId));
-            postParams.put("description", description);
+            postParams.put("transport_id", String.valueOf(transportId));
+            postParams.put("comment", description);
 
             return OAuth.call("alerts", "add", postParams);
 

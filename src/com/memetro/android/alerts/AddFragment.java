@@ -147,6 +147,7 @@ public class AddFragment extends Fragment {
                         getStationSelected(),
                         getLineSelected(),
                         getCitySelected(),
+                        getTransportSelected(),
                         descriptionText.getText().toString(),
                         new oauthHandler() {
                             @Override
@@ -156,7 +157,7 @@ public class AddFragment extends Fragment {
 
                             @Override
                             public void onSuccess() {
-                                Toast.makeText(mActivity, getString(R.string.alert_created), Toast.LENGTH_LONG).show();
+                                Toast.makeText(mActivity.getApplicationContext(), getString(R.string.alert_created), Toast.LENGTH_LONG).show();
                                 mActivity.onBackPressed();
                             }
 

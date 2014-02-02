@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.memetro.android.info;
 
 import android.os.Bundle;
@@ -21,12 +22,32 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.memetro.android.DashboardActivity;
 import com.memetro.android.R;
+import com.memetro.android.web.WebViewer;
 
-public class InfoFragment extends Fragment {
+public class AssociationFragment extends Fragment {
+
+    private DashboardActivity mActivity;
+
+    @Override
+    public void onCreate(Bundle bundleSavedInstance) {
+        super.onCreate(bundleSavedInstance);
+        this.mActivity = (DashboardActivity) getActivity();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_info, container, false);
+
+        View inflated = inflater.inflate(R.layout.fragment_association, container, false);
+        return inflated;
+    }
+
+    private void loadUrl(String url) {
+        WebViewer webViewer = new WebViewer();
+        Bundle arguments = new Bundle();
+        arguments.putString("url", url);
+        webViewer.setArguments(arguments);
+        mActivity.changeMainFragment(webViewer);
     }
 }

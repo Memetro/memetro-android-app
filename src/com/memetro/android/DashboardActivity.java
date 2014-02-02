@@ -32,9 +32,10 @@ import com.memetro.android.alerts.MapFragment;
 import com.memetro.android.alerts.ThermometerFragment;
 import com.memetro.android.common.SlideHolder;
 import com.memetro.android.dataManager.DataUtils;
-import com.memetro.android.info.InfoFragment;
+import com.memetro.android.info.AssociationFragment;
 import com.memetro.android.models.User;
 import com.memetro.android.settings.SettingsFragment;
+import com.memetro.android.web.WebViewer;
 
 public class DashboardActivity extends FragmentActivity {
 
@@ -121,6 +122,15 @@ public class DashboardActivity extends FragmentActivity {
             }
         });
 
+        // Asociacion
+        View asociacion = findViewById(R.id.memetroMenu);
+        asociacion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                changeMainFragment(new AssociationFragment());
+            }
+        });
+
         // Config
         View config = findViewById(R.id.configMenu);
         config.setOnClickListener(new View.OnClickListener() {
@@ -135,7 +145,11 @@ public class DashboardActivity extends FragmentActivity {
         info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                changeMainFragment(new InfoFragment());
+                WebViewer webViewer = new WebViewer();
+                Bundle arguments = new Bundle();
+                arguments.putString("url", "http://www.memetro.net/infoapp/");
+                webViewer.setArguments(arguments);
+                changeMainFragment(webViewer);
             }
         });
 
@@ -200,7 +214,7 @@ public class DashboardActivity extends FragmentActivity {
         }
     }
 
-    private void changeMainFragment(Fragment fragment){
+    public void changeMainFragment(Fragment fragment){
         changeMainFragment(fragment, false);
     }
 

@@ -115,8 +115,10 @@ public class OAuth {
                         }
 
                         returnJ.put("message", context.getString(R.string.session_expired));
+                        Utils utils = new Utils();
+                        utils.setToken(context, "", "");
                         Intent intent = new Intent(context, MainActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                         context.startActivity(intent);
                         return returnJ;
                     case 404:
