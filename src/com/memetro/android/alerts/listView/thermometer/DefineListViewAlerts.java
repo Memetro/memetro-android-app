@@ -75,7 +75,9 @@ public class DefineListViewAlerts  extends LinearLayout {
 
     private String getHourFromDate(String str_date) {
         Calendar calendar = getCalendarFromString(str_date);
-        return calendar.get(Calendar.HOUR_OF_DAY)+":"+calendar.get(Calendar.MINUTE);
+        String hours = ((calendar.get(Calendar.HOUR_OF_DAY) < 10) ? "0" : "") + calendar.get(Calendar.HOUR_OF_DAY);
+        String minutes = ((calendar.get(Calendar.MINUTE) < 10) ? "0" : "") + calendar.get(Calendar.MINUTE);
+        return hours+":"+minutes;
     }
 
     private Calendar getCalendarFromString(String str_date) {
