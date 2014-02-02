@@ -34,6 +34,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.LocationSource;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -42,6 +44,9 @@ import com.memetro.android.R;
 import com.memetro.android.dataManager.dataUtils;
 import com.memetro.android.models.Alert;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 public class MapFragment extends Fragment {
@@ -93,12 +98,75 @@ public class MapFragment extends Fragment {
 
         for (Alert alert : alerts) {
             latlng = new LatLng(alert.latitude,alert.longitude);
+
+            markerOptions.icon(BitmapDescriptorFactory.fromResource(getMarkerResource(alert.date, alert.icon)));
             map.addMarker(markerOptions.position(latlng));
         }
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng, 8));
 
 
         return inflaterMap;
+    }
+
+    private int getMarkerResource(String str_date, String iconName) {
+        Calendar calendar = getCalendarFromString(str_date);
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        Calendar currentCalendar = GregorianCalendar.getInstance();
+        int currentHour = currentCalendar.get(Calendar.HOUR_OF_DAY);
+
+        if ((currentHour - hour) < 2) {
+            int iconResource = R.drawable.map_red_metro;
+            if (iconName.equals("transport-icon-cercanias")) {
+                iconResource = R.drawable.map_red_cercanias;
+            } else if (iconName.equals("transport-icon-bus")) {
+                iconResource = R.drawable.map_red_bus;
+            } else if (iconName.equals("transport-icon-colgante")) {
+                iconResource = R.drawable.map_red_colgante;
+            } else if (iconName.equals("transport-icon-media-distancia")) {
+                iconResource = R.drawable.map_red_media_distancia;
+            }
+            return iconResource;
+        }
+
+        if ((currentHour - hour) < 5) {
+            int iconResource = R.drawable.map_orange_metro;
+            if (iconName.equals("transport-icon-cercanias")) {
+                iconResource = R.drawable.map_orange_cercanias;
+            } else if (iconName.equals("transport-icon-bus")) {
+                iconResource = R.drawable.map_orange_bus;
+            } else if (iconName.equals("transport-icon-colgante")) {
+                iconResource = R.drawable.map_orange_colgante;
+            } else if (iconName.equals("transport-icon-media-distancia")) {
+                iconResource = R.drawable.map_orange_media_distancia;
+            }
+            return iconResource;
+        }
+
+        int iconResource = R.drawable.map_yellow_metro;
+        if (iconName.equals("transport-icon-cercanias")) {
+            iconResource = R.drawable.map_yellow_cercanias;
+        } else if (iconName.equals("transport-icon-bus")) {
+            iconResource = R.drawable.map_yellow_bus;
+        } else if (iconName.equals("transport-icon-colgante")) {
+            iconResource = R.drawable.map_yellow_colgante;
+        } else if (iconName.equals("transport-icon-media-distancia")) {
+            iconResource = R.drawable.map_yellow_media_distancia;
+        }
+        return iconResource;
+    }
+
+    // TODO Este codigo esta repetido. Refactorizar.
+    private Calendar getCalendarFromString(String str_date) {
+        try {
+            java.text.DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            java.util.Date date = formatter.parse(str_date);
+            Calendar calendar = GregorianCalendar.getInstance();
+            calendar.setTime(date);
+            return calendar;
+        }catch(Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
