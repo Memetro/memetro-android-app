@@ -18,6 +18,7 @@ package com.memetro.android.alerts.listView.thermometer;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -32,6 +33,7 @@ import java.util.GregorianCalendar;
 public class DefineListViewAlerts  extends LinearLayout {
 
     private TextView description, hour;
+    private ImageView alertIcon;
     private String infService;
     private LayoutInflater li;
 
@@ -48,6 +50,18 @@ public class DefineListViewAlerts  extends LinearLayout {
         description = (TextView) findViewById(R.id.alert_text);
         description.setText(alert.station);
 
+        alertIcon = (ImageView) findViewById(R.id.alert_icon);
+        int iconResource = R.drawable.icon_metro;
+        if (alert.icon.equals("transport-icon-cercanias")) {
+            iconResource = R.drawable.icon_cercanias;
+        } else if (alert.icon.equals("transport-icon-bus")) {
+            iconResource = R.drawable.icon_bus;
+        } else if (alert.icon.equals("transport-icon-colgante")) {
+            iconResource = R.drawable.icon_colgante;
+        } else if (alert.icon.equals("transport-icon-media-distancia")) {
+            iconResource = R.drawable.icon_media_distancia;
+        }
+        alertIcon.setImageResource(iconResource);
 
 
         hour = (TextView) findViewById(R.id.hour_text);
