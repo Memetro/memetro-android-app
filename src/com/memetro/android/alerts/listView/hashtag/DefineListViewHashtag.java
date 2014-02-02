@@ -36,6 +36,7 @@ public class DefineListViewHashtag extends LinearLayout {
     private String infService;
     private LayoutInflater li;
     public ImageLoader imageLoader;
+    private final static String TWITTER_AVATAR_PREFIX = "http://twitter.com/api/users/profile_image?size=bigger&screen_name=";
 
     public DefineListViewHashtag(Context context, Tweet tweet, Long itemId){
         super(context);
@@ -57,8 +58,10 @@ public class DefineListViewHashtag extends LinearLayout {
 
         avatarTweet = (ImageView) findViewById(R.id.avatar_tweet);
 
-        String avatarUrl = "http://twitter.com/api/users/profile_image?size=bigger&screen_name="+tweet.rtUser;
-        Log.d("Hashtag", "Avatar > "+avatarUrl);
+        String avatarUrl = TWITTER_AVATAR_PREFIX+tweet.rtUser;
+        if ("".equals(tweet.rtUser)) {
+            avatarUrl = TWITTER_AVATAR_PREFIX+tweet.user;
+        }
         imageLoader.DisplayImage(avatarUrl, avatarTweet);
 
     }
