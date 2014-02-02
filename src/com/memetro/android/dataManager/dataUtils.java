@@ -177,7 +177,7 @@ public class DataUtils {
     }
 
     public static List<Alert> getAlerts() {
-        return new Select().from(Alert.class).execute();
+        return new Select().from(Alert.class).orderBy("Date DESC").execute();
     }
 
     public static void saveAlerts(JSONArray alerts) throws JSONException {

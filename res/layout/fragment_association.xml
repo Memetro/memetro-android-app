@@ -16,6 +16,7 @@
             android:layout_height="wrap_content">
 
             <Button
+                android:id="@+id/transtorno_button"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:background="@null"
@@ -24,6 +25,7 @@
                 android:layout_height="wrap_content" />
 
             <Button
+                android:id="@+id/asociarse_button"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:background="@null"
@@ -39,6 +41,7 @@
             android:layout_height="wrap_content">
 
             <Button
+                android:id="@+id/asesoramiento_button"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:background="@null"
@@ -47,6 +50,7 @@
                 android:layout_height="wrap_content" />
 
             <Button
+                android:id="@+id/memetroles_button"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:background="@null"
@@ -63,6 +67,7 @@
             android:layout_marginBottom="40dp">
 
             <Button
+                android:id="@+id/sintomas_button"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:background="@null"
@@ -71,6 +76,7 @@
                 android:layout_height="wrap_content" />
 
             <Button
+                android:id="@+id/contacto_button"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:background="@null"

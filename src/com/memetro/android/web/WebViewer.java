@@ -56,6 +56,8 @@ public class WebViewer extends Fragment {
 
         mainWebView = (WebView) inflated.findViewById(R.id.main_web_view);
 
+        mainWebView.getSettings().setJavaScriptEnabled(true);
+
         mainWebView.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
