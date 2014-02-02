@@ -56,4 +56,8 @@ public class Station extends Model {
         this.stationId = stationId;
         this.created = created;
     }
+
+    public String toString() {
+        return this.name;
+    }
 }

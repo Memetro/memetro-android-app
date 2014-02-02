@@ -127,7 +127,7 @@ public class AddFragment extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 Line line = (Line) adapterView.getAdapter().getItem(i);
                 Log.d("LINEA", line.name);
-                LayoutUtils.setDefaultSpinner(mActivity, spinnerStation, DataUtils.getStations(getCitySelected()));
+                LayoutUtils.setDefaultSpinner(mActivity, spinnerStation, DataUtils.getStations(line.lineId));
             }
 
             @Override

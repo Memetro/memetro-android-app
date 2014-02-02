@@ -92,6 +92,11 @@ public class DataUtils {
                 where("LineId = ?", lineId).
                 execute();
         if (linesStations.size() == 0) return new ArrayList<Station>();
+        // DEBUG
+        for(LinesStation linesStation : linesStations) {
+            Log.d("Test", "stationId > "+linesStation.stationId);
+        }
+        // DEBUG
         if (linesStations.size() == 1) {
             return new Select().from(Station.class).where("stationId = ?", linesStations.get(0).stationId).execute();
         }
