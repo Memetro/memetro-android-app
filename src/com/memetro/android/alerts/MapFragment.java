@@ -39,6 +39,10 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.memetro.android.DashboardActivity;
 import com.memetro.android.R;
+import com.memetro.android.dataManager.dataUtils;
+import com.memetro.android.models.Alert;
+
+import java.util.List;
 
 public class MapFragment extends Fragment {
 
@@ -75,16 +79,6 @@ public class MapFragment extends Fragment {
         locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         followMeLocationSource = new FollowMeLocationSource();
 
-        final Bundle arguments = getArguments();
-        if (arguments != null) {
-            Log.d("Arguments", "Data > "+arguments);
-            if (arguments.getString("lat") != null && arguments.getString("long") != null){
-                latlng = new LatLng(
-                        Double.valueOf(arguments.getString("lat")),
-                        Double.valueOf(arguments.getString("long"))
-                );
-            }
-        }
         map.clear();
         map.setLocationSource(followMeLocationSource);
         map.getUiSettings().setZoomControlsEnabled(true);
@@ -92,8 +86,17 @@ public class MapFragment extends Fragment {
         map.getUiSettings().setCompassEnabled(true);
         map.setMyLocationEnabled(true);
 
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng, 15));
-        Marker marker = map.addMarker(new MarkerOptions().position(latlng));
+
+        List<Alert> alerts = dataUtils.getAlerts();
+
+        MarkerOptions markerOptions = new MarkerOptions();
+
+        for (Alert alert : alerts) {
+            latlng = new LatLng(alert.latitude,alert.longitude);
+            map.addMarker(markerOptions.position(latlng));
+        }
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng, 8));
+
 
         return inflaterMap;
     }
