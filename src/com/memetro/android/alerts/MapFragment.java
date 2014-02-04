@@ -40,6 +40,7 @@ import com.memetro.android.R;
 import com.memetro.android.dataManager.DataUtils;
 import com.memetro.android.models.Alert;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -105,12 +106,10 @@ public class MapFragment extends Fragment {
     }
 
     private int getMarkerResource(String str_date, String iconName) {
-        Calendar calendar = getCalendarFromString(str_date);
-        int hour = calendar.get(Calendar.HOUR_OF_DAY);
-        Calendar currentCalendar = GregorianCalendar.getInstance();
-        int currentHour = currentCalendar.get(Calendar.HOUR_OF_DAY);
+        long time = dateToTime(str_date);
+        long currentTime = System.currentTimeMillis()/1000;
 
-        if ((currentHour - hour) < 2) {
+        if ((currentTime - time) < 7200) {
             int iconResource = R.drawable.map_red_metro;
             if (iconName.equals("transport-icon-cercanias")) {
                 iconResource = R.drawable.map_red_cercanias;
@@ -124,7 +123,7 @@ public class MapFragment extends Fragment {
             return iconResource;
         }
 
-        if ((currentHour - hour) < 5) {
+        if ((currentTime - time) < 18000) {
             int iconResource = R.drawable.map_orange_metro;
             if (iconName.equals("transport-icon-cercanias")) {
                 iconResource = R.drawable.map_orange_cercanias;
@@ -152,19 +151,19 @@ public class MapFragment extends Fragment {
     }
 
     // TODO Este codigo esta repetido. Refactorizar.
-    private Calendar getCalendarFromString(String str_date) {
-        try {
+    private long dateToTime(String str_date) {
+        try{
+
             java.text.DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             java.util.Date date = formatter.parse(str_date);
-            Calendar calendar = GregorianCalendar.getInstance();
-            calendar.setTime(date);
-            return calendar;
+            java.sql.Timestamp timeStampDate = new Timestamp(date.getTime());
+            return timeStampDate.getTime()/1000;
+
         }catch(Exception e) {
             e.printStackTrace();
-            return null;
+            return 0;
         }
     }
-
     @Override
     public void onResume() {
         super.onResume();

@@ -71,16 +71,13 @@ public class DefineListViewAlerts  extends LinearLayout {
     }
 
     private int getBgFromHour(String str_date) {
-        Calendar calendar = getCalendarFromString(str_date);
-        int hour = calendar.get(Calendar.HOUR_OF_DAY);
-        Calendar currentCalendar = GregorianCalendar.getInstance();
-        int currentHour = currentCalendar.get(Calendar.HOUR_OF_DAY);
-        // TODO Esto calcularlo con timestamps
-        if ((currentHour - hour) < 2) {
+        long time = dateToTime(str_date);
+        long currentTime = System.currentTimeMillis()/1000;
+        if ((currentTime - time) < 7200) {
             return R.drawable.thermometer_red;
         }
 
-        if ((currentHour - hour) < 5) {
+        if ((currentTime - time) < 18000) {
             return R.drawable.thermometer_orange;
         }
 
