@@ -73,7 +73,7 @@ public class GcmBroadcastReceiver extends BroadcastReceiver {
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)
-                        .setSmallIcon(R.drawable.ic_launcher)
+                        .setSmallIcon(R.drawable.icon_push)
                         .setContentTitle("Memetro")
                         .setStyle(new NotificationCompat.BigTextStyle()
                                 .bigText(msg))

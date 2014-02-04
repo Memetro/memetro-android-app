@@ -18,9 +18,11 @@ package com.memetro.android.alerts;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -32,6 +34,7 @@ import com.memetro.android.R;
 import com.memetro.android.alerts.listView.thermometer.HandlerListViewAlerts;
 import com.memetro.android.dataManager.DataUtils;
 import com.memetro.android.models.Alert;
+import com.memetro.android.models.User;
 import com.memetro.android.oauth.oauthHandler;
 
 import org.json.JSONArray;
@@ -44,11 +47,14 @@ public class ThermometerFragment extends Fragment {
     private AlertUtils alertUtils = new AlertUtils();
     private PullToRefreshListView alertListView;
     private LinearLayout noAlerts;
+    private List<Alert> alerts;
+    private User userData;
 
     @Override
     public void onCreate(Bundle savedInstance) {
         super.onCreate(savedInstance);
         this.mActivity = (DashboardActivity) getActivity();
+        userData = DataUtils.getUserData();
     }
 
     @Override
@@ -81,13 +87,31 @@ public class ThermometerFragment extends Fragment {
         setList();
         getAlerts();
 
+        alertListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                try {
+                    Alert alert = alerts.get(i-1);
+                    CommentDialog.showDialog(
+                            mActivity,
+                            alert.description,
+                            alert.username,
+                            (alert.username.equals(userData.username)),
+                            alert.alertId
+                        );
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
         return inflated;
     }
 
     private void setList() {
         noAlerts.setVisibility(View.GONE);
         alertListView.setVisibility(View.VISIBLE);
-        List<Alert> alerts = DataUtils.getAlerts();
+        alerts = DataUtils.getAlerts();
         if (alerts.size() == 0) {
             noAlerts.setVisibility(View.VISIBLE);
             alertListView.setVisibility(View.GONE);

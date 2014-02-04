@@ -13,6 +13,8 @@
     <string name="create">Crear</string>
     <string name="ago">Hace</string>
 
+    <string name="alert_created_by">Alerta creada por</string>
+
     <!-- Errors -->
     <string name="action_not_found">Acción no encontrada. Intentalo de nuevo en unos minutos.</string>
     <string name="token_denied">Se ha denagado el acceso. Desconectate y vuelvete a conectar.</string>
@@ -31,6 +33,9 @@
 
     <!-- COMUNES -->
     <string name="save">Guardar</string>
+    <string name="delete">Borrar</string>
+    <string name="alert_deleted">Alerta eliminada</string>
+    <string name="error_deleting_alert">Error al eliminar la alerta</string>
 
     <!-- REGISTER -->
     <string name="name">Nombre</string>

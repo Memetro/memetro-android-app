@@ -54,8 +54,11 @@ public final class MemetroDialog {
             }
         });
 
-
-        mDialog.show();
+        try {
+            mDialog.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 }
