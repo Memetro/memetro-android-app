@@ -21,6 +21,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -29,15 +31,19 @@ import com.memetro.android.DashboardActivity;
 import com.memetro.android.R;
 import com.memetro.android.alerts.listView.thermometer.HandlerListViewAlerts;
 import com.memetro.android.dataManager.DataUtils;
+import com.memetro.android.models.Alert;
 import com.memetro.android.oauth.oauthHandler;
 
 import org.json.JSONArray;
+
+import java.util.List;
 
 public class ThermometerFragment extends Fragment {
 
     private DashboardActivity mActivity;
     private AlertUtils alertUtils = new AlertUtils();
     private PullToRefreshListView alertListView;
+    private LinearLayout noAlerts;
 
     @Override
     public void onCreate(Bundle savedInstance) {
@@ -63,6 +69,7 @@ public class ThermometerFragment extends Fragment {
         View inflated = inflater.inflate(R.layout.fragment_thermometer, container, false);
 
         alertListView = (PullToRefreshListView) inflated.findViewById(R.id.alertListView);
+        noAlerts = (LinearLayout) inflated.findViewById(R.id.no_alerts);
 
         alertListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
             @Override
@@ -78,7 +85,14 @@ public class ThermometerFragment extends Fragment {
     }
 
     private void setList() {
-        HandlerListViewAlerts adapter = new HandlerListViewAlerts(mActivity, DataUtils.getAlerts());
+        noAlerts.setVisibility(View.GONE);
+        alertListView.setVisibility(View.VISIBLE);
+        List<Alert> alerts = DataUtils.getAlerts();
+        if (alerts.size() == 0) {
+            noAlerts.setVisibility(View.VISIBLE);
+            alertListView.setVisibility(View.GONE);
+        }
+        HandlerListViewAlerts adapter = new HandlerListViewAlerts(mActivity, alerts);
         alertListView.setAdapter(adapter);
     }
 

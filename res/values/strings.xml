@@ -20,6 +20,7 @@
     <string name="internal_error">Error interno. Intentalo de nuevo en unos minutos.</string>
     <string name="json_error">Error leyendo datos. Intentalo de nuevo en unos minutos.</string>
     <string name="session_expired">La sesión ha caducado.</string>
+    <string name="no_alerts">No hay alertas recientes.</string>
 
     <!-- LOGIN -->
     <string name="login">Entrar</string>

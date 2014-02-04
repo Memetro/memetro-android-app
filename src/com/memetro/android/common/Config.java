@@ -25,4 +25,7 @@ public final class Config {
     //public final static String OAUTHSERVER = "http://beta.memetro.viabeta.com/";
     public final static String OAUTHCLIENTID = "NTFmMDU3YmY2ZDFkMDFl";
     public final static String OAUTHCLIENTSECRET = "2cb128799bb3886281c6b7a89b7ac0047c06b876";
+
+    public static final String GCM_SENDER_ID = "127563298891";
+
 }

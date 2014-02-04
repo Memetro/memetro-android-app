@@ -16,6 +16,7 @@
 
 package com.memetro.android;
 
+import com.crashlytics.android.Crashlytics;
 import java.util.Timer;
 import java.util.TimerTask;
 import android.os.Bundle;
@@ -33,6 +34,8 @@ public class SplashScreenActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Crashlytics.start(this);
+
         setContentView(R.layout.activity_splash_screen);
 
         TimerTask task = new TimerTask() {

@@ -34,6 +34,17 @@
         <meta-data android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
+        <!-- GCM -->
+        <receiver
+            android:name="com.memetro.android.notifications.GcmBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+
+                <category android:name="com.glasspay.notifications.GcmBroadcastReceiver" />
+            </intent-filter>
+        </receiver>
+
         <!-- SQLite Config -->
         <meta-data android:name="AA_DB_NAME" android:value="Memetro.db" />
         <meta-data android:name="AA_DB_VERSION" android:value="1" />
@@ -68,6 +79,7 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
+        <meta-data android:name="com.crashlytics.ApiKey" android:value="8c0f3536a366466bc33dc6774a6b164067b85ec0"/>
     </application>
 
 </manifest>

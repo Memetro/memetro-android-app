@@ -9,5 +9,24 @@
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         />
+    <LinearLayout
+        android:id="@+id/no_alerts"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+        <ImageView
+            android:paddingTop="20dp"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/no_alerts"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/no_alerts"/>
+    </LinearLayout>
 
 </LinearLayout>

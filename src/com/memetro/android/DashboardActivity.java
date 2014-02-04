@@ -34,6 +34,7 @@ import com.memetro.android.common.SlideHolder;
 import com.memetro.android.dataManager.DataUtils;
 import com.memetro.android.info.AssociationFragment;
 import com.memetro.android.models.User;
+import com.memetro.android.notifications.NotificationUtils;
 import com.memetro.android.settings.SettingsFragment;
 import com.memetro.android.web.WebViewer;
 
@@ -51,6 +52,9 @@ public class DashboardActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_dashboard);
+
+        NotificationUtils notificationUtils = new NotificationUtils();
+        notificationUtils.registerDevice(getApplicationContext());
 
         mSlideHolder = (SlideHolder) findViewById(R.id.slideHolder);
         usernameMenu = (TextView) findViewById(R.id.usernameMenu);
