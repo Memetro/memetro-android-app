@@ -71,6 +71,7 @@ public final class CommentDialog {
                 public void onClick(View view) {
                     new DeleteInBg(context, String.valueOf(id)).execute();
                     mDialog.dismiss();
+                    // TODO Refrescar las alertas
                 }
             });
         }

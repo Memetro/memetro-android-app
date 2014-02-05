@@ -18,8 +18,11 @@ package com.memetro.android.common;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.drawable.AnimationDrawable;
 import android.view.View;
 import android.view.Window;
+import android.view.animation.Animation;
+import android.widget.ImageView;
 
 import com.memetro.android.R;
 
@@ -33,9 +36,16 @@ public class MemetroProgress extends Dialog {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.progress_dialog);
 
+
+
         v = getWindow().getDecorView();
-        //v.setBackgroundResource(android.R.color.transparent);
+
+        ImageView imageView = (ImageView) findViewById(R.id.animation);
+        //imageView.setBackgroundResource(R.anim.loader);
+        //AnimationDrawable rocketAnimation = (AnimationDrawable) imageView.getBackground();
+        //rocketAnimation.start();
     }
+
 
     @Override
     public void setTitle(CharSequence title) {
