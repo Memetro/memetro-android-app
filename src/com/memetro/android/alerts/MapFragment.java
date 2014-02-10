@@ -28,6 +28,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.LocationSource;
@@ -77,6 +78,12 @@ public class MapFragment extends Fragment {
         }
 
         map = ((SupportMapFragment) getFragmentManager().findFragmentById(R.id.map_fragment)).getMap();
+
+        // TODO Esto hay que revisarlo.
+        if (map == null) {
+            Crashlytics.log(1, TAG, "Map is null > "+map+" inflaterMap > "+inflaterMap);
+            return inflaterMap;
+        }
 
         locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         followMeLocationSource = new FollowMeLocationSource();
