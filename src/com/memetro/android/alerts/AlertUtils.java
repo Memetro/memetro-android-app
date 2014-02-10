@@ -25,8 +25,8 @@ import com.memetro.android.common.MemetroDialog;
 import com.memetro.android.dataManager.DataUtils;
 import com.memetro.android.models.User;
 import com.memetro.android.oauth.OAuth;
+import com.memetro.android.oauth.OAuthHandler;
 import com.memetro.android.oauth.Utils;
-import com.memetro.android.oauth.oauthHandler;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,17 +37,17 @@ import java.util.Map;
 
 public class AlertUtils {
 
-    public void getAlerts(Context context, oauthHandler handler) {
+    public void getAlerts(Context context, OAuthHandler handler) {
         new AsyncGetAlerts(context, handler).execute();
     }
 
     private class AsyncGetAlerts extends AsyncTask<String, Integer, JSONObject> {
 
         private Context context;
-        private oauthHandler handler;
+        private OAuthHandler handler;
         private User userData;
 
-        public AsyncGetAlerts(Context context, oauthHandler handler) {
+        public AsyncGetAlerts(Context context, OAuthHandler handler) {
             this.context = context;
             this.handler = handler;
             this.userData = DataUtils.getUserData();
@@ -106,17 +106,17 @@ public class AlertUtils {
         }
     }
 
-    public void getTweets(Context context, oauthHandler handler) {
+    public void getTweets(Context context, OAuthHandler handler) {
         new AsyncGetTweets(context, handler).execute();
     }
 
     private class AsyncGetTweets extends AsyncTask<String, Integer, JSONObject> {
 
         private Context context;
-        private oauthHandler handler;
+        private OAuthHandler handler;
         private User userData;
 
-        public AsyncGetTweets(Context context, oauthHandler handler) {
+        public AsyncGetTweets(Context context, OAuthHandler handler) {
             this.context = context;
             this.handler = handler;
             this.userData = DataUtils.getUserData();

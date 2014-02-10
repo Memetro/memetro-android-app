@@ -28,7 +28,7 @@ import com.memetro.android.DashboardActivity;
 import com.memetro.android.R;
 import com.memetro.android.alerts.listView.hashtag.HandlerListViewHashtag;
 import com.memetro.android.dataManager.DataUtils;
-import com.memetro.android.oauth.oauthHandler;
+import com.memetro.android.oauth.OAuthHandler;
 
 import org.json.JSONArray;
 
@@ -82,7 +82,7 @@ public class HashtagFragment extends Fragment {
     }
 
     private void getTweets() {
-        alertUtils.getTweets(mActivity, new oauthHandler() {
+        alertUtils.getTweets(mActivity, new OAuthHandler() {
             @Override
             public void onStart() {
 

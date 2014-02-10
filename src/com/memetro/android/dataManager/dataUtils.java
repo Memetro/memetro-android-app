@@ -37,10 +37,9 @@ import com.memetro.android.models.Transport;
 import com.memetro.android.models.Tweet;
 import com.memetro.android.models.User;
 import com.memetro.android.oauth.OAuth;
+import com.memetro.android.oauth.OAuthHandler;
 import com.memetro.android.oauth.Utils;
-import com.memetro.android.oauth.oauthHandler;
 
-import org.apache.http.NameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -210,15 +209,15 @@ public class DataUtils {
 
     }
 
-    public void syncWSData(Context context, oauthHandler handler) {
+    public void syncWSData(Context context, OAuthHandler handler) {
         new AsyncSync(context, handler).execute();
     }
 
-    public void syncStaticWSData(Context context, oauthHandler handler) {
+    public void syncStaticWSData(Context context, OAuthHandler handler) {
         new AsyncStaticSync(context, handler).execute();
     }
 
-    public void login(Context context, String username, String password, oauthHandler handler) {
+    public void login(Context context, String username, String password, OAuthHandler handler) {
         new AsyncLogin(context, username, password, handler).execute();
     }
 
@@ -229,7 +228,7 @@ public class DataUtils {
             Long cityId,
             Long transportId,
             String description,
-            oauthHandler handler
+            OAuthHandler handler
     ) {
         new AsyncCreateAlert(context, handler, stationId, lineId, cityId, transportId, description).execute();
     }
@@ -237,12 +236,12 @@ public class DataUtils {
     private class AsyncLogin extends AsyncTask<String, Integer, JSONObject>{
 
         private Context context;
-        private oauthHandler handler;
+        private OAuthHandler handler;
         private String username, password;
         private OAuth OAuth;
         private Utils Utils = new Utils();
 
-        public AsyncLogin(Context context, String username, String password, oauthHandler handler) {
+        public AsyncLogin(Context context, String username, String password, OAuthHandler handler) {
             this.context = context;
             this.handler = handler;
             this.username = username;
@@ -280,9 +279,9 @@ public class DataUtils {
     private class AsyncSync extends AsyncTask<String, Integer, Boolean> {
 
         private Context context;
-        private oauthHandler handler;
+        private OAuthHandler handler;
 
-        public AsyncSync(Context context, oauthHandler handler) {
+        public AsyncSync(Context context, OAuthHandler handler) {
             this.context = context;
             this.handler = handler;
         }
@@ -455,9 +454,9 @@ public class DataUtils {
     private class AsyncStaticSync extends AsyncTask<String, Integer, Boolean> {
 
         private Context context;
-        private oauthHandler handler;
+        private OAuthHandler handler;
 
-        public AsyncStaticSync(Context context, oauthHandler handler) {
+        public AsyncStaticSync(Context context, OAuthHandler handler) {
             this.context = context;
             this.handler = handler;
         }
@@ -543,13 +542,13 @@ public class DataUtils {
     private class AsyncCreateAlert extends AsyncTask<String, Integer, JSONObject> {
 
         private Context context;
-        private oauthHandler handler;
+        private OAuthHandler handler;
         private Long stationId, lineId, cityId, transportId;
         private String description;
 
         public AsyncCreateAlert(
                 Context context,
-                oauthHandler handler,
+                OAuthHandler handler,
                 Long stationId,
                 Long lineId,
                 Long cityId,

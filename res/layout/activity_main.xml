@@ -62,6 +62,14 @@
                     android:text="@string/register"
                     android:id="@+id/register"
                     style="@style/button_red"/>
+
+            <TextView
+                android:id="@+id/recover_pass_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="@string/recover_pass_title"/>
+
         </LinearLayout>
     </ScrollView>
 

@@ -38,7 +38,7 @@ import com.memetro.android.models.Line;
 import com.memetro.android.models.Station;
 import com.memetro.android.models.Transport;
 import com.memetro.android.models.User;
-import com.memetro.android.oauth.oauthHandler;
+import com.memetro.android.oauth.OAuthHandler;
 
 import java.util.List;
 
@@ -149,7 +149,7 @@ public class AddFragment extends Fragment {
                         getCitySelected(),
                         getTransportSelected(),
                         descriptionText.getText().toString(),
-                        new oauthHandler() {
+                        new OAuthHandler() {
                             @Override
                             public void onStart() {
                                 pdialog.show();

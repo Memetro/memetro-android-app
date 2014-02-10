@@ -16,6 +16,7 @@
 
 package com.memetro.android;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,18 +26,23 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.memetro.android.common.MemetroDialog;
 import com.memetro.android.common.MemetroProgress;
 import com.memetro.android.dataManager.DataUtils;
+import com.memetro.android.dataManager.RecoverPassUtils;
 import com.memetro.android.models.User;
-import com.memetro.android.oauth.oauthHandler;
+import com.memetro.android.oauth.OAuthHandler;
 import com.memetro.android.register.PersonalActivity;
+
+import org.json.JSONArray;
 
 public class MainActivity extends Activity {
 
     private Button register, login;
     private EditText usernameEt, passwordEt;
+    private TextView recoverPassButton;
     private Context context;
     private DataUtils dataUtils = new DataUtils();
     private MemetroProgress pdialog;
@@ -56,6 +62,14 @@ public class MainActivity extends Activity {
         login = (Button) findViewById(R.id.login);
         usernameEt = (EditText) findViewById(R.id.username);
         passwordEt = (EditText) findViewById(R.id.password);
+        recoverPassButton = (TextView) findViewById(R.id.recover_pass_button);
+
+        recoverPassButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showRecoverPassDialog(MainActivity.this);
+            }
+        });
 
         User userData = dataUtils.getUserData();
         if (userData != null) {
@@ -83,7 +97,7 @@ public class MainActivity extends Activity {
         if (!dataUtils.getCities().isEmpty() && !dataUtils.getCountries().isEmpty()) {
             return;
         }
-        dataUtils.syncStaticWSData(context, new oauthHandler() {
+        dataUtils.syncStaticWSData(context, new OAuthHandler() {
             @Override
             public void onStart() {
                 pdialog.show();
@@ -110,7 +124,7 @@ public class MainActivity extends Activity {
     }
 
     private void login(String username, String password) {
-        dataUtils.login(context, username, password, new oauthHandler(){
+        dataUtils.login(context, username, password, new OAuthHandler(){
             @Override
             public void onStart() {
                 pdialog.show();
@@ -130,7 +144,7 @@ public class MainActivity extends Activity {
     }
 
     private void sync() {
-        dataUtils.syncWSData(context, new oauthHandler() {
+        dataUtils.syncWSData(context, new OAuthHandler() {
 
             @Override
             public void onFinish() {
@@ -152,6 +166,42 @@ public class MainActivity extends Activity {
             }
 
         });
+    }
+
+    public void showRecoverPassDialog(final Context context) {
+
+        final Dialog mDialog = new Dialog(context);
+        mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        mDialog.setContentView(R.layout.dialog_recover);
+        mDialog.setCancelable(true);
+
+        final EditText emailText = (EditText) mDialog.findViewById(R.id.email);
+        Button sendButton = (Button) mDialog.findViewById(R.id.send);
+
+        sendButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                RecoverPassUtils.recoverPass(context, emailText.getText().toString(), new OAuthHandler(){
+                    public void onStart() {
+                        pdialog.show();
+                    }
+
+                    public void onSuccess() {
+                        mDialog.dismiss();
+                        MemetroDialog.showDialog(MainActivity.this, null, getString(R.string.recover_ok));
+                    }
+
+                    public void onFailure() {
+                        MemetroDialog.showDialog(MainActivity.this, null, getString(R.string.recover_ko));
+                    }
+
+                    public void onFinish() {
+                        pdialog.dismiss();
+                    }
+                });
+            }
+        });
+
+        mDialog.show();
     }
 
 }

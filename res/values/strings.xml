@@ -12,8 +12,16 @@
     <string name="error">Error</string>
     <string name="create">Crear</string>
     <string name="ago">Hace</string>
+    <string name="send">Enviar</string>
 
     <string name="alert_created_by">Alerta creada por</string>
+
+    <!-- Recover pass -->
+    <string name="example_mail">example@mail.com</string>
+    <string name="recover_pass_title">Recuperar contraseña</string>
+    <string name="recover_pass_text">Para recuperar tu contraseña introduce tu email y sigue los pasos que te enviaremos.</string>
+    <string name="recover_ok">Hemos enviado los detalles a tu cuenta de email.</string>
+    <string name="recover_ko">El email introducido no esta registrado.</string>
 
     <!-- Errors -->
     <string name="action_not_found">Acción no encontrada. Intentalo de nuevo en unos minutos.</string>
@@ -23,6 +31,7 @@
     <string name="json_error">Error leyendo datos. Intentalo de nuevo en unos minutos.</string>
     <string name="session_expired">La sesión ha caducado.</string>
     <string name="no_alerts">No hay alertas recientes.</string>
+    <string name="min_pass_lenght">La contraseña debe tener mínimo 8 carácteres</string>
 
     <!-- LOGIN -->
     <string name="login">Entrar</string>

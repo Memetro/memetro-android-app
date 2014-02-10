@@ -150,6 +150,12 @@ public class CredentialsActivity extends Activity {
             } else {
                 try {
                     String message = result.getString("message");
+                    if ("".equals(message)) {
+                        String code = result.getString("code");
+                        if ("R005".equals(code)) {
+                            message = getString(R.string.min_pass_lenght);
+                        }
+                    }
                     MemetroDialog.showDialog(CredentialsActivity.this, null, message);
                 } catch (JSONException e) {
                     e.printStackTrace();

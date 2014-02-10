@@ -18,12 +18,10 @@ package com.memetro.android.alerts;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
@@ -35,7 +33,7 @@ import com.memetro.android.alerts.listView.thermometer.HandlerListViewAlerts;
 import com.memetro.android.dataManager.DataUtils;
 import com.memetro.android.models.Alert;
 import com.memetro.android.models.User;
-import com.memetro.android.oauth.oauthHandler;
+import com.memetro.android.oauth.OAuthHandler;
 
 import org.json.JSONArray;
 
@@ -121,7 +119,7 @@ public class ThermometerFragment extends Fragment {
     }
 
     private void getAlerts() {
-        alertUtils.getAlerts(mActivity, new oauthHandler() {
+        alertUtils.getAlerts(mActivity, new OAuthHandler() {
             @Override
             public void onStart() {
 

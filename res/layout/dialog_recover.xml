@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="300dp"
+    android:padding="20dp"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        android:text="@string/recover_pass_title"/>
+    <TextView
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:layout_marginTop="10dp"
+        android:textColor="#000000"
+        android:text="@string/recover_pass_text"/>
+    <EditText
+        style="@style/edit_text"
+        android:id="@+id/email"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textSize="16sp"
+        android:padding="10dp"
+        android:textColor="#888888"
+        android:inputType="textEmailAddress"
+        android:hint="@string/example_mail"/>
+    <Button
+        android:id="@+id/send"
+        android:layout_marginTop="23dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/send"
+        style="@style/button_black"/>
+</LinearLayout>

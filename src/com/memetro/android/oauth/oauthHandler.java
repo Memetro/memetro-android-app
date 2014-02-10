@@ -17,7 +17,7 @@ package com.memetro.android.oauth;
 
 import org.json.JSONArray;
 
-public class oauthHandler {
+public class OAuthHandler {
 
     public void onStart() {
 
