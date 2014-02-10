@@ -151,7 +151,7 @@ public class CredentialsActivity extends Activity {
                 try {
                     String message = result.getString("message");
                     if ("".equals(message)) {
-                        String code = result.getString("code");
+                        String code = result.getString("error_code");
                         if ("R005".equals(code)) {
                             message = getString(R.string.min_pass_lenght);
                         }
