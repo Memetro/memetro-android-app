@@ -25,6 +25,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -38,6 +39,7 @@ import com.memetro.android.common.MemetroDialog;
 import com.memetro.android.common.MemetroProgress;
 import com.memetro.android.dataManager.DataUtils;
 import com.memetro.android.models.City;
+import com.memetro.android.models.Country;
 import com.memetro.android.models.User;
 import com.memetro.android.oauth.OAuth;
 import com.memetro.android.oauth.Utils;
@@ -51,7 +53,7 @@ import java.util.Map;
 public class SettingsFragment extends Fragment {
 
     private Activity mActivity;
-    private Spinner spinnerCity;
+    private Spinner spinnerCity, spinnerCountry;
     private EditText twitter, name, mail;
     private CheckBox checkNotifications;
     private Button saveButton;
@@ -71,6 +73,7 @@ public class SettingsFragment extends Fragment {
         View inflated = inflater.inflate(R.layout.fragment_settings, container, false);
 
         spinnerCity = (Spinner) inflated.findViewById(R.id.spinnerCity);
+        spinnerCountry = (Spinner) inflated.findViewById(R.id.spinnerCountry);
         twitter = (EditText) inflated.findViewById(R.id.twitter_username);
         name = (EditText) inflated.findViewById(R.id.name);
         mail = (EditText) inflated.findViewById(R.id.email);
@@ -79,8 +82,7 @@ public class SettingsFragment extends Fragment {
 
         checkNotifications.setChecked(!UserPreferences.areNotificationsEnabled(mActivity));
 
-        // TODO No harcodear el id
-        List<City> cities = DataUtils.getCities((long) 3);
+        List<City> cities = DataUtils.getCities(DataUtils.getUserCountryId());
 
         userData = DataUtils.getUserData();
         if (!userData.twittername.equals("")) {
@@ -100,6 +102,16 @@ public class SettingsFragment extends Fragment {
             }
         });
 
+        List<Country> countries = DataUtils.getCountries();
+        LayoutUtils.setDefaultSpinnerGrey(mActivity, spinnerCountry, countries);
+
+        for (int i = 0; countries.size() > i; i++) {
+            Country country = countries.get(i);
+            if (country.countryId == DataUtils.getUserCountryId()) {
+                spinnerCountry.setSelection(i);
+            }
+        }
+
         Long defaultUserCity = userData.cityId;
 
         LayoutUtils.setDefaultSpinner(mActivity, spinnerCity, cities);
@@ -110,6 +122,22 @@ public class SettingsFragment extends Fragment {
                 spinnerCity.setSelection(i);
             }
         }
+
+        spinnerCountry.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Country country = (Country) adapterView.getAdapter().getItem(i);
+                Log.d("PAIS", country.name);
+                List<City> cities = DataUtils.getCities(country.countryId);
+                LayoutUtils.setDefaultSpinnerGrey(mActivity, spinnerCity, cities);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override

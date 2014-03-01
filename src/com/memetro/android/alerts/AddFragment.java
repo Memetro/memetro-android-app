@@ -79,8 +79,7 @@ public class AddFragment extends Fragment {
 
         LayoutUtils.setDefaultSpinner(mActivity, spinnerTransport, DataUtils.getTransport());
 
-        // TODO No harcodear el id
-        List<City> cities = DataUtils.getCities((long) 3);
+        List<City> cities = DataUtils.getCities(DataUtils.getUserCountryId());
 
         User userData = DataUtils.getUserData();
 

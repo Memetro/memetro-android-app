@@ -47,6 +47,7 @@ public class City extends Model {
         this.cityId = cityId;
     }
 
+    @Override
     public String toString() {
         return this.name;
     }

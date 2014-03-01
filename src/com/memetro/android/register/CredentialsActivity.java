@@ -24,6 +24,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -37,6 +38,7 @@ import com.memetro.android.common.MemetroDialog;
 import com.memetro.android.common.MemetroProgress;
 import com.memetro.android.dataManager.DataUtils;
 import com.memetro.android.models.City;
+import com.memetro.android.models.Country;
 import com.memetro.android.oauth.OAuth;
 
 import org.json.JSONException;
@@ -52,7 +54,7 @@ public class CredentialsActivity extends Activity {
     private Button register;
     private EditText usernameEt, passwordEt, repeatPasswordEt;
     private String username, password, repeatPassword, name, twitter, mail, about;
-    private Spinner spinnerCity;
+    private Spinner spinnerCity, spinnerCountry;
 
     private Context context;
     private MemetroProgress pdialog;
@@ -73,10 +75,26 @@ public class CredentialsActivity extends Activity {
         passwordEt = (EditText) findViewById(R.id.password);
         repeatPasswordEt = (EditText) findViewById(R.id.repeat_password);
         spinnerCity = (Spinner) findViewById(R.id.spinnerCity);
+        spinnerCountry = (Spinner) findViewById(R.id.spinnerCountry);
 
-        // TODO No harcodear el id
-        List<City> cities = DataUtils.getCities((long) 3);
-        LayoutUtils.setDefaultSpinnerGrey(context, spinnerCity, cities);
+
+        List<Country> countries = DataUtils.getCountries();
+        LayoutUtils.setDefaultSpinnerGrey(context, spinnerCountry, countries);
+
+        spinnerCountry.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Country country = (Country) adapterView.getAdapter().getItem(i);
+                Log.d("PAIS", country.name);
+                List<City> cities = DataUtils.getCities(country.countryId);
+                LayoutUtils.setDefaultSpinnerGrey(context, spinnerCity, cities);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
 
         Bundle extras = getIntent().getExtras();

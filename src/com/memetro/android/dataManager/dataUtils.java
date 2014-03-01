@@ -134,6 +134,18 @@ public class DataUtils {
         return new Select().from(City.class).execute();
     }
 
+    public static Long getUserCountryId() {
+        return getCountryIdByCityId(getUserData().cityId);
+    }
+
+    public static Long getCountryIdByCityId(Long cityId) {
+        return ((City)new Select()
+                .from(City.class)
+                .where("CityId = ?", cityId)
+                .executeSingle()
+        ).country_id;
+    }
+
     public static List<Country> getCountries() {
         return new Select().from(Country.class).execute();
     }
@@ -317,6 +329,9 @@ public class DataUtils {
                     User user = new User();
                     user.username = userData.getString("username");
                     user.name = userData.getString("name");
+                    if (userData.isNull("name")) {
+                        user.name = "";
+                    }
                     String email = "";
                     if (!userData.isNull("email")) {
                         email = userData.getString("email");

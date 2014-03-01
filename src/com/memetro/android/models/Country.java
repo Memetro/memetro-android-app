@@ -41,4 +41,9 @@ public class Country extends Model {
         this.name = name;
         this.countryId = countryId;
     }
+
+    @Override
+    public String toString() {
+        return this.name;
+    }
 }
