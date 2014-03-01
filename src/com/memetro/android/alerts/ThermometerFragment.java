@@ -16,6 +16,8 @@
 
 package com.memetro.android.alerts;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -71,6 +73,15 @@ public class ThermometerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         mActivity.fullActionBar();
         View inflated = inflater.inflate(R.layout.fragment_thermometer, container, false);
+
+        // Crowdfunding
+        inflated.findViewById(R.id.crowdfunding).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://goteo.org/project/memetro-app/home"));
+                startActivity(browserIntent);
+            }
+        });
 
         alertListView = (PullToRefreshListView) inflated.findViewById(R.id.alertListView);
         noAlerts = (LinearLayout) inflated.findViewById(R.id.no_alerts);

@@ -4,6 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/crowdfunding"
+        android:layout_width="match_parent"
+        android:background="@android:color/black"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:gravity="center"
+        android:textColor="@color/common_action_bar_splitter"
+        android:text="¿Esta App te ha salvado de alguna multa? \n Colabora con el Crowdfunding AQUÍ"/>
+
     <com.handmark.pulltorefresh.library.PullToRefreshListView
         android:id="@+id/alertListView"
         android:layout_height="match_parent"
